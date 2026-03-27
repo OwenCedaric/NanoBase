@@ -1,7 +1,15 @@
 {
-  "total": 7,
-  "last_updated": "2026-03-27T10:03:13.375Z",
+  "total": 8,
+  "last_updated": "2026-03-27T10:05:12.372Z",
   "documents": [
+    {
+      "id": "ca938dbe-aa99-4bcd-87cd-2b6dd798c89c",
+      "title": "Claude Skills",
+      "slug": "claude-skills-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/claude-skills.html",
+      "original_url": "https://claude.com/blog/equipping-agents-for-the-real-world-with-agent-skills"
+    },
     {
       "id": "abc694a0-cfe8-4d22-95d7-fdd8e6ed9829",
       "title": "智能体时代：创始人行动手册",
