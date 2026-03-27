@@ -1,7 +1,14 @@
 {
-  "total": 5,
-  "last_updated": "2026-03-27T09:58:43.616Z",
+  "total": 6,
+  "last_updated": "2026-03-27T10:01:45.792Z",
   "documents": [
+    {
+      "id": "2b389500-74b7-422b-a8e5-a2a50fb2ac9d",
+      "title": "Vibe Coding 综述",
+      "slug": "vibecoding-review-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/vibecoding-review.html"
+    },
     {
       "id": "c19053cc-a71c-4dc0-a9c0-861d10a839f2",
       "title": "嵌套学习：谷歌AI记忆突破性范式",
