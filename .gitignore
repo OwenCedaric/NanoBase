@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnpm-debug.log*
+
+# Build artifacts
+dist/
+dist-ssr/
+*.local
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.fleet/
+.hx/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+manifest.json
+browser-config.xml

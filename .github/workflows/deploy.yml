@@ -1,0 +1,51 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          secrets: |
+            ADMIN_TOKEN
+            GH_PAT
+          vars: |
+            GH_OWNER
+            GH_REPO
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_OWNER: ${{ vars.GH_OWNER }}
+          GH_REPO: ${{ vars.GH_REPO }}

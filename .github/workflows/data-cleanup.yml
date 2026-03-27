@@ -1,0 +1,31 @@
+name: Monthly Data History Cleanup
+
+on:
+  schedule:
+    - cron: '33 3 3 * *'  # 每月 3 号 3 点 33 分执行
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write     # 允许默认 GITHUB_TOKEN 执行写入操作
+    steps:
+      - name: Checkout data branch
+        uses: actions/checkout@v6
+        with:
+          ref: data
+          fetch-depth: 0
+
+      - name: Reset history
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 使用孤儿分支重置历史
+          git checkout --orphan temp_data
+          git add -A
+          git commit -m "initial commit"
+          git branch -D data
+          git branch -m data
+          git push -f origin data

@@ -1,0 +1,15 @@
+name = "nanobase"
+main = "src/worker.ts"
+compatibility_date = "2024-03-27"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[[services]]
+binding = "DATA_SERVICE"
+service = "nanobase-data"
+
+[vars]
+# GITHUB_REPO_OWNER is set via GitHub Repository Variables
+# GITHUB_REPO_NAME is set via GitHub Repository Variables

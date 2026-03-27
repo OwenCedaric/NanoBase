@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ceda-bg: #fafafa;
+  --color-ceda-card: #ffffff;
+  --color-ceda-border: rgba(0, 0, 0, 0.04);
+  
+  --color-accent-blue: oklch(0.8 0.1 240);
+  --color-accent-pink: oklch(0.85 0.08 340);
+  --color-accent-yellow: oklch(0.92 0.1 85);
+  --color-accent-mint: oklch(0.9 0.08 150);
+  
+  --font-sans: "Inter", "system-ui", "-apple-system", "sans-serif";
+  --font-serif: "Newsreader", "Georgia", "serif";
+  
+  --radius-3xl: 24px;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--color-ceda-bg)] text-[#1d1d1f] font-sans antialiased min-h-screen relative overflow-x-hidden transition-colors duration-700;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: 
+      radial-gradient(at 0% 0%, oklch(0.94 0.04 240) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, oklch(0.96 0.04 340) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.94 0.04 85) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, oklch(0.96 0.04 150) 0px, transparent 50%);
+    filter: blur(80px);
+    opacity: 0.6;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-[#030712] text-zinc-100;
+    }
+    body::before {
+      background-image: 
+        radial-gradient(at 0% 0%, oklch(0.15 0.05 240) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, oklch(0.1 0.05 85) 0px, transparent 50%);
+      opacity: 0.4;
+    }
+    body::after {
+      opacity: 0.04;
+      mix-blend-mode: color-dodge;
+    }
+  }
+
+  h1, h2, .font-serif {
+    font-family: var(--font-serif);
+    @apply tracking-tighter;
+  }
+}
