@@ -8,7 +8,8 @@ import {
   RiCalendarTodoLine as CalendarTodoLineIcon,
   RiMenuLine as MenuIcon,
   RiCloseLine as CloseIcon,
-  RiSearchLine
+  RiSearchLine,
+  RiLink as LinkIcon
 } from '@remixicon/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -122,9 +123,10 @@ const Reader: React.FC = () => {
               href={doc.original_url} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-900 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
+              title="View Source"
             >
-              Source
+              <LinkIcon size={18} />
             </a>
           )}
         </div>

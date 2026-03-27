@@ -148,46 +148,46 @@ const Home: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
       >
         {loading ? (
-          Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-64 w-full bg-white dark:bg-zinc-900 rounded-2xl animate-pulse border border-zinc-100 dark:border-zinc-800" />
+          Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className="h-32 w-full bg-white dark:bg-zinc-900 rounded-2xl animate-pulse border border-zinc-100 dark:border-zinc-800" />
           ))
         ) : paginatedDocuments.length > 0 ? (
           paginatedDocuments.map((doc) => (
             <motion.div key={doc.id} variants={itemVariants}>
               <Link
                 to={`/${doc.slug}`}
-                className="group relative flex flex-col p-8 rounded-3xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800 transition-all hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-2xl hover:shadow-zinc-200/50 dark:hover:shadow-none"
+                className="group relative flex flex-col p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800 transition-all hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-200/30 dark:hover:shadow-none h-full"
               >
-                <div className="flex justify-between items-start mb-12">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-all border border-zinc-100 dark:border-white/5">
-                    <FilePaper2LineIcon size={20} />
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-8 h-8 rounded-lg bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-all border border-zinc-100 dark:border-white/5">
+                    <FilePaper2LineIcon size={16} />
                   </div>
-                  <div className="px-2 py-1 rounded-md bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 text-[9px] font-black uppercase tracking-widest text-zinc-400">
+                  <div className="text-[8px] font-black uppercase tracking-wider text-zinc-400 opacity-60">
                     {dayjs(doc.upload_date).format('YYYY-MM-DD')}
                   </div>
                 </div>
 
-                <div className="flex-1 space-y-3">
-                  <h2 className="text-xl font-bold font-serif leading-tight text-zinc-800 dark:text-zinc-200 line-clamp-2">
+                <div className="flex-1 space-y-2">
+                  <h2 className="text-sm font-bold font-serif leading-snug text-zinc-800 dark:text-zinc-200 line-clamp-2 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                     {doc.title}
                   </h2>
-                  <div className="flex items-center gap-3">
-                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 flex items-center gap-1.5">
-                      <TimeLineIcon size={12} />
+                  <div className="flex items-center gap-2">
+                    <div className="text-[8px] font-black uppercase tracking-[0.15em] text-zinc-400 flex items-center gap-1">
+                      <TimeLineIcon size={10} />
                       {formatRelativeDate(doc.upload_date)}
                     </div>
                   </div>
                 </div>
-                <ArrowRightSLineIcon className="absolute bottom-8 right-8 w-5 h-5 text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white transition-all transform group-hover:translate-x-1" />
+                <ArrowRightSLineIcon className="absolute bottom-4 right-4 w-4 h-4 text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white transition-all transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           ))
         ) : (
-          <div className="col-span-full py-40 text-center">
-            <p className="text-[10px] font-black text-zinc-300 uppercase tracking-[0.5em]">No matching records found</p>
+          <div className="col-span-full py-20 text-center">
+            <p className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.5em]">No matching records found</p>
           </div>
         )}
       </motion.div>

@@ -55,9 +55,19 @@ const App: React.FC = () => {
 
         <AnimatedRoutes />
 
-        <footer className="border-t border-zinc-200 dark:border-zinc-800 py-20"> {/* Changed py-8 to py-20 */}
-          <div className="container mx-auto px-4 text-center text-xs text-zinc-500 dark:text-zinc-600">
-            &copy; {new Date().getFullYear()} NanoBase. Built with Cloudflare & GitHub.
+        <footer className="border-t border-zinc-200 dark:border-zinc-800 py-20">
+          <div className="container mx-auto px-4 text-center space-y-4">
+            <p className="text-xs text-zinc-500 dark:text-zinc-600">
+              &copy; {new Date().getFullYear()} NanoBase. Built with Cloudflare & GitHub.
+            </p>
+            <a 
+              href="https://github.com/OwenCedaric/NanoBase" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+            >
+              GitHub Repository
+            </a>
           </div>
         </footer>
       </div>
