@@ -63,7 +63,9 @@ async function handleFrontendRequest(request: Request, env: Env): Promise<Respon
   let html = await response.text();
 
   // 3. Dynamic Meta Injection for specific note pages
-  const slug = pathname.split('/').filter(Boolean)[0];
+  const pathParts = pathname.split('/').filter(Boolean);
+  const slug = pathParts[0] === 'read' ? pathParts[1] : pathParts[0];
+  
   if (slug && slug !== 'upload' && slug !== 'index') {
     try {
       const indexResp = await handleDataRequest('index.json', env);
@@ -248,7 +250,7 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
 
     // Build sitemap-docs.xml
     const sitemapUrls = indexData.documents.map(doc => `  <url>
-    <loc>${origin}/#/${doc.slug}</loc>
+    <loc>${origin}/${doc.slug}</loc>
     <lastmod>${doc.upload_date}</lastmod>
     <changefreq>monthly</changefreq>
   </url>`).join('\n');

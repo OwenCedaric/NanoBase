@@ -28,6 +28,7 @@ const AnimatedRoutes: React.FC = () => {
         <Route path="/upload" element={<PageWrapper><Upload /></PageWrapper>} />
         {/* Changed: Render Home for slugs too, so it can act as a background */}
         <Route path="/:slug" element={<PageWrapper><Home /></PageWrapper>} />
+        <Route path="/read/:slug" element={<PageWrapper><Reader isFullPage /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   );
