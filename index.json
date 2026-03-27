@@ -1,7 +1,15 @@
 {
-  "total": 4,
-  "last_updated": "2026-03-27T09:32:18.692Z",
+  "total": 5,
+  "last_updated": "2026-03-27T09:58:43.616Z",
   "documents": [
+    {
+      "id": "c19053cc-a71c-4dc0-a9c0-861d10a839f2",
+      "title": "嵌套学习：谷歌AI记忆突破性范式",
+      "slug": "nested-learning-google-ai-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/nested-learning-google-ai.html",
+      "original_url": "https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/"
+    },
     {
       "id": "00df9618-6a42-46e8-8d32-e6f54541f221",
       "title": "Attention Is All You Need 解析",
