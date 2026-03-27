@@ -16,14 +16,21 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    // SEO Support
+    // SEO Support: Prevent duplicate content indexing for /read/* paths
     if (url.pathname === '/robots.txt') {
-      return new Response(`User-agent: *\nAllow: /\nSitemap: ${url.origin}/sitemap.xml`, {
+      const robotsTxt = [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /read/',
+        'Disallow: /api/data/',
+        `Sitemap: ${url.origin}/sitemap.xml`
+      ].join('\n');
+      return new Response(robotsTxt, {
         headers: { 'Content-Type': 'text/plain' }
       });
     }
 
-    if (url.pathname === '/sitemap.xml' || url.pathname === '/sitemap-docs.xml') {
+    if (url.pathname === '/sitemap.xml' || url.pathname.startsWith('/sitemap-docs')) {
       const path = url.pathname.replace('/', '');
       return handleDataRequest(path, env);
     }
@@ -51,7 +58,15 @@ export default {
           if (doc) {
             const fileName = doc.path.split('/').pop();
             if (fileName) {
-              return handleDataRequest(`documents/${fileName}`, env);
+              const response = await handleDataRequest(`documents/${fileName}`, env);
+              // Prevent indexing of raw HTML files to avoid duplicate content penalties
+              const newHeaders = new Headers(response.headers);
+              newHeaders.set('X-Robots-Tag', 'noindex');
+              return new Response(response.body, {
+                status: response.status,
+                statusText: response.statusText,
+                headers: newHeaders
+              });
             }
           }
         }
@@ -268,37 +283,52 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
     const origin = new URL(request.url).origin;
     const lastMod = new Date().toISOString().split('T')[0];
 
-    // Build sitemap-docs.xml
-    const sitemapUrls = indexData.documents.map(doc => `  <url>
+    // 4. Generate Multipart Static Sitemaps (500 records per file)
+    const SITEMAP_CHUNK_SIZE = 500;
+    const totalSitemapChunks = Math.ceil(indexData.documents.length / SITEMAP_CHUNK_SIZE);
+    
+    const sitemapIndexEntries: string[] = [];
+
+    for (let i = 0; i < totalSitemapChunks; i++) {
+      const chunkNumber = i + 1;
+      const chunkDocs = indexData.documents.slice(i * SITEMAP_CHUNK_SIZE, (i + 1) * SITEMAP_CHUNK_SIZE);
+      const sitemapFileName = `sitemap-docs-${chunkNumber}.xml`;
+      
+      const chunkUrls = chunkDocs.map(doc => `  <url>
     <loc>${origin}/${doc.slug}</loc>
     <lastmod>${doc.upload_date}</lastmod>
     <changefreq>monthly</changefreq>
   </url>`).join('\n');
 
-    const sitemapDocsXml = `<?xml version="1.0" encoding="UTF-8"?>
+      const chunkXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${i === 0 ? `
   <url>
     <loc>${origin}/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-  </url>
-${sitemapUrls}
+  </url>` : ''}
+${chunkUrls}
 </urlset>`;
 
-    // Build sitemap.xml (Index)
+      changes.push({
+        path: sitemapFileName,
+        content: chunkXml
+      });
+
+      sitemapIndexEntries.push(`  <sitemap>
+    <loc>${origin}/${sitemapFileName}</loc>
+    <lastmod>${lastMod}</lastmod>
+  </sitemap>`);
+    }
+
+    // Build sitemap.xml Interface (Index)
     const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${origin}/sitemap-docs.xml</loc>
-    <lastmod>${lastMod}</lastmod>
-  </sitemap>
+${sitemapIndexEntries.join('\n')}
 </sitemapindex>`;
 
-    // Add sitemaps to changes
-    changes.push({
-      path: 'sitemap-docs.xml',
-      content: sitemapDocsXml
-    });
+    // Add sitemap index to changes
     changes.push({
       path: 'sitemap.xml',
       content: sitemapIndexXml
