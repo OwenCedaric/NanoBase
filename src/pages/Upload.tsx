@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { 
   RiUploadCloud2Line as UploadCloud2LineIcon, 
   RiFilePaper2Line as FilePaper2LineIcon, 
-  RiCheckboxCircleLine as CheckboxCircleLineIcon, 
-  RiErrorWarningLine as ErrorWarningLineIcon, 
   RiCloseLine as CloseLineIcon, 
   RiLoader4Line as Loader4LineIcon, 
   RiArrowRightSLine as ArrowRightSLineIcon

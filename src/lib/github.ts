@@ -33,35 +33,6 @@ export async function getFileSHA(config: GitHubConfig, path: string, branch: str
     }
 }
 
-export async function updateFile(config: GitHubConfig, path: string, content: string, message: string, sha?: string, branch?: string): Promise<void> {
-    const url = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`;
-
-    const body: any = {
-        message,
-        content: btoa(unescape(encodeURIComponent(content))), // Handle Unicode
-        sha
-    };
-
-    if (branch) {
-        body.branch = branch;
-    }
-
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `token ${config.token}`,
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'Cloudflare-Worker-NanoBase',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-
-    if (!response.ok) {
-        const errorBody = await response.text();
-        throw new Error(`GitHub Update Error (${response.status}): ${errorBody}`);
-    }
-}
 
 export interface FileChange {
     path: string;

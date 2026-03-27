@@ -4,17 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   RiSearchLine as SearchLineIcon, 
   RiArrowRightSLine as ArrowRightSLineIcon, 
-  RiCalendarTodoLine as CalendarTodoLineIcon, 
   RiTimeLine as TimeLineIcon, 
   RiFilePaper2Line as FilePaper2LineIcon 
 } from '@remixicon/react';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/zh-cn';
 import { IndexData, Document } from '../types';
 import Reader from './Reader.tsx';
 
-dayjs.extend(relativeTime);
 dayjs.locale('zh-cn');
 
 const formatRelativeDate = (date: string) => {

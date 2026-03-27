@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  RiArrowLeftLine as ArrowLeftLineIcon, 
   RiExternalLinkLine as ExternalLinkLineIcon, 
   RiShareForwardLine as ShareForwardLineIcon,
-  RiCalendarTodoLine as CalendarTodoLineIcon,
-  RiMenuLine as MenuIcon,
   RiCloseLine as CloseIcon,
-  RiSearchLine,
   RiLink as LinkIcon
 } from '@remixicon/react';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { IndexData, Document } from '../types';
 
-dayjs.extend(relativeTime);
 
 const Reader: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
