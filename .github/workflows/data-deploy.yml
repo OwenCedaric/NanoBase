@@ -1,0 +1,32 @@
+name: Data Deploy
+on:
+  push:
+    branches:
+      - data
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Data
+        uses: actions/checkout@v6
+
+      - name: Prepare Deployment Directory
+        run: |
+          mkdir _deploy
+          [ -f index.json ] && cp index.json _deploy/
+          [ -d documents ] && cp -r documents _deploy/
+          cat <<EOF > wrangler.toml
+          name = "nanobase-data"
+          compatibility_date = "2026-03-27"
+          [assets]
+          directory = "_deploy"
+          not_found_handling = "single-page-application"
+          EOF
+
+      - name: Deploy Data to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
