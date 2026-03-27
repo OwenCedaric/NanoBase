@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   RiArrowLeftLine as ArrowLeftLineIcon, 
   RiExternalLinkLine as ExternalLinkLineIcon, 
-  RiDownloadLine as DownloadLineIcon, 
   RiShareForwardLine as ShareForwardLineIcon,
   RiCalendarTodoLine as CalendarTodoLineIcon,
   RiMenuLine as MenuIcon,
@@ -118,14 +117,16 @@ const Reader: React.FC = () => {
             {copied ? <div className="text-[10px] font-bold">OK</div> : <ShareForwardLineIcon size={18} />}
           </button>
 
-          <a 
-            href={doc.path} 
-            download
-            className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
-            title="Download Source"
-          >
-            <DownloadLineIcon size={18} />
-          </a>
+          {doc.original_url && (
+            <a 
+              href={doc.original_url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-900 text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
+            >
+              Source
+            </a>
+          )}
         </div>
       </header>
 
