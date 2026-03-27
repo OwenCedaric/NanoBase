@@ -17,11 +17,7 @@ import { IndexData, Document } from '../types';
 
 dayjs.extend(relativeTime);
 
-interface ReaderProps {
-  isFullPage?: boolean;
-}
-
-const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
+const Reader: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [data, setData] = useState<IndexData | null>(null);
   const [doc, setDoc] = useState<Document | null>(null);
@@ -38,12 +34,12 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
         const found = indexData.documents.find(d => d.slug === slug);
         if (found) {
           setDoc(found);
-        } else if (!isFullPage) {
+        } else {
           navigate('/');
         }
         setLoading(false);
       });
-  }, [slug, navigate, isFullPage]);
+  }, [slug, navigate]);
 
   // Handle SEO metadata
   useEffect(() => {
@@ -62,7 +58,7 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
 
   if (loading) {
     return (
-      <div className={`w-full ${isFullPage ? 'h-[80vh]' : 'h-full'} flex items-center justify-center`}>
+      <div className="w-full h-full flex items-center justify-center">
         <div className="animate-pulse flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-full border-2 border-zinc-200 border-t-zinc-800 animate-spin" />
           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Loading Content...</p>
@@ -75,25 +71,21 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
 
   return (
     <motion.div
-      initial={isFullPage ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 20 }}
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={isFullPage ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 20 }}
+      exit={{ opacity: 0, scale: 0.95, y: 20 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`relative flex flex-col overflow-hidden transition-all duration-500 ${
-        isFullPage 
-          ? "w-full min-h-[calc(100vh-140px)] bg-white dark:bg-zinc-950 rounded-3xl border border-zinc-200 dark:border-zinc-800" 
-          : "w-full h-full max-w-[95vw] max-h-[95vh] bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.1)] dark:shadow-none border border-zinc-200 dark:border-zinc-800"
-      }`}
+      className="relative w-full h-full max-w-[95vw] max-h-[95vh] bg-white dark:bg-zinc-950 rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.1)] dark:shadow-none border border-zinc-200 dark:border-zinc-800 flex flex-col overflow-hidden"
       onClick={(e) => e.stopPropagation()}
     >
       {/* --- Responsive Header --- */}
       <header className="shrink-0 h-16 md:h-20 px-6 md:px-10 border-b border-zinc-100 dark:border-zinc-900 flex items-center justify-between gap-4 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md z-10">
         <div className="flex items-center gap-4 min-w-0">
           <button 
-            onClick={() => navigate(isFullPage ? '/' : '/')}
+            onClick={() => navigate('/')}
             className="group w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-900 dark:hover:bg-white text-zinc-400 hover:text-white dark:hover:text-zinc-900 transition-all shadow-sm"
           >
-            {isFullPage ? <ArrowLeftLineIcon size={20} /> : <CloseIcon size={20} className="transition-transform group-hover:rotate-90" />}
+            <CloseIcon size={20} className="transition-transform group-hover:rotate-90" />
           </button>
           <div className="min-w-0">
             <h1 className="text-sm md:text-lg font-bold font-serif truncate text-zinc-900 dark:text-white leading-none">
@@ -106,15 +98,13 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
         </div>
 
         <div className="flex items-center gap-2">
-          {!isFullPage && (
-            <Link
-              to={`/read/${doc.slug}`}
-              className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
-              title="Open in Full Page"
-            >
-              <ExternalLinkLineIcon size={18} />
-            </Link>
-          )}
+          <a
+            href={`/read/${doc.slug}`}
+            className="hidden sm:flex w-10 h-10 items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all border border-zinc-100 dark:border-zinc-800"
+            title="Direct Open (Native Render)"
+          >
+            <ExternalLinkLineIcon size={18} />
+          </a>
           
           <button
             onClick={handleCopyLink}
@@ -149,7 +139,7 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
                 {data?.documents.slice(0, 15).map(d => (
                   <Link 
                     key={d.id} 
-                    to={isFullPage ? `/read/${d.slug}` : `/${d.slug}`}
+                    to={`/${d.slug}`}
                     className={`block p-3 rounded-xl transition-all ${d.slug === slug ? 'bg-zinc-900 text-white shadow-lg' : 'hover:bg-white dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
                   >
                     <div className="text-[10px] font-bold truncate">{d.title}</div>
@@ -170,23 +160,21 @@ const Reader: React.FC<ReaderProps> = ({ isFullPage = false }) => {
         </div>
       </div>
       
-      {/* Mobile Backdrop/Footer Controls (Only in Modal) */}
-      {!isFullPage && (
-        <div className="shrink-0 md:hidden p-4 border-t border-zinc-100 dark:border-zinc-900 flex flex-col gap-3 bg-white dark:bg-zinc-950">
-            <Link
-              to={`/read/${doc.slug}`}
-              className="w-full py-3 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white text-[10px] font-black uppercase tracking-widest rounded-xl text-center active:scale-95 transition-transform border border-zinc-200 dark:border-zinc-800"
-            >
-              Open Full Page
-            </Link>
-            <button 
-              onClick={() => navigate('/')}
-              className="w-full py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[10px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-transform"
-            >
-              Close Reader
-            </button>
-        </div>
-      )}
+      {/* Mobile Backdrop/Footer Controls */}
+      <div className="shrink-0 md:hidden p-4 border-t border-zinc-100 dark:border-zinc-900 flex flex-col gap-3 bg-white dark:bg-zinc-950">
+          <a
+            href={`/read/${doc.slug}`}
+            className="w-full py-3 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white text-[10px] font-black uppercase tracking-widest rounded-xl text-center active:scale-95 transition-transform border border-zinc-200 dark:border-zinc-800"
+          >
+            Native Browser Render
+          </a>
+          <button 
+            onClick={() => navigate('/')}
+            className="w-full py-3 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[10px] font-black uppercase tracking-widest rounded-xl active:scale-95 transition-transform"
+          >
+            Close Preview
+          </button>
+      </div>
     </motion.div>
   );
 };

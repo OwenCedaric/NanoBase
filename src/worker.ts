@@ -39,6 +39,26 @@ export default {
       return handleUpload(request, env);
     }
 
+    // Handle Direct Document Reading (Browser Native Rendering)
+    if (url.pathname.startsWith('/read/')) {
+      const slug = url.pathname.replace('/read/', '');
+      if (slug) {
+        // First get index to find the filename for this slug
+        const indexResp = await handleDataRequest('index.json', env);
+        if (indexResp.ok) {
+          const indexData = await indexResp.json() as IndexData;
+          const doc = indexData.documents.find(d => d.slug === slug);
+          if (doc) {
+            const fileName = doc.path.split('/').pop();
+            if (fileName) {
+              return handleDataRequest(`documents/${fileName}`, env);
+            }
+          }
+        }
+      }
+      return new Response('Document not found', { status: 404 });
+    }
+
     // Default to serving static assets (frontend) or SPA fallback with meta injection
     return handleFrontendRequest(request, env);
   },
