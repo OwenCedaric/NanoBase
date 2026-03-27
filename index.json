@@ -1,13 +1,13 @@
 {
   "total": 6,
-  "last_updated": "2026-03-27T10:01:45.792Z",
+  "last_updated": "2026-03-27T10:02:17.480Z",
   "documents": [
     {
-      "id": "2b389500-74b7-422b-a8e5-a2a50fb2ac9d",
-      "title": "Vibe Coding 综述",
-      "slug": "vibecoding-review-html",
+      "id": "e4597fae-a6f4-4100-a791-4604e754acfa",
+      "title": "MCP - 解锁AI自主能力的新协议",
+      "slug": "mcp-html",
       "upload_date": "2026-03-27",
-      "path": "/api/data/documents/vibecoding-review.html"
+      "path": "/api/data/documents/mcp.html"
     },
     {
       "id": "c19053cc-a71c-4dc0-a9c0-861d10a839f2",
