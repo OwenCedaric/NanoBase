@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-ceda-bg: #fafafa;
   --color-ceda-card: #ffffff;
@@ -45,7 +47,7 @@
     pointer-events: none;
     mix-blend-mode: multiply;
   }
-  
+  /*
   @media (prefers-color-scheme: dark) {
     body {
       @apply bg-[#030712] text-zinc-100;
@@ -61,7 +63,7 @@
       mix-blend-mode: color-dodge;
     }
   }
-
+  */
   h1, h2, .font-serif {
     font-family: var(--font-serif);
     @apply tracking-tighter;
