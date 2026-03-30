@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './pages/Home.tsx';
 import Upload from './pages/Upload.tsx';
+import ThemeToggle from './components/ThemeToggle';
 
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <motion.main
@@ -34,8 +35,8 @@ const AnimatedRoutes: React.FC = () => {
 const App: React.FC = () => {
     return (
         <Router>
-            <div className="min-h-screen flex flex-col bg-[var(--color-ceda-bg)] selection:bg-zinc-200 dark:selection:bg-zinc-800">
-                <header className="sticky top-0 z-50 border-b border-[var(--color-ceda-border)] bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl">
+            <div className="min-h-screen flex flex-col bg-[var(--color-ceda-bg)] dark:bg-transparent selection:bg-zinc-200 dark:selection:bg-zinc-800">
+                <header className="sticky top-0 z-50 border-b border-[var(--color-ceda-border)] dark:border-white/5 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl">
                     <nav className="container mx-auto px-6 h-14 flex items-center justify-between">
                         <Link to="/" className="flex items-center gap-2 group">
                             <span className="text-xl font-bold font-serif tracking-tight text-zinc-900 dark:text-white">NanoBase</span>
@@ -47,6 +48,7 @@ const App: React.FC = () => {
                             <Link to="/upload" className="px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
                                 Upload
                             </Link>
+                            <ThemeToggle />
                         </div>
                     </nav>
                 </header>

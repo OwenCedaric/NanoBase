@@ -47,23 +47,19 @@
     pointer-events: none;
     mix-blend-mode: multiply;
   }
-  /*
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-[#030712] text-zinc-100;
-    }
-    body::before {
-      background-image: 
-        radial-gradient(at 0% 0%, oklch(0.15 0.05 240) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, oklch(0.1 0.05 85) 0px, transparent 50%);
-      opacity: 0.4;
-    }
-    body::after {
-      opacity: 0.04;
-      mix-blend-mode: color-dodge;
-    }
+  .dark body {
+    @apply bg-[#030712] text-zinc-100;
   }
-  */
+  .dark body::before {
+    background-image: 
+      radial-gradient(at 0% 0%, oklch(0.15 0.05 240) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.1 0.05 85) 0px, transparent 50%);
+    opacity: 0.4;
+  }
+  .dark body::after {
+    opacity: 0.04;
+    mix-blend-mode: color-dodge;
+  }
   h1, h2, .font-serif {
     font-family: var(--font-serif);
     @apply tracking-tighter;
