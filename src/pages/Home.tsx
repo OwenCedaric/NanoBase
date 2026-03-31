@@ -193,48 +193,34 @@ const Home: React.FC = () => {
             <motion.div key={doc.id} variants={itemVariants}>
               <Link
                 to={`/${doc.slug}`}
-                className={`group relative flex flex-col p-5 rounded-2xl transition-all h-full border ${
-                  (doc as any).isSeries 
-                    ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 border-zinc-800 dark:border-zinc-200 shadow-xl shadow-zinc-900/10' 
-                    : 'bg-white/50 dark:bg-zinc-900/50 border-zinc-200/50 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-200/30 dark:hover:shadow-none'
-                }`}
+                className="group relative flex flex-col p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800 transition-all hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-200/30 dark:hover:shadow-none h-full"
               >
                 <div className="flex justify-between items-start mb-6">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all border ${
-                    (doc as any).isSeries
-                      ? 'bg-white/10 dark:bg-black/10 text-white dark:text-zinc-900 border-white/10 dark:border-black/10'
-                      : 'bg-zinc-50 dark:bg-zinc-950 text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white border-zinc-100 dark:border-white/5'
-                  }`}>
+                  <div className="w-8 h-8 rounded-lg bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-all border border-zinc-100 dark:border-white/5">
                     {(doc as any).isSeries ? <StackLineIcon size={16} /> : <FilePaper2LineIcon size={16} />}
                   </div>
-                  <div className={`text-[8px] font-black uppercase tracking-wider ${(doc as any).isSeries ? 'text-zinc-400 dark:text-zinc-500' : 'text-zinc-400 opacity-60'}`}>
+                  <div className="text-[8px] font-black uppercase tracking-wider text-zinc-400 opacity-60">
                     {dayjs(doc.upload_date).format('YYYY-MM-DD')}
                   </div>
                 </div>
 
                 <div className="flex-1 space-y-2">
-                  <h2 className={`text-sm font-bold font-serif leading-snug line-clamp-2 transition-colors ${
-                    (doc as any).isSeries ? 'text-white dark:text-zinc-900' : 'text-zinc-800 dark:text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white'
-                  }`}>
+                  <h2 className="text-sm font-bold font-serif leading-snug text-zinc-800 dark:text-zinc-200 line-clamp-2 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                     {doc.title}
                   </h2>
                   <div className="flex items-center gap-3">
-                    <div className={`text-[8px] font-black uppercase tracking-[0.15em] flex items-center gap-1 ${
-                      (doc as any).isSeries ? 'text-zinc-400 dark:text-zinc-500' : 'text-zinc-400'
-                    }`}>
+                    <div className="text-[8px] font-black uppercase tracking-[0.15em] text-zinc-400 flex items-center gap-1">
                       <TimeLineIcon size={10} />
                       {formatRelativeDate(doc.upload_date)}
                     </div>
                     {(doc as any).isSeries && (
-                       <div className="text-[7px] font-black bg-white/20 dark:bg-black/10 px-1.5 py-0.5 rounded uppercase tracking-[0.2em] text-white dark:text-zinc-900">
+                       <div className="text-[7px] font-black bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
                          Series · {(doc as any).partsCount} Parts
                        </div>
                     )}
                   </div>
                 </div>
-                <ArrowRightSLineIcon className={`absolute bottom-4 right-4 w-4 h-4 transition-all transform group-hover:translate-x-1 ${
-                  (doc as any).isSeries ? 'text-zinc-500' : 'text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white'
-                }`} />
+                <ArrowRightSLineIcon className="absolute bottom-4 right-4 w-4 h-4 text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white transition-all transform group-hover:translate-x-1" />
 
                 {(doc as any).isSeries && (
                   <button
