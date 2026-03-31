@@ -206,6 +206,10 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
         const files = formData.getAll('files') as File[];
         const originalUrl = formData.get('original_url') as string | null;
         const seriesTitle = formData.get('series_title') as string | null;
+        const seriesId = formData.get('series_id') as string | null;
+        const partsManifestStr = formData.get('parts_manifest') as string | null;
+
+        const partsManifest = partsManifestStr ? JSON.parse(partsManifestStr) as any[] : null;
 
         if (files.length === 0) {
             return new Response(JSON.stringify({ message: 'No files uploaded' }), {
@@ -231,63 +235,110 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
             }
         }
 
-        const processedDocuments: Document[] = [];
         const changes: FileChange[] = [];
+        const finalSeriesId = seriesId || (seriesTitle || (partsManifest ? partsManifest.length > 1 : files.length > 1) ? crypto.randomUUID() : undefined);
+        const totalParts = partsManifest ? partsManifest.length : (files.length > 1 ? files.length : undefined);
 
-        const isSeries = seriesTitle || files.length > 1;
-        const seriesId = isSeries ? crypto.randomUUID() : undefined;
-        const totalParts = isSeries ? files.length : undefined;
+        const newDocuments: Document[] = [];
+        const existingDocsInSeries: string[] = [];
 
-        // 2. Pre-validate all files for duplicates and collect changes
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const content = await file.text();
-            const titleMatch = content.match(/<title>(.*?)<\/title>/i);
-            const title = titleMatch ? titleMatch[1].trim() : file.name.replace('.html', '');
-            const slug = file.name.toLowerCase()
-                .replace(/[^a-z0-9]/g, '-')
-                .replace(/-+/g, '-')
-                .replace(/^-|-$/g, '');
+        if (partsManifest) {
+            // Manifest-based sync (Edit or Complex Upload)
+            for (let i = 0; i < partsManifest.length; i++) {
+                const part = partsManifest[i];
+                const partNumber = i + 1;
 
-            const partNumber = seriesId ? i + 1 : undefined;
+                if (part.type === 'existing' && part.docId) {
+                    const doc = indexData.documents.find(d => d.id === part.docId);
+                    if (doc) {
+                        doc.series_id = finalSeriesId;
+                        doc.series_title = seriesTitle || undefined;
+                        doc.part_number = partNumber;
+                        doc.total_parts = totalParts;
+                        if (originalUrl) doc.original_url = originalUrl;
+                        existingDocsInSeries.push(doc.id);
+                    }
+                } else if (part.type === 'file' && part.fileName) {
+                    const file = files.find(f => f.name === part.fileName);
+                    if (file) {
+                        const content = await file.text();
+                        const titleMatch = content.match(/<title>(.*?)<\/title>/i);
+                        const title = titleMatch ? titleMatch[1].trim() : file.name.replace('.html', '');
+                        const slug = file.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 
-            // Check for duplicates in existing index
-            const duplicate = indexData.documents.find(d => d.slug === slug || d.title === title);
-            if (duplicate) {
-                return new Response(JSON.stringify({
-                    message: `Conflict: A document with title "${title}" or slug "${slug}" already exists.`
-                }), {
-                    status: 409,
-                    headers: { 'Content-Type': 'application/json' }
-                });
+                        // Duplicate check (skip if the slug belongs to an existing doc we are keeping, though unlikely for new files)
+                        const duplicate = indexData.documents.find(d => d.slug === slug || d.title === title);
+                        if (duplicate) {
+                           // If it's a conflict, we could error OR append a suffix. Let's error for safety.
+                           return new Response(JSON.stringify({ message: `Conflict: "${title}" already exists.` }), { status: 409 });
+                        }
+
+                        const id = crypto.randomUUID();
+                        const uploadDate = new Date().toISOString().split('T')[0];
+                        const path = `/api/data/documents/${file.name}`;
+
+                        newDocuments.push({
+                            id, title, slug, upload_date: uploadDate, path,
+                            original_url: originalUrl || undefined,
+                            series_id: finalSeriesId,
+                            series_title: seriesTitle || undefined,
+                            part_number: partNumber,
+                            total_parts: totalParts
+                        });
+
+                        changes.push({ path: `documents/${file.name}`, content });
+                    }
+                }
             }
 
-            const id = crypto.randomUUID();
-            const uploadDate = new Date().toISOString().split('T')[0];
-            const path = `/api/data/documents/${file.name}`;
+            // Remove existing docs that were in this series but are NO LONGER in the manifest
+            // actually, the user said "supplement and reorder", usually removing is implied by the queue UI.
+            // Let's filter out docs that were in the ORIGINAL series but not in existingDocsInSeries
+            if (seriesId) {
+                indexData.documents = indexData.documents.filter(d => 
+                    d.series_id !== seriesId || existingDocsInSeries.includes(d.id)
+                );
+            }
+            
+            // Add the new documents to the top of the overall index (or we could keep original dates)
+            indexData.documents = [...newDocuments, ...indexData.documents];
 
-            processedDocuments.push({
-                id,
-                title,
-                slug,
-                upload_date: uploadDate,
-                path,
-                original_url: originalUrl || undefined,
-                series_id: seriesId,
-                series_title: seriesTitle || undefined,
-                part_number: partNumber,
-                total_parts: totalParts
-            });
+        } else {
+            // Legacy/Simple Upload logic
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const content = await file.text();
+                const titleMatch = content.match(/<title>(.*?)<\/title>/i);
+                const title = titleMatch ? titleMatch[1].trim() : file.name.replace('.html', '');
+                const slug = file.name.toLowerCase()
+                    .replace(/[^a-z0-9]/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '');
 
-            // Add HTML file change
-            changes.push({
-                path: `documents/${file.name}`,
-                content: content
-            });
+                const partNumber = finalSeriesId ? i + 1 : undefined;
+
+                const duplicate = indexData.documents.find(d => d.slug === slug || d.title === title);
+                if (duplicate) {
+                    return new Response(JSON.stringify({ message: `Conflict: "${title}" exists.` }), { status: 409 });
+                }
+
+                const id = crypto.randomUUID();
+                const uploadDate = new Date().toISOString().split('T')[0];
+                const path = `/api/data/documents/${file.name}`;
+
+                newDocuments.push({
+                    id, title, slug, upload_date: uploadDate, path,
+                    original_url: originalUrl || undefined,
+                    series_id: finalSeriesId,
+                    series_title: seriesTitle || undefined,
+                    part_number: partNumber,
+                    total_parts: totalParts
+                });
+
+                changes.push({ path: `documents/${file.name}`, content });
+            }
+            indexData.documents = [...newDocuments, ...indexData.documents];
         }
-
-        // 3. Update index.json structure
-        indexData.documents = [...processedDocuments, ...indexData.documents];
         indexData.total = indexData.documents.length;
         indexData.last_updated = new Date().toISOString();
 
@@ -356,13 +407,13 @@ ${sitemapIndexEntries.join('\n')}
         await createBatchCommit(
             githubConfig,
             changes,
-            `Upload ${processedDocuments.length} documents and update index`,
+            finalSeriesId ? `Update series ${seriesTitle || finalSeriesId}` : `Upload ${newDocuments.length} documents and update index`,
             DATA_BRANCH
         );
 
         return new Response(JSON.stringify({
             success: true,
-            message: `${processedDocuments.length} files uploaded to '${DATA_BRANCH}' branch in a single commit.`
+            message: finalSeriesId ? 'Series updated successfully.' : `${newDocuments.length} files uploaded successfully.`
         }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }

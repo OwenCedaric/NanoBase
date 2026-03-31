@@ -6,7 +6,8 @@ import {
   RiArrowRightSLine as ArrowRightSLineIcon, 
   RiTimeLine as TimeLineIcon, 
   RiFilePaper2Line as FilePaper2LineIcon,
-  RiStackLine as StackLineIcon
+  RiStackLine as StackLineIcon,
+  RiEdit2Line as Edit2LineIcon
 } from '@remixicon/react';
 import dayjs from 'dayjs';
 import { IndexData, Document } from '../types';
@@ -234,6 +235,20 @@ const Home: React.FC = () => {
                 <ArrowRightSLineIcon className={`absolute bottom-4 right-4 w-4 h-4 transition-all transform group-hover:translate-x-1 ${
                   (doc as any).isSeries ? 'text-zinc-500' : 'text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white'
                 }`} />
+
+                {(doc as any).isSeries && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      navigate(`/upload?edit=${doc.series_id}`);
+                    }}
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 dark:bg-black/10 dark:hover:bg-black/20 text-zinc-400 hover:text-white dark:hover:text-zinc-900 transition-all border border-white/10 dark:border-black/5"
+                    title="Edit Collection"
+                  >
+                    <Edit2LineIcon size={14} />
+                  </button>
+                )}
               </Link>
             </motion.div>
           ))

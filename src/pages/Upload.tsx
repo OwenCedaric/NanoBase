@@ -1,19 +1,28 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { 
   RiUploadCloud2Line as UploadCloud2LineIcon, 
   RiFilePaper2Line as FilePaper2LineIcon, 
   RiCloseLine as CloseLineIcon, 
   RiLoader4Line as Loader4LineIcon, 
   RiArrowRightSLine as ArrowRightSLineIcon,
-  RiDraggable as DraggableIcon
+  RiDraggable as DraggableIcon,
+  RiInformationLine as InformationLineIcon
 } from '@remixicon/react';
 import { useDropzone } from 'react-dropzone';
 import { Reorder } from 'framer-motion';
+import { IndexData, Document } from '../types';
+
+type QueueItem = { type: 'file'; file: File; id: string } | { type: 'existing'; doc: Document; id: string };
 
 const UploadPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const editSeriesId = searchParams.get('edit');
+
   const [token, setToken] = useState(() => localStorage.getItem('nanobase_token') || '');
-  const [files, setFiles] = useState<File[]>([]);
+  const [items, setItems] = useState<QueueItem[]>([]);
   const [originalUrl, setOriginalUrl] = useState('');
   const [seriesTitle, setSeriesTitle] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -23,9 +32,25 @@ const UploadPage: React.FC = () => {
     localStorage.setItem('nanobase_token', token);
   }, [token]);
 
+  useEffect(() => {
+    if (editSeriesId) {
+      fetch('/api/data/index.json')
+        .then(res => res.json())
+        .then((data: any) => {
+          const json = data as IndexData;
+          const seriesDocs = json.documents.filter(d => d.series_id === editSeriesId).sort((a, b) => (a.part_number || 0) - (b.part_number || 0));
+          if (seriesDocs.length > 0) {
+            setSeriesTitle(seriesDocs[0].series_title || '');
+            setOriginalUrl(seriesDocs[0].original_url || '');
+            setItems(seriesDocs.map(doc => ({ type: 'existing', doc, id: doc.id })));
+          }
+        });
+    }
+  }, [editSeriesId]);
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const htmlFiles = acceptedFiles.filter(file => file.name.endsWith('.html'));
-    setFiles(prev => [...prev, ...htmlFiles]);
+    setItems(prev => [...prev, ...htmlFiles.map(file => ({ type: 'file' as const, file, id: crypto.randomUUID() }))]);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
@@ -33,13 +58,13 @@ const UploadPage: React.FC = () => {
     accept: { 'text/html': ['.html'] }
   });
 
-  const removeFile = (index: number) => {
-    setFiles(prev => prev.filter((_, i) => i !== index));
+  const removeItem = (id: string) => {
+    setItems(prev => prev.filter(item => item.id !== id));
   };
 
   const handleUpload = async () => {
-    if (files.length === 0) {
-      setStatus({ type: 'error', message: '请选择要上传的 HTML 文件' });
+    if (items.length === 0) {
+      setStatus({ type: 'error', message: '请在队列中添加或保留文档' });
       return;
     }
 
@@ -47,7 +72,22 @@ const UploadPage: React.FC = () => {
     setStatus({ type: 'idle', message: '' });
 
     const formData = new FormData();
-    files.forEach(file => formData.append('files', file));
+    
+    const partsManifest: any[] = [];
+    items.forEach((item, index) => {
+      if (item.type === 'file') {
+        formData.append('files', item.file);
+        partsManifest.push({ type: 'file', fileName: item.file.name, order: index + 1 });
+      } else {
+        partsManifest.push({ type: 'existing', docId: item.doc.id, order: index + 1 });
+      }
+    });
+
+    formData.append('parts_manifest', JSON.stringify(partsManifest));
+    
+    if (editSeriesId) {
+      formData.append('series_id', editSeriesId);
+    }
     if (originalUrl) {
       formData.append('original_url', originalUrl);
     }
@@ -68,8 +108,8 @@ const UploadPage: React.FC = () => {
       });
 
       if (response.ok) {
-        setStatus({ type: 'success', message: `成功上传 ${files.length} 个文件！项目正在自动重新部署...` });
-        setFiles([]);
+        setStatus({ type: 'success', message: `成功处理 ${items.length} 个文档！项目正在自动重新部署...` });
+        if (!editSeriesId) setItems([]);
       } else {
         const errorData = await response.json().catch(() => ({})) as any;
         setStatus({ type: 'error', message: errorData.message || `上传失败: ${response.statusText}` });
@@ -89,9 +129,11 @@ const UploadPage: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="space-y-4"
       >
-        <h1 className="text-6xl font-bold font-serif tracking-tight text-zinc-900 dark:text-white">Upload</h1>
+        <h1 className="text-6xl font-bold font-serif tracking-tight text-zinc-900 dark:text-white">
+          {editSeriesId ? 'Edit Series' : 'Upload'}
+        </h1>
         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">
-          Add New Documents
+          {editSeriesId ? 'Modify Collection Content' : 'Add New Documents'}
         </p>
       </motion.section>
 
@@ -159,42 +201,50 @@ const UploadPage: React.FC = () => {
               <div className="w-10 h-10 rounded-lg bg-zinc-900 text-white flex items-center justify-center">
                 <UploadCloud2LineIcon size={18} />
               </div>
-              <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">Drop HTML Files Here</p>
+              <p className="text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">Drop HTML files here</p>
             </div>
           </div>
         </div>
 
-        {files.length > 0 && (
+        {items.length > 0 && (
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             className="space-y-4"
           >
             <div className="flex items-center justify-between px-1">
-              <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">Queue ({files.length})</h3>
-              <button onClick={() => setFiles([])} className="text-[9px] font-black text-rose-500 uppercase tracking-[0.3em]">Clear All</button>
+              <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">Queue ({items.length})</h3>
+              <button onClick={() => setItems([])} className="text-[9px] font-black text-rose-500 uppercase tracking-[0.3em]">Clear All</button>
             </div>
             <div className="grid gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-              <Reorder.Group axis="y" values={files} onReorder={setFiles} className="space-y-2">
-                {files.map((file, i) => (
+              <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-2">
+                {items.map((item, i) => (
                   <Reorder.Item 
-                    value={file}
-                    key={file.name + i} 
-                    className="flex items-center justify-between p-3 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-100 dark:border-zinc-800 group cursor-grab active:cursor-grabbing hover:border-zinc-300 dark:hover:border-zinc-700 transition-all shadow-sm"
+                    value={item}
+                    key={item.id} 
+                    className={`flex items-center justify-between p-3 rounded-lg border group cursor-grab active:cursor-grabbing transition-all shadow-sm ${
+                      item.type === 'existing' 
+                        ? 'bg-zinc-50/50 dark:bg-zinc-900/30 border-zinc-100 dark:border-zinc-800/50' 
+                        : 'bg-white dark:bg-zinc-900 border-zinc-100 dark:border-zinc-800'
+                    } hover:border-zinc-300 dark:hover:border-zinc-700`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <DraggableIcon size={12} className="text-zinc-300 group-hover:text-zinc-500 transition-colors" />
-                      <FilePaper2LineIcon size={12} className="text-zinc-300 shrink-0" />
-                      <span className="text-[10px] truncate font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                        {file.name}
+                      {item.type === 'existing' ? (
+                        <InformationLineIcon size={12} className="text-zinc-400 shrink-0" />
+                      ) : (
+                        <FilePaper2LineIcon size={12} className="text-zinc-300 shrink-0" />
+                      )}
+                      <span className={`text-[10px] truncate font-bold uppercase tracking-wider ${
+                        item.type === 'existing' ? 'text-zinc-500' : 'text-zinc-800 dark:text-zinc-200'
+                      }`}>
+                        {item.type === 'file' ? item.file.name : item.doc.title}
                       </span>
                     </div>
                     <div className="flex items-center gap-4">
-                      {seriesTitle && (
-                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest hidden sm:block">Part {i + 1}</span>
-                      )}
+                      <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest hidden sm:block">Part {i + 1}</span>
                       <button 
-                        onClick={() => removeFile(i)}
+                        onClick={() => removeItem(item.id)}
                         className="p-1 text-rose-400 hover:text-rose-600 transition-colors"
                       >
                         <CloseLineIcon size={14} />
@@ -223,18 +273,18 @@ const UploadPage: React.FC = () => {
         <motion.button
           whileHover={{ scale: 1.005 }}
           whileTap={{ scale: 0.995 }}
-          disabled={uploading || files.length === 0}
+          disabled={uploading || items.length === 0}
           onClick={handleUpload}
           className="w-full h-14 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-zinc-800 dark:hover:bg-zinc-100 disabled:opacity-30 transition-all flex items-center justify-center gap-3 group shadow-lg shadow-zinc-900/10"
         >
           {uploading ? (
             <>
               <Loader4LineIcon size={14} className="animate-spin" />
-              Processing...
+              Syncing Changes...
             </>
           ) : (
             <>
-              Confirm & Publish
+              {editSeriesId ? 'Sync & Update Collection' : 'Confirm & Publish'}
               <ArrowRightSLineIcon size={14} className="transition-transform group-hover:translate-x-1" />
             </>
           )}
