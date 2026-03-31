@@ -8,7 +8,8 @@ import {
   RiLoader4Line as Loader4LineIcon, 
   RiArrowRightSLine as ArrowRightSLineIcon,
   RiDraggable as DraggableIcon,
-  RiInformationLine as InformationLineIcon
+  RiInformationLine as InformationLineIcon,
+  RiDeleteBin7Line as DeleteBinLineIcon
 } from '@remixicon/react';
 import { useDropzone } from 'react-dropzone';
 import { Reorder } from 'framer-motion';
@@ -63,8 +64,13 @@ const UploadPage: React.FC = () => {
   };
 
   const handleUpload = async () => {
-    if (items.length === 0) {
+    if (items.length === 0 && !editSeriesId) {
       setStatus({ type: 'error', message: '请在队列中添加或保留文档' });
+      return;
+    }
+
+    if (!token) {
+      setStatus({ type: 'error', message: '请输入 Security Token 以进行操作' });
       return;
     }
 
@@ -108,8 +114,12 @@ const UploadPage: React.FC = () => {
       });
 
       if (response.ok) {
-        setStatus({ type: 'success', message: `成功处理 ${items.length} 个文档！项目正在自动重新部署...` });
-        if (!editSeriesId) setItems([]);
+        setStatus({ type: 'success', message: editSeriesId ? '文集更新成功！' : `成功处理 ${items.length} 个文档！项目正在自动重新部署...` });
+        if (!editSeriesId) {
+           setItems([]);
+           setSeriesTitle('');
+           setOriginalUrl('');
+        }
       } else {
         const errorData = await response.json().catch(() => ({})) as any;
         setStatus({ type: 'error', message: errorData.message || `上传失败: ${response.statusText}` });
@@ -117,6 +127,38 @@ const UploadPage: React.FC = () => {
     } catch (err) {
       setStatus({ type: 'error', message: '网络请求失败，请检查连接。' });
       console.error(err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDeleteSeries = async () => {
+    if (!window.confirm('确定要删除整个系列吗？这将移除所有关联的章节元数据，但物理文件仍保留（作为独立文档）。')) return;
+    if (!token) {
+      setStatus({ type: 'error', message: '请输入 Security Token 以进行删除' });
+      return;
+    }
+
+    setUploading(true);
+    setStatus({ type: 'idle', message: '' });
+
+    const formData = new FormData();
+    formData.append('series_id', editSeriesId!);
+    formData.append('parts_manifest', JSON.stringify([])); // Empty manifest = delete all parts from series
+    
+    const headers: Record<string, string> = { 'Authorization': `Bearer ${token}` };
+
+    try {
+      const response = await fetch('/api/upload', { method: 'POST', headers, body: formData });
+      if (response.ok) {
+        setStatus({ type: 'success', message: '文集解散成功！正在返回首页...' });
+        setTimeout(() => navigate('/'), 2000);
+      } else {
+        const errorData = await response.json().catch(() => ({})) as any;
+        setStatus({ type: 'error', message: errorData.message || '删除失败' });
+      }
+    } catch (err) {
+      setStatus({ type: 'error', message: '请求失败' });
     } finally {
       setUploading(false);
     }
@@ -270,25 +312,44 @@ const UploadPage: React.FC = () => {
           </motion.div>
         )}
 
-        <motion.button
-          whileHover={{ scale: 1.005 }}
-          whileTap={{ scale: 0.995 }}
-          disabled={uploading || items.length === 0}
-          onClick={handleUpload}
-          className="w-full h-14 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-zinc-800 dark:hover:bg-zinc-100 disabled:opacity-30 transition-all flex items-center justify-center gap-3 group shadow-lg shadow-zinc-900/10"
-        >
-          {uploading ? (
-            <>
-              <Loader4LineIcon size={14} className="animate-spin" />
-              Syncing Changes...
-            </>
-          ) : (
-            <>
-              {editSeriesId ? 'Sync & Update Collection' : 'Confirm & Publish'}
-              <ArrowRightSLineIcon size={14} className="transition-transform group-hover:translate-x-1" />
-            </>
+         <div className="flex gap-4">
+          <motion.button
+            whileHover={{ scale: 1.005 }}
+            whileTap={{ scale: 0.995 }}
+            disabled={uploading || (items.length === 0 && !editSeriesId)}
+            onClick={handleUpload}
+            className={`flex-1 h-14 rounded-xl font-black text-[10px] uppercase tracking-[0.4em] transition-all flex items-center justify-center gap-3 group shadow-lg ${
+              editSeriesId 
+                ? 'bg-zinc-800 text-white hover:bg-zinc-900' 
+                : 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-100 shadow-zinc-900/10'
+            } disabled:opacity-30`}
+          >
+            {uploading ? (
+              <>
+                <Loader4LineIcon size={14} className="animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                {editSeriesId ? 'Update Collection' : 'Confirm & Publish'}
+                <ArrowRightSLineIcon size={14} className="transition-transform group-hover:translate-x-1" />
+              </>
+            )}
+          </motion.button>
+
+          {editSeriesId && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled={uploading}
+              onClick={handleDeleteSeries}
+              className="w-14 h-14 rounded-xl bg-rose-50 text-rose-500 hover:bg-rose-100 transition-all flex items-center justify-center border border-rose-100"
+              title="Dissolve Series"
+            >
+              <DeleteBinLineIcon size={20} />
+            </motion.button>
           )}
-        </motion.button>
+        </div>
       </motion.div>
     </div>
   );

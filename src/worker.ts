@@ -211,8 +211,8 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
 
         const partsManifest = partsManifestStr ? JSON.parse(partsManifestStr) as any[] : null;
 
-        if (files.length === 0) {
-            return new Response(JSON.stringify({ message: 'No files uploaded' }), {
+        if (files.length === 0 && !partsManifest) {
+            return new Response(JSON.stringify({ message: 'No files or manifest provided' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' }
             });
