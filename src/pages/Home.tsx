@@ -92,29 +92,41 @@ const Home: React.FC = () => {
     });
 
     const seriesGroups = Object.entries(groups).map(([id, docs]) => {
-      // Sort docs in series by part_number for internal ordering
       const sorted = [...docs].sort((a, b) => (a.part_number || 0) - (b.part_number || 0));
       const firstPart = sorted[0];
       
-      // Use the latest upload date among all parts for top-level sorting
       const latestDate = docs.reduce((max, d) => 
         dayjs(d.upload_date).isAfter(dayjs(max)) ? d.upload_date : max, 
         docs[0].upload_date
       );
 
+      // Find the earliest index in the original array for this series
+      const minIndex = docs.reduce((min, d) => {
+        const idx = data.documents.indexOf(d);
+        return idx < min ? idx : min;
+      }, data.documents.indexOf(docs[0]));
+
       return {
         ...firstPart,
-        upload_date: latestDate, // Override with latest date for sorting
+        upload_date: latestDate,
         title: firstPart.series_title || firstPart.title,
         isSeries: true,
-        partsCount: docs.length
+        partsCount: docs.length,
+        originalIndex: minIndex
       };
     });
 
-    // Merge and sort by date (newest first)
-    return [...individual, ...seriesGroups].sort((a, b) => 
-      dayjs(b.upload_date).unix() - dayjs(a.upload_date).unix()
-    );
+    const individualItems = individual.map(doc => ({
+      ...doc,
+      originalIndex: data.documents.indexOf(doc)
+    }));
+
+    // Merge and sort: Primary by Date (DESC), Secondary by Original Index (ASC)
+    return [...individualItems, ...seriesGroups].sort((a, b) => {
+      const dateDiff = dayjs(b.upload_date).unix() - dayjs(a.upload_date).unix();
+      if (dateDiff !== 0) return dateDiff;
+      return (a as any).originalIndex - (b as any).originalIndex;
+    });
   };
 
   const groupedDocuments = getGroupedDocuments();

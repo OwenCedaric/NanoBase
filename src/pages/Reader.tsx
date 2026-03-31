@@ -18,8 +18,8 @@ import dayjs from 'dayjs';
 import { IndexData, Document } from '../types';
 
 type NavigationItem = 
-  | { type: 'doc'; doc: Document; upload_date: string }
-  | { type: 'series'; id: string; title: string; children: Document[]; upload_date: string };
+  | { type: 'doc'; doc: Document; upload_date: string; originalIndex: number }
+  | { type: 'series'; id: string; title: string; children: Document[]; upload_date: string; originalIndex: number };
 
 
 const Reader: React.FC = () => {
@@ -81,7 +81,7 @@ const Reader: React.FC = () => {
       }
     });
 
-    // 2. Build items in chronological order (maintaining original top-down archive flow)
+    // 2. Build items
     data.documents.forEach(d => {
       if (d.series_id) {
         if (!processedSeries.has(d.series_id)) {
@@ -92,24 +92,36 @@ const Reader: React.FC = () => {
             seriesDocs[0].upload_date
           );
 
+          // Find the earliest index in the original array for this series
+          const minIndex = seriesDocs.reduce((min, d) => {
+             const idx = data.documents.indexOf(d);
+             return idx < min ? idx : min;
+          }, data.documents.indexOf(seriesDocs[0]));
+
           items.push({
             type: 'series',
             id: d.series_id,
             title: d.series_title || 'Untitled Collection',
             children: seriesDocs.sort((a, b) => (a.part_number || 0) - (b.part_number || 0)),
-            upload_date: latestDate
+            upload_date: latestDate,
+            originalIndex: minIndex
           });
         }
       } else {
         items.push({
           type: 'doc',
           doc: d,
-          upload_date: d.upload_date
+          upload_date: d.upload_date,
+          originalIndex: data.documents.indexOf(d)
         });
       }
     });
 
-    return items.sort((a, b) => dayjs(b.upload_date).unix() - dayjs(a.upload_date).unix());
+    return items.sort((a, b) => {
+      const dateDiff = dayjs(b.upload_date).unix() - dayjs(a.upload_date).unix();
+      if (dateDiff !== 0) return dateDiff;
+      return a.originalIndex - b.originalIndex;
+    });
   };
 
   const handleCopyLink = () => {
