@@ -25,7 +25,7 @@ jobs:
           # 使用孤儿分支重置历史
           git checkout --orphan temp_data
           git add -A
-          git commit -m "initial commit"
+          git commit -m "cleanup [skip ci]"
           git branch -D data
           git branch -m data
           git push -f origin data
