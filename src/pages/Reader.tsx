@@ -8,10 +8,18 @@ import {
   RiLink as LinkIcon,
   RiArrowLeftSLine as ArrowLeftSLineIcon,
   RiArrowRightSLine as ArrowRightSLineIcon,
-  RiListOrdered2 as ListOrderedIcon
+  RiListOrdered2 as ListOrderedIcon,
+  RiStackLine as StackLineIcon,
+  RiArrowDownSLine as ArrowDownSLineIcon,
+  RiFilePaper2Line as FilePaper2LineIcon,
+  RiArrowRightLine as ArrowRightLineIcon
 } from '@remixicon/react';
 import dayjs from 'dayjs';
 import { IndexData, Document } from '../types';
+
+type NavigationItem = 
+  | { type: 'doc'; doc: Document; upload_date: string }
+  | { type: 'series'; id: string; title: string; children: Document[]; upload_date: string };
 
 
 const Reader: React.FC = () => {
@@ -20,6 +28,7 @@ const Reader: React.FC = () => {
   const [doc, setDoc] = useState<Document | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [expandedSeries, setExpandedSeries] = useState<Set<string>>(new Set());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,12 +47,64 @@ const Reader: React.FC = () => {
       });
   }, [slug, navigate]);
 
-  // Handle SEO metadata
+  // Handle SEO and auto-expansion
   useEffect(() => {
     if (doc) {
       document.title = `${doc.title} | NanoBase`;
+      if (doc.series_id) {
+        setExpandedSeries(prev => new Set(prev).add(doc.series_id!));
+      }
     }
   }, [doc]);
+
+  const toggleSeries = (id: string) => {
+    setExpandedSeries(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const getNavigationHierarchy = () : NavigationItem[] => {
+    if (!data) return [];
+    
+    const items: NavigationItem[] = [];
+    const groups: Record<string, Document[]> = {};
+    const processedSeries = new Set<string>();
+
+    // 1. Group documents by series
+    data.documents.forEach(d => {
+      if (d.series_id) {
+        if (!groups[d.series_id]) groups[d.series_id] = [];
+        groups[d.series_id].push(d);
+      }
+    });
+
+    // 2. Build items in chronological order (maintaining original top-down archive flow)
+    data.documents.forEach(d => {
+      if (d.series_id) {
+        if (!processedSeries.has(d.series_id)) {
+          processedSeries.add(d.series_id);
+          items.push({
+            type: 'series',
+            id: d.series_id,
+            title: d.series_title || 'Untitled Collection',
+            children: groups[d.series_id].sort((a, b) => (a.part_number || 0) - (b.part_number || 0)),
+            upload_date: d.upload_date
+          });
+        }
+      } else {
+        items.push({
+          type: 'doc',
+          doc: d,
+          upload_date: d.upload_date
+        });
+      }
+    });
+
+    return items.sort((a, b) => dayjs(b.upload_date).unix() - dayjs(a.upload_date).unix());
+  };
 
   const handleCopyLink = () => {
     const url = `${window.location.origin}/${doc?.slug}`;
@@ -140,26 +201,56 @@ const Reader: React.FC = () => {
                  {doc.series_id ? 'Series Collection' : 'Archive Navigator'}
                </h3>
              </div>
-             
-             <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                {(doc.series_id 
-                  ? data?.documents.filter(d => d.series_id === doc.series_id).sort((a, b) => (a.part_number || 0) - (b.part_number || 0))
-                  : data?.documents.slice(0, 15)
-                )?.map(d => (
-                  <Link 
-                    key={d.id} 
-                    to={`/${d.slug}`}
-                    className={`group block p-3 rounded-xl transition-all ${d.slug === slug ? 'bg-zinc-900 text-white shadow-lg' : 'hover:bg-white dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
-                  >
-                    <div className="flex items-center gap-2">
-                      {d.part_number && (
-                        <span className={`text-[8px] font-black uppercase tracking-tighter shrink-0 ${d.slug === slug ? 'text-zinc-400' : 'text-zinc-300 group-hover:text-zinc-500'}`}>
-                          P.{d.part_number}
-                        </span>
-                      )}
-                      <div className="text-[10px] font-bold truncate">{d.title}</div>
-                    </div>
-                  </Link>
+                          <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
+                {getNavigationHierarchy().map(item => (
+                  <div key={item.type === 'doc' ? item.doc.id : item.id} className="space-y-1">
+                    {item.type === 'doc' ? (
+                      <Link 
+                        to={`/${item.doc.slug}`}
+                        className={`group flex items-center gap-2 p-2.5 rounded-xl transition-all ${item.doc.slug === slug ? 'bg-zinc-900 text-white shadow-lg' : 'hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
+                      >
+                        <FilePaper2LineIcon size={14} className={item.doc.slug === slug ? 'text-zinc-400' : 'text-zinc-300'} />
+                        <div className="text-[10px] font-bold truncate">{item.doc.title}</div>
+                      </Link>
+                    ) : (
+                      <div className="space-y-1">
+                        <button 
+                          onClick={() => toggleSeries(item.id)}
+                          className={`w-full group flex items-center justify-between p-2.5 rounded-xl transition-all ${
+                            doc.series_id === item.id ? 'bg-zinc-100 dark:bg-zinc-900/50 text-zinc-900 dark:text-white' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <StackLineIcon size={14} className="text-zinc-400" />
+                            <div className="text-[10px] font-black uppercase tracking-widest truncate">{item.title}</div>
+                          </div>
+                          <ArrowDownSLineIcon 
+                            size={14} 
+                            className={`text-zinc-300 transition-transform ${expandedSeries.has(item.id) ? 'rotate-180' : ''}`} 
+                          />
+                        </button>
+                        
+                        {expandedSeries.has(item.id) && (
+                          <div className="ml-4 pl-2 border-l border-zinc-100 dark:border-zinc-800 space-y-1 py-1">
+                            {item.children.map(child => (
+                              <Link 
+                                key={child.id}
+                                to={`/${child.slug}`}
+                                className={`group flex items-center gap-2 p-2 rounded-lg transition-all ${child.slug === slug ? 'bg-zinc-900 text-white' : 'hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-400 hover:text-zinc-900 dark:hover:text-white'}`}
+                              >
+                                {child.part_number && (
+                                  <span className={`text-[8px] font-black tracking-tighter shrink-0 ${child.slug === slug ? 'text-zinc-400' : 'text-zinc-300'}`}>
+                                    P.{child.part_number}
+                                  </span>
+                                )}
+                                <div className="text-[10px] font-bold truncate">{child.title}</div>
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 ))}
              </div>
            </div>
