@@ -69,10 +69,6 @@ const UploadPage: React.FC = () => {
       return;
     }
 
-    if (!token) {
-      setStatus({ type: 'error', message: '请输入 Security Token 以进行操作' });
-      return;
-    }
 
     setUploading(true);
     setStatus({ type: 'idle', message: '' });
@@ -134,10 +130,6 @@ const UploadPage: React.FC = () => {
 
   const handleDeleteSeries = async () => {
     if (!window.confirm('确定要删除整个系列吗？这将移除所有关联的章节元数据，但物理文件仍保留（作为独立文档）。')) return;
-    if (!token) {
-      setStatus({ type: 'error', message: '请输入 Security Token 以进行删除' });
-      return;
-    }
 
     setUploading(true);
     setStatus({ type: 'idle', message: '' });
@@ -146,7 +138,10 @@ const UploadPage: React.FC = () => {
     formData.append('series_id', editSeriesId!);
     formData.append('parts_manifest', JSON.stringify([])); // Empty manifest = delete all parts from series
     
-    const headers: Record<string, string> = { 'Authorization': `Bearer ${token}` };
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     try {
       const response = await fetch('/api/upload', { method: 'POST', headers, body: formData });
@@ -188,7 +183,7 @@ const UploadPage: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <label className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">
-              Security Token
+              Security Token (Optional)
             </label>
             <input
               type="password"
