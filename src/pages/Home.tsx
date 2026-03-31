@@ -92,12 +92,20 @@ const Home: React.FC = () => {
     });
 
     const seriesGroups = Object.entries(groups).map(([id, docs]) => {
-      // Sort docs in series by part_number
+      // Sort docs in series by part_number for internal ordering
       const sorted = [...docs].sort((a, b) => (a.part_number || 0) - (b.part_number || 0));
       const firstPart = sorted[0];
+      
+      // Use the latest upload date among all parts for top-level sorting
+      const latestDate = docs.reduce((max, d) => 
+        dayjs(d.upload_date).isAfter(dayjs(max)) ? d.upload_date : max, 
+        docs[0].upload_date
+      );
+
       return {
         ...firstPart,
-        title: firstPart.series_title || firstPart.title, // Use series title if available
+        upload_date: latestDate, // Override with latest date for sorting
+        title: firstPart.series_title || firstPart.title,
         isSeries: true,
         partsCount: docs.length
       };

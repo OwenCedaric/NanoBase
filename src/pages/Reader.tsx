@@ -86,12 +86,18 @@ const Reader: React.FC = () => {
       if (d.series_id) {
         if (!processedSeries.has(d.series_id)) {
           processedSeries.add(d.series_id);
+          const seriesDocs = groups[d.series_id];
+          const latestDate = seriesDocs.reduce((max, d) => 
+            dayjs(d.upload_date).isAfter(dayjs(max)) ? d.upload_date : max, 
+            seriesDocs[0].upload_date
+          );
+
           items.push({
             type: 'series',
             id: d.series_id,
             title: d.series_title || 'Untitled Collection',
-            children: groups[d.series_id].sort((a, b) => (a.part_number || 0) - (b.part_number || 0)),
-            upload_date: d.upload_date
+            children: seriesDocs.sort((a, b) => (a.part_number || 0) - (b.part_number || 0)),
+            upload_date: latestDate
           });
         }
       } else {
