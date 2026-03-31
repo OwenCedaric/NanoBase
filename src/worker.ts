@@ -205,6 +205,7 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
         const formData = await request.formData();
         const files = formData.getAll('files') as File[];
         const originalUrl = formData.get('original_url') as string | null;
+        const seriesTitle = formData.get('series_title') as string | null;
 
         if (files.length === 0) {
             return new Response(JSON.stringify({ message: 'No files uploaded' }), {
@@ -233,8 +234,13 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
         const processedDocuments: Document[] = [];
         const changes: FileChange[] = [];
 
+        const isSeries = seriesTitle || files.length > 1;
+        const seriesId = isSeries ? crypto.randomUUID() : undefined;
+        const totalParts = isSeries ? files.length : undefined;
+
         // 2. Pre-validate all files for duplicates and collect changes
-        for (const file of files) {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
             const content = await file.text();
             const titleMatch = content.match(/<title>(.*?)<\/title>/i);
             const title = titleMatch ? titleMatch[1].trim() : file.name.replace('.html', '');
@@ -242,6 +248,8 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
                 .replace(/[^a-z0-9]/g, '-')
                 .replace(/-+/g, '-')
                 .replace(/^-|-$/g, '');
+
+            const partNumber = seriesId ? i + 1 : undefined;
 
             // Check for duplicates in existing index
             const duplicate = indexData.documents.find(d => d.slug === slug || d.title === title);
@@ -264,7 +272,11 @@ async function handleUpload(request: Request, env: Env): Promise<Response> {
                 slug,
                 upload_date: uploadDate,
                 path,
-                original_url: originalUrl || undefined
+                original_url: originalUrl || undefined,
+                series_id: seriesId,
+                series_title: seriesTitle || undefined,
+                part_number: partNumber,
+                total_parts: totalParts
             });
 
             // Add HTML file change

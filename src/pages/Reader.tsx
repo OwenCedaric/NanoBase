@@ -5,7 +5,10 @@ import {
   RiExternalLinkLine as ExternalLinkLineIcon, 
   RiShareForwardLine as ShareForwardLineIcon,
   RiCloseLine as CloseIcon,
-  RiLink as LinkIcon
+  RiLink as LinkIcon,
+  RiArrowLeftSLine as ArrowLeftSLineIcon,
+  RiArrowRightSLine as ArrowRightSLineIcon,
+  RiListOrdered2 as ListOrderedIcon
 } from '@remixicon/react';
 import dayjs from 'dayjs';
 import { IndexData, Document } from '../types';
@@ -128,32 +131,98 @@ const Reader: React.FC = () => {
 
       {/* --- Main Reading Surface --- */}
       <div className="flex-1 min-h-0 flex bg-zinc-50/30 dark:bg-zinc-950">
-        {/* --- Optional Internal Sidebar (Hidden on small screens) --- */}
+        {/* --- Series / Global Sidebar --- */}
         <nav className="hidden xl:flex w-72 shrink-0 flex-col border-r border-zinc-100 dark:border-zinc-900 bg-white/50 dark:bg-zinc-950/50 p-6 space-y-6">
            <div className="space-y-1">
-             <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-zinc-400 mb-4">Archive Navigator</h3>
+             <div className="flex items-center gap-2 mb-4">
+               <ListOrderedIcon size={14} className="text-zinc-400" />
+               <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-zinc-400">
+                 {doc.series_id ? 'Series Collection' : 'Archive Navigator'}
+               </h3>
+             </div>
+             
              <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                {data?.documents.slice(0, 15).map(d => (
+                {(doc.series_id 
+                  ? data?.documents.filter(d => d.series_id === doc.series_id).sort((a, b) => (a.part_number || 0) - (b.part_number || 0))
+                  : data?.documents.slice(0, 15)
+                )?.map(d => (
                   <Link 
                     key={d.id} 
                     to={`/${d.slug}`}
-                    className={`block p-3 rounded-xl transition-all ${d.slug === slug ? 'bg-zinc-900 text-white shadow-lg' : 'hover:bg-white dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
+                    className={`group block p-3 rounded-xl transition-all ${d.slug === slug ? 'bg-zinc-900 text-white shadow-lg' : 'hover:bg-white dark:hover:bg-zinc-900 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'}`}
                   >
-                    <div className="text-[10px] font-bold truncate">{d.title}</div>
+                    <div className="flex items-center gap-2">
+                      {d.part_number && (
+                        <span className={`text-[8px] font-black uppercase tracking-tighter shrink-0 ${d.slug === slug ? 'text-zinc-400' : 'text-zinc-300 group-hover:text-zinc-500'}`}>
+                          P.{d.part_number}
+                        </span>
+                      )}
+                      <div className="text-[10px] font-bold truncate">{d.title}</div>
+                    </div>
                   </Link>
                 ))}
              </div>
            </div>
+
+           {doc.series_id && (
+             <div className="pt-6 border-t border-zinc-100 dark:border-zinc-900">
+               <p className="text-[10px] font-medium text-zinc-400 leading-relaxed italic">
+                 This document is part of the <span className="font-bold text-zinc-600 dark:text-zinc-300 not-italic">"{doc.series_title || 'Untitled Series'}"</span> collection.
+               </p>
+             </div>
+           )}
         </nav>
 
         {/* --- Content Frame --- */}
-        <div className="flex-1 relative">
-          <iframe
-            src={doc.path}
-            className="w-full h-full border-none bg-white"
-            title={doc.title}
-            sandbox="allow-scripts allow-popups"
-          />
+        <div className="flex-1 relative flex flex-col">
+          <div className="flex-1 relative">
+            <iframe
+              src={doc.path}
+              className="w-full h-full border-none bg-white"
+              title={doc.title}
+              sandbox="allow-scripts allow-popups"
+            />
+          </div>
+
+          {/* Inline Series Navigation */}
+          {doc.series_id && (
+            <div className="shrink-0 h-16 border-t border-zinc-100 dark:border-zinc-900 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm flex items-center justify-between px-8">
+              {(() => {
+                const series = data?.documents.filter(d => d.series_id === doc.series_id).sort((a, b) => (a.part_number || 0) - (b.part_number || 0)) || [];
+                const currentIndex = series.findIndex(d => d.id === doc.id);
+                const prev = series[currentIndex - 1];
+                const next = series[currentIndex + 1];
+
+                return (
+                  <>
+                    <div className="flex-1 flex justify-start">
+                      {prev ? (
+                        <Link to={`/${prev.slug}`} className="flex items-center gap-2 group text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                          <ArrowLeftSLineIcon size={18} className="transition-transform group-hover:-translate-x-1" />
+                          <span className="text-[10px] font-black uppercase tracking-widest">Previous Part</span>
+                        </Link>
+                      ) : <div />}
+                    </div>
+
+                    <div className="flex-1 flex justify-center">
+                      <span className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em]">
+                         Part {doc.part_number} of {doc.total_parts}
+                      </span>
+                    </div>
+
+                    <div className="flex-1 flex justify-end">
+                      {next ? (
+                        <Link to={`/${next.slug}`} className="flex items-center gap-2 group text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                          <span className="text-[10px] font-black uppercase tracking-widest">Next Part</span>
+                          <ArrowRightSLineIcon size={18} className="transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      ) : <div />}
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          )}
         </div>
       </div>
       

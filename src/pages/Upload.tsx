@@ -5,14 +5,17 @@ import {
   RiFilePaper2Line as FilePaper2LineIcon, 
   RiCloseLine as CloseLineIcon, 
   RiLoader4Line as Loader4LineIcon, 
-  RiArrowRightSLine as ArrowRightSLineIcon
+  RiArrowRightSLine as ArrowRightSLineIcon,
+  RiDraggable as DraggableIcon
 } from '@remixicon/react';
 import { useDropzone } from 'react-dropzone';
+import { Reorder } from 'framer-motion';
 
 const UploadPage: React.FC = () => {
   const [token, setToken] = useState(() => localStorage.getItem('nanobase_token') || '');
   const [files, setFiles] = useState<File[]>([]);
   const [originalUrl, setOriginalUrl] = useState('');
+  const [seriesTitle, setSeriesTitle] = useState('');
   const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error' | 'idle', message: string }>({ type: 'idle', message: '' });
 
@@ -47,6 +50,9 @@ const UploadPage: React.FC = () => {
     files.forEach(file => formData.append('files', file));
     if (originalUrl) {
       formData.append('original_url', originalUrl);
+    }
+    if (seriesTitle) {
+      formData.append('series_title', seriesTitle);
     }
 
     const headers: Record<string, string> = {};
@@ -111,7 +117,7 @@ const UploadPage: React.FC = () => {
 
           <div className="space-y-4">
             <label className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">
-              Source URL
+              Source URL (Optional)
             </label>
             <input
               type="url"
@@ -119,6 +125,19 @@ const UploadPage: React.FC = () => {
               className="w-full px-5 py-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all text-xs font-medium"
               value={originalUrl}
               onChange={(e) => setOriginalUrl(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-4 md:col-span-2">
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">
+              Collection / Series Title (Optional)
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. My Awesome Collection"
+              className="w-full px-5 py-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all text-xs font-medium"
+              value={seriesTitle}
+              onChange={(e) => setSeriesTitle(e.target.value)}
             />
           </div>
         </div>
@@ -155,27 +174,35 @@ const UploadPage: React.FC = () => {
               <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">Queue ({files.length})</h3>
               <button onClick={() => setFiles([])} className="text-[9px] font-black text-rose-500 uppercase tracking-[0.3em]">Clear All</button>
             </div>
-            <div className="grid gap-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-              {files.map((file, i) => (
-                <motion.div 
-                  layout
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  key={i} 
-                  className="flex items-center justify-between p-3 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-100 dark:border-zinc-800 group"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <FilePaper2LineIcon size={12} className="text-zinc-300 shrink-0" />
-                    <span className="text-[10px] truncate font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">{file.name}</span>
-                  </div>
-                  <button 
-                    onClick={() => removeFile(i)}
-                    className="p-1 text-rose-400 hover:text-rose-600 transition-colors"
+            <div className="grid gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              <Reorder.Group axis="y" values={files} onReorder={setFiles} className="space-y-2">
+                {files.map((file, i) => (
+                  <Reorder.Item 
+                    value={file}
+                    key={file.name + i} 
+                    className="flex items-center justify-between p-3 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-100 dark:border-zinc-800 group cursor-grab active:cursor-grabbing hover:border-zinc-300 dark:hover:border-zinc-700 transition-all shadow-sm"
                   >
-                    <CloseLineIcon size={14} />
-                  </button>
-                </motion.div>
-              ))}
+                    <div className="flex items-center gap-3 min-w-0">
+                      <DraggableIcon size={12} className="text-zinc-300 group-hover:text-zinc-500 transition-colors" />
+                      <FilePaper2LineIcon size={12} className="text-zinc-300 shrink-0" />
+                      <span className="text-[10px] truncate font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
+                        {file.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      {seriesTitle && (
+                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-widest hidden sm:block">Part {i + 1}</span>
+                      )}
+                      <button 
+                        onClick={() => removeFile(i)}
+                        className="p-1 text-rose-400 hover:text-rose-600 transition-colors"
+                      >
+                        <CloseLineIcon size={14} />
+                      </button>
+                    </div>
+                  </Reorder.Item>
+                ))}
+              </Reorder.Group>
             </div>
           </motion.div>
         )}
