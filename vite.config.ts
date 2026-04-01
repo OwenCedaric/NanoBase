@@ -13,7 +13,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:8787'
+      '/api': 'http://localhost:8787',
+      '/sitemap.xml': 'http://localhost:8787',
+      '/sitemap-docs': 'http://localhost:8787',
+      '/robots.txt': 'http://localhost:8787'
     }
   }
 });

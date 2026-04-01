@@ -180,7 +180,7 @@ async function handleDataRequest(path: string, env: Env): Promise<Response> {
 
         return new Response(response.body, {
             headers: {
-                'Content-Type': path.endsWith('.json') ? 'application/json' : 'text/html',
+                'Content-Type': path.endsWith('.json') ? 'application/json' : (path.endsWith('.xml') ? 'application/xml' : 'text/html'),
                 'Cache-Control': 'no-cache',
                 'Access-Control-Allow-Origin': '*'
             }
