@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>架构04 加餐：证明型文案的工业化锻造协议</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google Fonts: Inter & Noto Sans SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            dark: '#111111',
+                            gray: '#E5E5E5',
+                            bg: '#F9F9FA',
+                            blue: '#0055FF'
+                        }
+                    },
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tight: '-0.02em',
+                        widest: '0.1em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F9F9FA;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* 巨大化背景文字水印 */
+        .giant-watermark {
+            position: absolute;
+            font-size: 14vw;
+            font-weight: 900;
+            line-height: 0.8;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: -0.05em;
+        }
+
+        /* 响应式网格线 */
+        .grid-guide {
+            background-size: 100% 1px, 1px 100%;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+
+        /* 终端风格高亮 */
+        .term-highlight {
+            background-color: #FF3300;
+            color: white;
+            padding: 0 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+        }
+        
+        /* 卡片悬浮工业效果 */
+        .mech-card {
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .mech-card:hover {
+            box-shadow: 4px 4px 0px 0px #111;
+            transform: translate(-2px, -2px);
+            border-color: #111;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden selection:bg-braun-red selection:text-white">
+
+    <!-- 全局网格背景 -->
+    <div class="fixed inset-0 grid-guide pointer-events-none z-0"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 w-full px-6 py-6 flex justify-between items-center z-50 mix-blend-difference text-white">
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-3 bg-braun-red rounded-full"></div>
+            <span class="font-bold tracking-widest text-xs uppercase">Architecture Vol.04+</span>
+        </div>
+        <div class="text-xs uppercase tracking-widest opacity-50 hidden md:block">Proof Templates Assembly</div>
+    </header>
+
+    <main class="relative z-10 max-w-[1600px] mx-auto">
+
+        <!-- HERO SECTION: 绝对指令下达 -->
+        <section class="relative min-h-[80vh] flex flex-col justify-end px-6 md:px-12 lg:px-24 pb-24 md:pb-32 pt-32">
+            <div class="giant-watermark top-1/4 left-0 select-none">ASSEMBLY</div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+                <div class="lg:col-span-10">
+                    <p class="text-braun-red font-bold tracking-widest text-sm mb-6 uppercase flex items-center gap-4">
+                        <i class="ri-tools-line"></i> Technical Supplement
+                    </p>
+                    <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter leading-[1.05] mb-10">
+                        证明型文案的<br/>工业化锻造协议.
+                    </h1>
+                    
+                    <div class="bg-braun-dark text-white p-8 md:p-10 max-w-4xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-braun-red text-xs font-bold px-3 py-1 uppercase tracking-widest">Axiom</div>
+                        <p class="text-lg md:text-xl font-light leading-relaxed mb-6">
+                            结构无法通过“理解”习得，只能通过“强制输出”内化。
+                        </p>
+                        <ul class="space-y-3 text-sm font-mono text-gray-400">
+                            <li class="flex gap-2"><i class="ri-checkbox-circle-fill text-braun-red"></i> <span>写 1 条是偶然偏差</span></li>
+                            <li class="flex gap-2"><i class="ri-checkbox-circle-fill text-braun-red"></i> <span>写 6 条形成肌肉记忆</span></li>
+                            <li class="flex gap-2"><i class="ri-checkbox-circle-fill text-braun-red"></i> <span class="text-white">写 20 条建立系统的“成交直觉”</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 01: 绝对执行标准 (The Rules) -->
+        <section class="px-6 md:px-12 lg:px-24 py-16 bg-white border-y border-black/10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-3">
+                    <h2 class="text-xs font-bold tracking-widest uppercase text-gray-400">The Hard Constraints</h2>
+                    <p class="text-2xl font-black mt-2">三项硬性标准</p>
+                </div>
+                <div class="md:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="border-l-2 border-braun-red pl-4">
+                        <p class="font-bold text-braun-dark mb-1">01. 结果变迁</p>
+                        <p class="text-xs text-gray-500">必须显式呈现物理层面的前后对比/数据变化。</p>
+                    </div>
+                    <div class="border-l-2 border-braun-red pl-4">
+                        <p class="font-bold text-braun-dark mb-1">02. 动作解码</p>
+                        <p class="text-xs text-gray-500">必须拆解执行过程，至少包含 2-3 个极度具象的步骤。</p>
+                    </div>
+                    <div class="border-l-2 border-braun-red pl-4">
+                        <p class="font-bold text-braun-dark mb-1">03. 转化承接</p>
+                        <p class="text-xs text-gray-500">必须植入平滑的行动指令 (评论/私信/主页锚点)。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 02: 六大拓扑模板矩阵 (Grid System) -->
+        <section class="px-6 md:px-12 lg:px-24 py-32 bg-gray-50">
+            <div class="mb-16">
+                <span class="text-6xl font-black text-gray-200 block mb-4">01</span>
+                <h2 class="text-3xl font-bold tracking-tight uppercase">蓝图模块库 (Blueprint Library)</h2>
+                <p class="text-gray-500 mt-2">选择任一拓扑结构，立即执行图文与口播的双通道编译。</p>
+            </div>
+
+            <!-- 2栏/3栏网格，卡片式展示 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Template A -->
+                <article class="bg-white p-8 mech-card relative">
+                    <div class="flex justify-between items-start border-b border-black/10 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-braun-red uppercase mb-1">Template A</p>
+                            <h3 class="text-2xl font-black">绝对对比型 <span class="text-sm font-normal text-gray-400 ml-2">最强证明力</span></h3>
+                        </div>
+                        <i class="ri-scales-3-line text-2xl text-gray-300"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-600 space-y-2 font-mono">
+                                <li><span class="font-bold text-braun-dark">SCENE:</span> "你是不是也在 <span class="term-highlight">具体处境</span>？"</li>
+                                <li><span class="font-bold text-braun-dark">ROOT:</span> "卡住并非因为X，而是 <span class="term-highlight">核心谬误</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">ACT:</span> "我执行了: ①__ ②__ ③__ (具象动作)"</li>
+                                <li><span class="font-bold text-braun-dark text-braun-red">DELTA:</span> "改完后从 <span class="term-highlight">原状态</span> 跃升至 <span class="term-highlight">新结果</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">CHECK:</span> "请立即自查这一点: ___。"</li>
+                                <li><span class="font-bold text-braun-dark">CTA:</span> "需定制化拆解，私信【___】。"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 border border-gray-200">
+                            <p class="text-xs font-bold text-gray-500 uppercase mb-2">口播流 (60s Flow)</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">3s抛场景刺痛 ➔ 点破根源认知 ➔ 短句极速过三步动作 ➔ 结果对比定音 ➔ 给明确承接。</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Template B -->
+                <article class="bg-white p-8 mech-card relative">
+                    <div class="flex justify-between items-start border-b border-black/10 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-braun-red uppercase mb-1">Template B</p>
+                            <h3 class="text-2xl font-black">临床诊断型 <span class="text-sm font-normal text-gray-400 ml-2">深度信任建立</span></h3>
+                        </div>
+                        <i class="ri-stethoscope-line text-2xl text-gray-300"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-600 space-y-2 font-mono">
+                                <li><span class="font-bold text-braun-dark">SCENE:</span> "你目前正处于 <span class="term-highlight">精确阶段</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">SYMPTOM:</span> "典型症状为 <span class="term-highlight">具体高频行为</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">DIAGNOSIS:</span> "底层病灶在于 ___。"</li>
+                                <li><span class="font-bold text-braun-dark text-braun-red">RX:</span> "按序执行: ①__ ②__ ③__。"</li>
+                                <li><span class="font-bold text-braun-dark">WARN:</span> "切忌执行 <span class="term-highlight">典型误区</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">CTA:</span> "需深度诊断，私信【___】。"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 border border-gray-200">
+                            <p class="text-xs font-bold text-gray-500 uppercase mb-2">口播流 (60s Flow)</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">直接点明阶段 ➔ 1-2句描述致命症状 ➔ 一针见血抛病因 ➔ 给出处方动作 ➔ 扫除误区 ➔ 承接出口。</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Template C -->
+                <article class="bg-white p-8 mech-card relative">
+                    <div class="flex justify-between items-start border-b border-black/10 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-braun-red uppercase mb-1">Template C</p>
+                            <h3 class="text-2xl font-black">负向避坑型 <span class="text-sm font-normal text-gray-400 ml-2">高转化入口</span></h3>
+                        </div>
+                        <i class="ri-alert-line text-2xl text-gray-300"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-600 space-y-2 font-mono">
+                                <li><span class="font-bold text-braun-dark">HOOK:</span> "90%新手必死于这3个坑: ①__ ②__ ③__"</li>
+                                <li><span class="font-bold text-braun-dark">WHY:</span> (针对每坑) 剖析 <span class="term-highlight">底层错误逻辑</span>。</li>
+                                <li><span class="font-bold text-braun-dark text-braun-red">FIX:</span> (针对每坑) 给出 <span class="term-highlight">具象替代方案</span>。</li>
+                                <li><span class="font-bold text-braun-dark">ENGAGE:</span> "你目前正踩中哪一个？评论区见。"</li>
+                                <li><span class="font-bold text-braun-dark">CTA:</span> "获取完整避坑SOP，私信【清单】。"</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 border border-gray-200">
+                            <p class="text-xs font-bold text-gray-500 uppercase mb-2">避坑公理 (Rule)</p>
+                            <p class="text-xs text-gray-600 leading-relaxed italic">坑必须极度真实且微观（如"只写观点没过程"），严禁使用"不够努力"等宏大空泛词汇。</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Template D -->
+                <article class="bg-white p-8 mech-card relative bg-braun-dark text-white border-none">
+                    <div class="absolute top-0 right-0 bg-braun-red text-[10px] font-bold px-2 py-0.5 uppercase tracking-widest">Recommended for Video</div>
+                    <div class="flex justify-between items-start border-b border-white/20 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-1">Template D</p>
+                            <h3 class="text-2xl font-black">透明白盒型 <span class="text-sm font-normal text-gray-400 ml-2">最强能力展示</span></h3>
+                        </div>
+                        <i class="ri-slideshow-line text-2xl text-gray-500"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-300 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-400 space-y-2 font-mono">
+                                <li><span class="font-bold text-white">HOOK:</span> "解密我是如何将 <span class="term-highlight">起点</span> 推进至 <span class="term-highlight">终点</span>。"</li>
+                                <li><span class="font-bold text-white">STEP 1:</span> "执行核心动作 (摒弃抽象词汇)。"</li>
+                                <li><span class="font-bold text-white">STEP 2:</span> "植入判断逻辑与策略修正。"</li>
+                                <li><span class="font-bold text-white">STEP 3:</span> "执行关键越级动作。"</li>
+                                <li><span class="font-bold text-braun-red">DELTA:</span> "结果跃迁：从 ___ 到 ___。"</li>
+                                <li><span class="font-bold text-white">MICRO:</span> "立即执行最小阻力动作: ___。"</li>
+                                <li><span class="font-bold text-white">CTA:</span> "私信获取全套矩阵【___】。"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Template E -->
+                <article class="bg-white p-8 mech-card relative">
+                    <div class="flex justify-between items-start border-b border-black/10 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-braun-red uppercase mb-1">Template E</p>
+                            <h3 class="text-2xl font-black">真实推演型 <span class="text-sm font-normal text-gray-400 ml-2">案例复盘</span></h3>
+                        </div>
+                        <i class="ri-history-line text-2xl text-gray-300"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-600 space-y-2 font-mono">
+                                <li><span class="font-bold text-braun-dark">STORY:</span> "某客户遭遇 <span class="term-highlight">极致具体的崩溃场景</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">FLAW:</span> "系统诊断其致命卡点在于 ___。"</li>
+                                <li><span class="font-bold text-braun-dark text-braun-red">TWEAK:</span> "仅施加两次微调: ①__ ②__。"</li>
+                                <li><span class="font-bold text-braun-dark">RESULT:</span> "链路打通，产生 <span class="term-highlight">清晰可见的转化</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">LAW:</span> "提炼底层公理: 遇此问题，先做___。"</li>
+                                <li><span class="font-bold text-braun-dark">CTA:</span> "同频受阻者，私信【复盘】。"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Template F -->
+                <article class="bg-white p-8 mech-card relative">
+                    <div class="flex justify-between items-start border-b border-black/10 pb-4 mb-6">
+                        <div>
+                            <p class="text-xs font-bold tracking-widest text-braun-red uppercase mb-1">Template F</p>
+                            <h3 class="text-2xl font-black">认知爆破型 <span class="text-sm font-normal text-gray-400 ml-2">强冲突引流</span></h3>
+                        </div>
+                        <i class="ri-flashlight-line text-2xl text-gray-300"></i>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm font-bold text-gray-800 mb-2 border-l-2 border-braun-red pl-2">图文架构 (Text Arch)</p>
+                            <ul class="text-sm text-gray-600 space-y-2 font-mono">
+                                <li><span class="font-bold text-braun-dark">ILLUSION:</span> "大众普遍陷入的谬误: <span class="term-highlight">错误常识</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">REALITY:</span> "纠偏真相: ___ (直接冷酷)。"</li>
+                                <li><span class="font-bold text-braun-dark">LOGIC:</span> "底层机制的单句解释。"</li>
+                                <li><span class="font-bold text-braun-dark">SOP:</span> "正确执行路径: ①__ ②__ ③__。"</li>
+                                <li><span class="font-bold text-braun-dark text-braun-red">DELTA:</span> "执行后必将导致 <span class="term-highlight">确定的新结果</span>。"</li>
+                                <li><span class="font-bold text-braun-dark">CTA:</span> "获取纠偏手册，私信【___】。"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CLOSING / OUTPUT REQUIREMENT -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 text-center bg-white">
+            <h3 class="text-2xl md:text-3xl font-black tracking-tight mb-8">执行协议：双态输出</h3>
+            
+            <div class="max-w-2xl mx-auto border-2 border-black p-8 relative">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 font-bold text-sm tracking-widest uppercase">Required Output</div>
+                <p class="text-gray-600 mb-6 font-medium">任选上述一类拓扑结构，强制输出以下两组资产：</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-8 font-mono">
+                    <div class="flex items-center gap-2">
+                        <i class="ri-article-line text-2xl text-braun-red"></i>
+                        <span class="text-lg font-bold">1x 完整图文稿</span>
+                    </div>
+                    <div class="hidden sm:block w-px bg-gray-300"></div>
+                    <div class="flex items-center gap-2">
+                        <i class="ri-mic-line text-2xl text-braun-red"></i>
+                        <span class="text-lg font-bold">1x 60s 口播流</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mt-8 text-sm text-gray-400 font-mono">
+                "框架并非先验的天赋，而是通过高密度敲击键盘长出的数字骨骼。"
+            </p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-black/10 bg-white">
+        <div class="max-w-[1600px] mx-auto px-6 flex flex-col items-center justify-center gap-6">
+            <div class="text-center text-xs font-mono uppercase tracking-widest text-gray-400">
+                <p>System Architecture // Toolset Expansion</p>
+                <p class="mt-2 text-gray-300">End of Module 04 Supplement</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

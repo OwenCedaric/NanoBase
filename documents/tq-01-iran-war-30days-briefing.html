@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 IRAN WAR BRIEFING | 30-Day Escalation</title>
+    
+    <!-- Fonts: Inter for functional UI, Space Mono for data/terminal feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind Config for precise Braun/Swiss styling -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'sans-serif'],
+                        mono: ['Space Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            black: '#111111',
+                            gray: '#EBEBEB',
+                            darkgray: '#4A4A4A'
+                        },
+                        paper: '#F4F4F0'
+                    },
+                    spacing: {
+                        'vw-1': '1vw',
+                        'vw-5': '5vw',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Typography core rules */
+        body {
+            background-color: #F4F4F0;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        ::selection {
+            background-color: #FF3300;
+            color: #FFFFFF;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F4F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+        }
+
+        /* Swiss Grid Borders */
+        .grid-border-t { border-top: 1px solid rgba(17, 17, 17, 0.15); }
+        .grid-border-b { border-bottom: 1px solid rgba(17, 17, 17, 0.15); }
+        
+        /* Image Processing for Editorial Look */
+        .editorial-img {
+            filter: grayscale(100%) contrast(1.2) brightness(0.9);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="font-sans leading-relaxed text-braun-black overflow-x-hidden">
+
+    <!-- TOP NAVIGATION / METADATA -->
+    <nav class="fixed top-0 w-full p-4 md:p-6 flex justify-between items-start z-50 mix-blend-difference text-white pointer-events-none font-mono text-xs md:text-sm uppercase tracking-widest">
+        <div>
+            <p>FILE: TQ-01 / IRAN</p>
+            <p>STATUS: DECLASSIFIED</p>
+        </div>
+        <div class="text-right">
+            <p>UPDATED: 2026.03.29</p>
+            <p>DURATION: 30 DAYS</p>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION: THE SPARK -->
+    <header class="relative min-h-screen flex flex-col justify-end pb-24 px-4 md:px-12 max-w-[1600px] mx-auto pt-32">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+            <!-- Left offset for tension -->
+            <div class="col-span-1 md:col-span-2 hidden md:block">
+                <div class="w-4 h-4 rounded-full bg-braun-red mb-4"></div>
+                <div class="w-[1px] h-32 bg-braun-black"></div>
+            </div>
+            
+            <div class="col-span-1 md:col-span-10">
+                <p class="font-mono text-braun-red text-sm md:text-base tracking-widest mb-4">
+                    [ TACTICAL BRIEFING // GLOBAL ESCALATION ]
+                </p>
+                <h1 class="text-[15vw] md:text-[11vw] leading-[0.85] font-extrabold tracking-tighter uppercase mb-6">
+                    The Iran<br>War <span class="text-braun-red">2026</span>
+                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 grid-border-t pt-8">
+                    <p class="text-xl md:text-2xl font-light leading-snug">
+                        战争进入第30天。美以联军目标直指“政权更迭”，全球20%的石油运输通道被切断。极限施压与矛盾拉扯之下，一场旨在扑灭“危险之火”的局部军事行动，正迅速演变为重塑全球秩序的焦土之战。
+                    </p>
+                    <div class="font-mono text-sm md:text-base text-braun-darkgray flex flex-col justify-end">
+                        <p>FROM: DAY 04 (MARCH 03)</p>
+                        <p>TO: DAY 30 (MARCH 29)</p>
+                        <p class="mt-4 text-braun-black font-bold">» SCROLL TO DECLASSIFY</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 01: STATE OF CONFLICT -->
+    <section class="py-24 md:py-40 px-4 md:px-12 max-w-[1600px] mx-auto grid-border-t">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
+            
+            <!-- Section Anchor -->
+            <div class="col-span-1 md:col-span-3 flex flex-col">
+                <h2 class="text-[12vw] md:text-[6vw] font-bold leading-none tracking-tighter">01</h2>
+                <h3 class="font-mono uppercase tracking-widest text-sm mt-2 text-braun-darkgray">Strategic Overview</h3>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-span-1 md:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-12 pt-4">
+                <div class="text-lg md:text-xl leading-[1.7]">
+                    <p class="mb-6"><strong class="font-bold">无条件投降的极限施压。</strong> 以色列和美国对伊朗境内安全、国防工业、核设施及指挥中心发动了长达一个月的饱和式空中打击。美方声称已摧毁超5000个目标，致使伊朗导弹发射能力锐减98%。</p>
+                    <p class="mb-6">特朗普政府的立场残酷而清晰：“不会有谈判，除非伊朗无条件投降。”五角大楼正积极筹备由海军陆战队（3500人两栖攻击舰群已抵达）对霍尔木兹海峡沿岸及关键岛屿发动的地面突袭。</p>
+                </div>
+                <div class="text-lg md:text-xl leading-[1.7]">
+                    <p class="mb-6"><strong class="font-bold">鱼死网破的非对称反击。</strong> 面临政权生死存亡，伊朗采取了最高烈度的抵抗。全面封锁霍尔木兹海峡，并向以色列特拉维夫、阿拉伯湾美国油轮及海湾多国（阿联酋、科威特、沙特等）的军事基地与工业设施发射弹道导弹与无人机。</p>
+                    <p class="text-braun-red font-bold">“只要美军敢踏上伊朗土地，就会将他们点燃。”</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02: THE HUMAN COST (DATA GRID) -->
+    <section class="py-24 md:py-32 bg-braun-black text-paper px-4 md:px-12">
+        <div class="max-w-[1600px] mx-auto">
+            <div class="flex items-center justify-between mb-16 grid-border-b pb-8 border-white/20">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight">THE HUMAN COST</h2>
+                <i class="ri-skull-2-line text-4xl text-braun-red"></i>
+            </div>
+            
+            <!-- Statistical Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 font-mono">
+                <!-- IRAN -->
+                <div class="flex flex-col border-l border-white/20 pl-6">
+                    <p class="text-sm tracking-widest mb-8 text-braun-red">TARGET: IRAN (CUMULATIVE)</p>
+                    <h4 class="text-5xl md:text-7xl font-light tracking-tighter mb-4">3,400<span class="text-2xl">+</span></h4>
+                    <p class="text-sm uppercase tracking-wider text-gray-400 mb-6 border-b border-white/10 pb-4">Estimated Fatalities</p>
+                    <ul class="text-sm space-y-3">
+                        <li class="flex justify-between"><span>Civilians (Inc. 200+ Children)</span> <span>~1,500</span></li>
+                        <li class="flex justify-between"><span>Military KIA (US/ISR Est.)</span> <span>6,000+</span></li>
+                        <li class="flex justify-between text-braun-red"><span>Total Wounded</span> <span>20,000+</span></li>
+                        <li class="mt-4 pt-4 border-t border-white/10 text-xs text-gray-500">190+ Cities Hit. 90+ Naval Vessels Sunk. Internet at 1%.</li>
+                    </ul>
+                </div>
+
+                <!-- US & ISRAEL -->
+                <div class="flex flex-col border-l border-white/20 pl-6">
+                    <p class="text-sm tracking-widest mb-8 text-gray-400">COALITION: US & ISR</p>
+                    <h4 class="text-5xl md:text-7xl font-light tracking-tighter mb-4">32<span class="text-2xl">+</span></h4>
+                    <p class="text-sm uppercase tracking-wider text-gray-400 mb-6 border-b border-white/10 pb-4">Estimated Fatalities</p>
+                    <ul class="text-sm space-y-3">
+                        <li class="flex justify-between"><span>US Servicemen KIA</span> <span>13</span></li>
+                        <li class="flex justify-between"><span>US Wounded</span> <span>300+</span></li>
+                        <li class="flex justify-between"><span>ISR Fatalities (Civ & Mil)</span> <span>19+</span></li>
+                        <li class="mt-4 pt-4 border-t border-white/10 text-xs text-gray-500">17+ ME Bases Damaged. ISR: 3730+ Wounded.</li>
+                    </ul>
+                </div>
+
+                <!-- REGIONAL COLLATERAL -->
+                <div class="flex flex-col border-l border-white/20 pl-6">
+                    <p class="text-sm tracking-widest mb-8 text-gray-400">REGIONAL COLLATERAL</p>
+                    <h4 class="text-5xl md:text-7xl font-light tracking-tighter mb-4">1,200<span class="text-2xl">+</span></h4>
+                    <p class="text-sm uppercase tracking-wider text-gray-400 mb-6 border-b border-white/10 pb-4">Estimated Fatalities</p>
+                    <ul class="text-sm space-y-3">
+                        <li class="flex justify-between"><span>Lebanon (Hezbollah & Civ)</span> <span>~1,180</span></li>
+                        <li class="flex justify-between"><span>Gulf Nations (UAE, KWT, etc.)</span> <span>26+</span></li>
+                        <li class="flex justify-between text-braun-red"><span>Displaced Persons</span> <span>4,000,000</span></li>
+                        <li class="mt-4 pt-4 border-t border-white/10 text-xs text-gray-500">Yemen Houthis joined. Gulf airspace restricted.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 03: GLOBAL SHOCKWAVE (MARKETS) -->
+    <section class="py-24 md:py-40 px-4 md:px-12 max-w-[1600px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            
+            <div class="col-span-1 md:col-span-4">
+                <div class="sticky top-24">
+                    <h2 class="text-[10vw] md:text-[5vw] font-bold leading-[0.9] tracking-tighter mb-6">GLOBAL<br>MARKETS</h2>
+                    <p class="text-lg text-braun-darkgray mb-8">
+                        霍尔木兹海峡承载全球约20%原油运量。随着海峡物理封锁及海湾国家铝厂、油田遇袭，全球大宗商品市场再现极端波动，供应链危机彻底引爆通胀预期。
+                    </p>
+                    <div class="w-full h-[1px] bg-braun-black mb-4"></div>
+                    <p class="font-mono text-sm">DATA RECORDED: MARCH 29, 2026</p>
+                </div>
+            </div>
+
+            <!-- Ticker Layout -->
+            <div class="col-span-1 md:col-span-8 font-mono">
+                <!-- ENERGY -->
+                <div class="mb-16">
+                    <h3 class="text-xl font-sans font-bold mb-6 flex items-center">
+                        <i class="ri-gas-station-fill mr-3 text-braun-red"></i> ENERGY (CRISIS LEVEL)
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm border-y border-black py-4">
+                        <div class="col-span-2 md:col-span-1 text-gray-500 uppercase">Commodity</div>
+                        <div class="hidden md:block text-gray-500 uppercase">Price</div>
+                        <div class="hidden md:block text-gray-500 uppercase">30-Day Δ</div>
+                        <div class="hidden md:block text-gray-500 uppercase">Status</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-black/10 items-center hover:bg-black/5 transition-colors">
+                        <div class="font-bold">BRENT CRUDE</div>
+                        <div class="text-xl">$115.16 / bbl</div>
+                        <div class="text-braun-red flex items-center"><i class="ri-arrow-up-line"></i> 51.0%</div>
+                        <div class="text-xs">Record monthly gain since 1990</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-black/10 items-center hover:bg-black/5 transition-colors">
+                        <div class="font-bold">WTI CRUDE</div>
+                        <div class="text-xl">$98.88 / bbl</div>
+                        <div class="text-braun-red flex items-center"><i class="ri-arrow-up-line"></i> 40.0%+</div>
+                        <div class="text-xs">10M bbl/day shortage</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-black/10 items-center hover:bg-black/5 transition-colors">
+                        <div class="font-bold">US GASOLINE</div>
+                        <div class="text-xl">$3.60+ / gal</div>
+                        <div class="text-braun-red flex items-center"><i class="ri-arrow-up-line"></i> 18.0%</div>
+                        <div class="text-xs">Retail inflation spike</div>
+                    </div>
+                </div>
+
+                <!-- METALS & CURRENCY -->
+                <div>
+                    <h3 class="text-xl font-sans font-bold mb-6 flex items-center">
+                        <i class="ri-safe-2-fill mr-3 text-braun-black"></i> METALS & FX
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm border-y border-black py-4">
+                        <div class="col-span-2 md:col-span-1 text-gray-500 uppercase">Asset</div>
+                        <div class="hidden md:block text-gray-500 uppercase">Price</div>
+                        <div class="hidden md:block text-gray-500 uppercase">30-Day Δ</div>
+                        <div class="hidden md:block text-gray-500 uppercase">Note</div>
+                    </div>
+
+                    <!-- The Gold Paradox -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-b border-black/10 items-start bg-white/50 relative">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-braun-red"></div>
+                        <div class="font-bold pl-4">GOLD (SPOT)</div>
+                        <div class="text-xl">$4,489.00 / oz</div>
+                        <div class="text-blue-600 flex items-center"><i class="ri-arrow-down-line"></i> 15.0%</div>
+                        <div class="text-xs text-braun-darkgray font-sans leading-relaxed">
+                            <strong class="text-black">LIQUIDITY SQUEEZE:</strong> 出乎市场意料，黄金未发挥避险属性，反而创下2008年以来最差单月表现。由于股市暴跌，机构面临严重流动性挤兑 (Margin Calls)，被迫抛售黄金补充保证金，加之美元走强，金价暴跌。
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-black/10 items-center hover:bg-black/5 transition-colors">
+                        <div class="font-bold pl-4">ALUMINUM</div>
+                        <div class="text-xl">$3,544 / ton</div>
+                        <div class="text-braun-red flex items-center"><i class="ri-arrow-up-line"></i> 11.5%</div>
+                        <div class="text-xs">Gulf smelters attacked</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-black/10 items-center hover:bg-black/5 transition-colors">
+                        <div class="font-bold pl-4">USD INDEX (DXY)</div>
+                        <div class="text-xl">100.0+</div>
+                        <div class="text-braun-red flex items-center"><i class="ri-arrow-up-line"></i> Surge</div>
+                        <div class="text-xs">Ultimate safe haven</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04: THE RHETORIC (EDITORIAL QUOTES) -->
+    <section class="py-24 md:py-40 bg-braun-red text-paper px-4 md:px-12 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+            <h2 class="text-[30vw] font-bold tracking-tighter leading-none text-black mix-blend-overlay">DOGMA</h2>
+        </div>
+        
+        <div class="max-w-[1400px] mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-20">
+            <!-- US Rhetoric -->
+            <div class="flex flex-col justify-center">
+                <i class="ri-double-quotes-l text-6xl text-braun-black mb-6"></i>
+                <h3 class="text-3xl md:text-5xl font-bold leading-tight mb-8">
+                    "不会有谈判，除非伊朗无条件投降。"
+                </h3>
+                <div class="font-mono text-sm uppercase tracking-widest border-t border-black/30 pt-4">
+                    <p class="font-bold text-braun-black">THE WHITE HOUSE / D.C.</p>
+                    <p class="mt-2 text-white/80">
+                        美方下达48小时最后通牒：必须无威胁重开霍尔木兹海峡，否则将“从最大发电厂开始，彻底摧毁伊朗所有电站”。白宫新闻秘书警告：若不停止威胁，美方已准备好对其“释放地狱”。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Iran Rhetoric -->
+            <div class="flex flex-col justify-center md:pt-32">
+                <i class="ri-double-quotes-l text-6xl text-braun-black mb-6"></i>
+                <h3 class="text-3xl md:text-5xl font-bold leading-tight mb-8">
+                    "只要美军敢踏上伊朗土地，就会将他们点燃。"
+                </h3>
+                <div class="font-mono text-sm uppercase tracking-widest border-t border-black/30 pt-4">
+                    <p class="font-bold text-braun-black">IRGC & PARLIAMENT / TEHRAN</p>
+                    <p class="mt-2 text-white/80">
+                        伊朗拒绝美方停火条件，强硬反提包含承认“霍尔木兹海峡主权”的5点建议。若美以打击民用设施，将视中东所有美国大学分支为合法打击目标。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-4 md:px-12 border-t border-black/20 text-center font-mono text-xs text-braun-darkgray">
+        <p>END OF FILE // TQ-01</p>
+        <p class="mt-2 tracking-widest uppercase">Global geopolitical modeling based on aggregated media reports up to March 29, 2026.</p>
+        <div class="w-12 h-[1px] bg-braun-red mx-auto mt-6"></div>
+    </footer>
+
+</body>
+</html>

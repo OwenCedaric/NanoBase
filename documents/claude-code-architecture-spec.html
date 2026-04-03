@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLAUDE CODE: System Prompt Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --braun-red: #FF3300;
+            --ink-black: #111111;
+            --paper-white: #F9F9F9;
+            --archival-grey: #888888;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--paper-white);
+            color: var(--ink-black);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        ::selection {
+            background-color: var(--braun-red);
+            color: white;
+        }
+
+        /* 极致的瑞士网格排版基础 */
+        .grid-guide {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 8.333% 100%;
+        }
+
+        .clip-text-huge {
+            font-size: clamp(4rem, 15vw, 16rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+        
+        /* 工业风细线 */
+        .hairline-top { border-top: 1px solid rgba(17, 17, 17, 0.15); }
+        .hairline-bottom { border-bottom: 1px solid rgba(17, 17, 17, 0.15); }
+        
+        /* 图像去色处理，匹配严谨感 */
+        .editorial-image {
+            filter: grayscale(100%) contrast(1.2);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen overflow-x-hidden selection:bg-[#FF3300] selection:text-white">
+
+    <!-- 顶部功能性导航 (Function Navigation) -->
+    <nav class="fixed top-0 left-0 w-full px-6 py-4 flex justify-between items-center z-50 mix-blend-difference text-white">
+        <div class="font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF3300] inline-block animate-pulse"></span>
+            SYS.PROMPT_ARCHIVE // V.2026.03.31
+        </div>
+        <div class="font-mono text-xs">REF: 57_FILES / 324_FRAGMENTS</div>
+    </nav>
+
+    <!-- 主容器，限制最大宽度以保持阅读视距 -->
+    <main class="max-w-[1800px] mx-auto">
+
+        <!-- 首屏 (Hero Section / Cover) -->
+        <section class="min-h-[90vh] flex flex-col justify-end px-6 md:px-12 pb-24 pt-32 relative">
+            <div class="absolute top-1/4 left-12 text-gray-200 font-sans font-black clip-text-huge select-none -z-10">
+                AUTO<br>NOMOUS
+            </div>
+            
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-end">
+                <!-- 左侧：元数据 -->
+                <div class="xl:col-span-4 font-mono text-sm text-gray-500 space-y-4 hairline-top pt-6">
+                    <div>
+                        <span class="block text-black mb-1">SOURCE DIR</span>
+                        <span class="text-xs break-all">/Users/nixy/Downloads/claude-code</span>
+                    </div>
+                    <div>
+                        <span class="block text-black mb-1">TRANSLATION TARGET</span>
+                        <span class="text-xs break-all">cc-prompt-text-only-zh-CN.md</span>
+                    </div>
+                    <div class="pt-8">
+                        <i class="ri-arrow-down-line text-2xl text-black"></i>
+                    </div>
+                </div>
+
+                <!-- 右侧：核心标题 -->
+                <div class="xl:col-span-8">
+                    <h1 class="font-sans font-black text-6xl md:text-8xl lg:text-9xl tracking-tighter leading-none mb-6">
+                        CLAUDE CODE
+                    </h1>
+                    <h2 class="font-sans font-light text-2xl md:text-4xl lg:text-5xl text-gray-600 tracking-tight max-w-4xl">
+                        官方命令行工具提示词架构精简版（中文翻译文档集）。探讨未来编程中，自主智能体协作的底层行为准则。
+                    </h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第 I 乐章：行为准则 (The Core Directives) - 重度负荷区 -->
+        <section class="px-6 md:px-12 py-24 md:py-40 bg-[#111111] text-[#F9F9F9]">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+                
+                <div class="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-[#FF3300] mb-4">I. Core Directives</h3>
+                    <h2 class="text-4xl md:text-6xl font-bold tracking-tight">核心公理<br>&amp; 行为约束</h2>
+                    <p class="mt-6 text-gray-400 font-mono text-sm">SRC/CONSTANTS/PROMPTS.TS</p>
+                </div>
+
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                    
+                    <!-- 原则 1 -->
+                    <article class="space-y-4 border-t border-gray-800 pt-6">
+                        <span class="font-mono text-[#FF3300] text-xl">01</span>
+                        <h4 class="text-2xl font-bold tracking-tight">极简与功能主义</h4>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light">
+                            不要为不可能发生的场景添加错误处理、回退逻辑或校验。应信任内部代码和框架本身的保证。只要可以直接修改代码，就不要使用功能开关或向后兼容垫片。
+                        </p>
+                        <p class="text-sm text-gray-500 font-mono mt-4">>> 片段 12</p>
+                    </article>
+
+                    <!-- 原则 2 -->
+                    <article class="space-y-4 border-t border-gray-800 pt-6">
+                        <span class="font-mono text-[#FF3300] text-xl">02</span>
+                        <h4 class="text-2xl font-bold tracking-tight">拒绝过度设计</h4>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light">
+                            不要为一次性操作创建 helper 或抽象层。不要为了假想中的未来需求做设计。合适的复杂度应当正好满足当前任务，三行相似代码也好过一个过早出现的抽象。
+                        </p>
+                        <p class="text-sm text-gray-500 font-mono mt-4">>> 片段 13</p>
+                    </article>
+
+                    <!-- 原则 3 -->
+                    <article class="space-y-4 border-t border-gray-800 pt-6">
+                        <span class="font-mono text-[#FF3300] text-xl">03</span>
+                        <h4 class="text-2xl font-bold tracking-tight">清晰的沟通效率</h4>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light">
+                            直接切入重点。先尝试最简单的方法，不要兜圈子。将文本输出聚焦于：需要用户输入的决策、自然里程碑上的高层状态更新。如果一句话能说清，就不要写三句。
+                        </p>
+                        <p class="text-sm text-gray-500 font-mono mt-4">>> 片段 54</p>
+                    </article>
+
+                    <!-- 原则 4 -->
+                    <article class="space-y-4 border-t border-gray-800 pt-6">
+                        <span class="font-mono text-[#FF3300] text-xl">04</span>
+                        <h4 class="text-2xl font-bold tracking-tight">行动偏好与验证</h4>
+                        <p class="text-lg text-gray-300 leading-relaxed font-light">
+                            在报告任务完成之前，先验证它确实可用：运行测试、执行脚本、检查输出。如果你无法验证，要明确说明，而不是直接宣称成功。目标是准确汇报，而不是防御式汇报。
+                        </p>
+                        <p class="text-sm text-gray-500 font-mono mt-4">>> 片段 17 / 29</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 第 II 乐章：记忆架构 (Memory Architecture) - 视觉冲击 / 雷霆一击 -->
+        <section class="px-6 md:px-12 py-32 bg-[#FF3300] text-white">
+            <div class="max-w-6xl mx-auto text-center">
+                <h3 class="font-mono text-sm uppercase tracking-widest text-black mb-8 opacity-80 border-b border-black/20 pb-4 inline-block">II. Memory Dir</h3>
+                <h2 class="text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-12">
+                    记忆基于 <span class="text-black italic">主题语义</span> 组织，<br>而不是按时间顺序。
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left font-mono mt-24">
+                    <div class="border-t border-black/30 pt-4">
+                        <div class="text-2xl font-bold mb-2">.private/</div>
+                        <p class="text-sm opacity-90">仅在你和当前用户之间共享的私有记忆。存放在 `~/.claude/memory` 目录下。</p>
+                    </div>
+                    <div class="border-t border-black/30 pt-4">
+                        <div class="text-2xl font-bold mb-2">.team/</div>
+                        <p class="text-sm opacity-90">在当前项目目录内工作的所有用户之间共享。存放在 `.claude/memory` 下。</p>
+                    </div>
+                    <div class="border-t border-black/30 pt-4">
+                        <div class="text-2xl font-bold mb-2">MEMORY.md</div>
+                        <p class="text-sm opacity-90">记忆索引系统。每条索引仅限一行，不超过150字符。指向具体的 Markdown 事实文件。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第 III 乐章：工具矩阵 (The Tools Arsenal) - 功能主义网格 -->
+        <section class="px-6 md:px-12 py-24 md:py-40">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-24">
+                <div class="xl:col-span-12">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-[#FF3300] mb-4">III. Tool Arsenal</h3>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">操作边界与执行原语</h2>
+                </div>
+            </div>
+
+            <!-- 工具网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 hairline-top pt-8">
+                
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-terminal-box-line text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">BashTool</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        执行 Shell 命令。对于 Git 提交，优先使用 `/commit` 技能；对于破坏性命令 (reset --hard) 须三思。长时运行任务使用 `run_in_background` 参数而不是 sleep。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/tools/BashTool/prompt.ts
+                    </div>
+                </article>
+
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-file-edit-line text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">FileEditTool</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        精确字符串替换工具。必须先通过 Read 获得内容与行号前缀。编辑时必须保留原始缩进格式，并使用足够独特的 `old_string` 锚点 (通常2-4行相邻代码)。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/tools/FileEditTool/prompt.ts
+                    </div>
+                </article>
+
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-route-line text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">EnterPlanModeTool</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        在面对重大架构重构、不清晰的需求或多文件深远更改时，必须主动使用此工具进入计划模式，与用户探索代码库并取得设计共识，避免无效劳动。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/tools/EnterPlanModeTool/prompt.ts
+                    </div>
+                </article>
+
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-git-repository-line text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">EnterWorktreeTool</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        创建隔离的 Git Worktree 并在其中执行任务。仅当用户明确要求使用 "worktree" 时才调用。适合进行安全且不影响主分支当前状态的独立探索工作。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/tools/EnterWorktreeTool/prompt.ts
+                    </div>
+                </article>
+
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-list-check-3 text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">TodoWriteTool</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        管理结构化任务列表。复杂的多步任务需拆解，记录于待办列表中。任务状态流转：`pending` -> `in_progress` -> `completed`。严格控制仅有一个任务在进行中。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/tools/TodoWriteTool/prompt.ts
+                    </div>
+                </article>
+
+                <!-- Tool Item -->
+                <article>
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="ri-chrome-line text-2xl text-[#FF3300]"></i>
+                        <h4 class="font-mono font-bold text-lg">Claude in Chrome</h4>
+                    </div>
+                    <p class="text-gray-600 mb-4 h-24 overflow-hidden text-ellipsis leading-relaxed">
+                        浏览器自动化（MCP 扩展）。执行复杂网页交互，通过 `read_console_messages` 调试。绝不能触发阻塞式的 Alert 弹窗，防止终端失去响应。
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 p-3 rounded text-gray-800 break-all">
+                        src/utils/claudeInChrome/prompt.ts
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 第 IV 乐章：智能体协作 (Agent Swarm) -->
+        <section class="pl-0 lg:pl-12 py-24 mb-24 relative overflow-hidden bg-gray-100">
+            <!-- 巨大背景水印 -->
+            <div class="absolute -right-20 -top-10 text-[20vw] font-bold text-gray-200 leading-none select-none opacity-50 font-mono">
+                SWARM
+            </div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 px-6">
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <h3 class="font-mono text-xs uppercase tracking-widest text-[#FF3300] mb-4">IV. Agent Swarm</h3>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-8">并行编排与<br>队友通信</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed font-light mb-6">
+                        当任务足够复杂（例如全栈功能开发、需研究与实现并行的项目）时，可使用 <code class="bg-white px-2 py-1 rounded shadow-sm text-sm">TeamCreateTool</code> 创建智能体团队。
+                    </p>
+                    <ul class="space-y-4 font-mono text-sm text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <i class="ri-check-line text-[#FF3300] mt-0.5"></i>
+                            <span><b>Read-only agents</b> (Explore, Plan): 只能研究和规划，无法修改文件。</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ri-check-line text-[#FF3300] mt-0.5"></i>
+                            <span><b>Full-capability agents</b>: 处理实际的代码修改任务。</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ri-check-line text-[#FF3300] mt-0.5"></i>
+                            <span><b>SendMessageTool</b>: 团队间通信的唯一途径，必须通过点名 (Name) 发送信息，不可仅在正文中回复。</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 代码视觉呈现 -->
+                <div class="lg:col-span-7 bg-[#111111] p-8 md:p-12 text-gray-300 font-mono text-sm shadow-2xl rounded-l-2xl overflow-x-auto">
+<pre class="leading-relaxed">
+<span class="text-gray-500"># 发起一个 Fork 任务的指令范式</span>
+<span class="text-[#FF3300]">assistant:</span> &lt;thinking&gt;
+这个要 fork 出去，因为它是一个盘点类问题。
+我想要的是待办清单，不是把 git 输出塞进我的上下文。
+&lt;/thinking&gt;
+
+<span class="text-blue-400">AgentTool</span>({
+  name: <span class="text-green-400">"ship-audit"</span>,
+  description: <span class="text-green-400">"Branch ship-readiness audit"</span>,
+  prompt: <span class="text-green-400">"Audit what's left before this branch can ship. 
+           Check: uncommitted changes, commits ahead of main... 
+           Report a punch list. Under 200 words."</span>
+})
+
+<span class="text-[#FF3300]">assistant:</span> 正在进行发版就绪审计。
+<span class="text-gray-500">&lt;commentary&gt; 此时处于等待状态，不编造结果。&lt;/commentary&gt;</span>
+</pre>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 (Footer) -->
+    <footer class="bg-black text-white px-6 md:px-12 py-16 md:py-24 border-t border-gray-800">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-end font-mono text-sm">
+            <div>
+                <p class="text-gray-500 mb-2">END OF SYSTEM ARCHITECTURE SPECIFICATION</p>
+                <p class="opacity-80">This document is auto-generated to visualize the structural prompt engineering of Claude Code CLI.</p>
+            </div>
+            <div class="md:text-right">
+                <p class="text-[#FF3300] mb-2 font-bold">/// FUNCTIONALISM OVER DECORATION</p>
+                <p class="opacity-50 text-xs">DESIGNED BY AI IN THE STYLE OF SWISS/BRAUN EDITORIAL</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

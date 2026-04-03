@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Language OS | AI-Driven Immersion Protocol</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            gray: '#F4F4F4',
+                            dark: '#1A1A1A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 绝对可读性与呼吸感定制 */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #FAFAFA;
+            color: #1A1A1A;
+        }
+        ::selection {
+            background-color: #FF3300;
+            color: #FFFFFF;
+        }
+        /* 消除滚动条干扰，保持纯净画板 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E5E5E5;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF3300;
+        }
+        /* 编辑感图片滤镜 */
+        .editorial-img {
+            filter: grayscale(100%) contrast(110%);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="font-sans leading-relaxed text-braun-dark selection:bg-braun-red selection:text-white">
+
+    <!-- Header / Nav -->
+    <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference text-white p-6 md:px-12 xl:px-24 flex justify-between items-center pointer-events-none">
+        <div class="text-sm font-mono tracking-widest font-bold">VOL.01 / PROTOCOL</div>
+        <div class="w-3 h-3 bg-braun-red rounded-full"></div>
+    </header>
+
+    <main class="max-w-[1800px] mx-auto">
+
+        <!-- HERO SECTION: 雷霆一击 -->
+        <section class="min-h-screen flex flex-col justify-center px-6 md:px-12 xl:px-24 py-32">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-end">
+                <div class="xl:col-span-3 space-y-6 hidden xl:block">
+                    <p class="font-mono text-sm text-gray-400">INPUT > EXTRACTION > RETENTION</p>
+                    <div class="w-full h-px bg-gray-300"></div>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        基于 7 亿次真实复习数据训练的算法，融合双重 AI 模型，重构语言获取路径。
+                    </p>
+                </div>
+                <div class="xl:col-span-9">
+                    <h1 class="text-[12vw] xl:text-[8vw] font-black tracking-tighter leading-[0.85] uppercase mb-8">
+                        Beyond<br>
+                        <span class="text-gray-300">Textbooks.</span>
+                    </h1>
+                    <p class="text-2xl md:text-4xl font-light tracking-tight text-gray-800 leading-snug max-w-4xl">
+                        从单集剧中提取 504 张卡片。<br>
+                        零教材 + 两个 AI。<br>以及一个基于 7 亿次复习数据训练的算法。<br><span class="text-braun-red font-bold">这就是"语言学习"的终极解法。</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION I: 认知重构 (轻度/中度负荷) -->
+        <section class="px-6 md:px-12 xl:px-24 py-24 md:py-40 bg-white border-t border-gray-200">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-16">
+                <!-- 留白与导航 -->
+                <div class="xl:col-span-4 flex flex-col justify-between">
+                    <h2 class="text-6xl font-black text-gray-100 tracking-tighter mb-4">I.</h2>
+                    <h3 class="text-2xl font-bold tracking-tight">遗忘你对语言学习的<br>所有固有认知</h3>
+                </div>
+                
+                <!-- 核心内容区 -->
+                <div class="xl:col-span-6 space-y-12 text-lg md:text-xl text-gray-600 leading-[1.8]">
+                    <p>
+                        大多数人认为学习语言是关于 App 的。下载 Duolingo，每天打卡 15 分钟，维持连胜记录。
+                        <strong class="block text-2xl text-braun-dark mt-4 font-normal">但语言学习的本质，在于输入 (Input)。</strong>
+                    </p>
+                    <p>
+                        你所需要的，是<span class="text-braun-dark font-medium border-b border-braun-red">上下文语境、精准间隔的重复，以及情感锚定 (Emotional Anchoring)</span>——当你在一个真正重要的场景中，听到一个真实的人说出一个词时，这种锚定就会发生。
+                    </p>
+                    <div class="p-8 bg-braun-gray border-l-4 border-braun-red">
+                        <p class="text-base text-gray-800 italic">
+                            “Duolingo 在卡通界面里教了你 47 次 'the cat is on the table'。你感到自己很高效，但你实际上没学到任何有用的东西。你绝对听不懂法庭上两个人在争吵什么。”
+                        </p>
+                    </div>
+                    <p>
+                        所有语言 App 的问题如出一辙：真空中的词汇。没有背景，没有情感，没有赌注。你的大脑将它们标记为“无关紧要”，然后彻底删除。这不是观点，这是生物学本能。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION II: 数据锚点 (雷霆一击 - 视觉冲击) -->
+        <section class="px-6 md:px-12 xl:px-24 py-32 bg-braun-dark text-white">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-16 items-center">
+                <div class="xl:col-span-5">
+                    <h2 class="text-6xl md:text-8xl font-black tracking-tighter text-braun-red">90%</h2>
+                    <h3 class="text-3xl font-light mt-4 tracking-tight">The Forgetting Curve</h3>
+                </div>
+                <div class="xl:col-span-7 space-y-8 text-xl text-gray-300 leading-[1.8] font-light">
+                    <p>
+                        Hermann Ebbinghaus 在 1885 年证明了这一点。你会在几天内忘记 <strong class="text-white">40%</strong> 的新信息，在一个月内忘记 <strong class="text-white">90%</strong>。你有多聪明、多有动力，都无关紧要。
+                    </p>
+                    <p>
+                        唯一能战胜遗忘曲线的武器是 <strong class="text-white border-b border-braun-red pb-1">间隔重复 (Spaced Repetition)</strong>：在精确计算的时间间隔内，在你即将忘记它之前复习信息。这绝不是可选项，这是基石。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION III: 剧集的力量 (过渡区块) -->
+        <section class="px-6 md:px-12 xl:px-24 py-32">
+            <div class="max-w-5xl mx-auto text-center space-y-12">
+                <i class="ri-tv-2-line text-5xl text-gray-300"></i>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-braun-dark">为什么是剧集，而不是 App？</h2>
+                <p class="text-xl md:text-2xl text-gray-600 leading-[1.8] font-light">
+                    当 Jimmy McGill 在法庭上极力辩护试图逃脱重罪时，你听到的一个词，其带来的震撼远超绿色猫头鹰卡片上的死板词汇。神经科学称之为：<strong class="text-braun-dark font-medium">Contextual Encoding (语境编码)</strong>。
+                </p>
+                <p class="text-lg text-gray-500">
+                    一集优秀的剧集包含 50 到 100 个值得学习的词汇、动词短语、俚语和习语。谷歌翻译会将 "cut it out" 真正理解为你想要物理切断某物。机器翻译与母语者真实意图之间的鸿沟，正是 AI 展现价值的所在。
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION IV: 核心系统架构 (重度负荷 - 步骤解析) -->
+        <section class="px-6 md:px-12 xl:px-24 py-32 bg-braun-gray">
+            <div class="mb-24 flex flex-col md:flex-row justify-between items-baseline border-b border-gray-300 pb-8">
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-braun-dark uppercase">The Pipeline</h2>
+                <p class="text-lg font-mono text-gray-500 mt-4 md:mt-0">THREE TOOLS. ONE SYSTEM.</p>
+            </div>
+
+            <!-- Pipeline Steps Grid -->
+            <div class="space-y-32">
+                
+                <!-- Step 1 & 2: Transcript & NotebookLM -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-16">
+                    <div class="xl:col-span-4">
+                        <span class="text-sm font-mono text-braun-red font-bold block mb-4">STEP 01 - 02</span>
+                        <h3 class="text-3xl font-bold mb-4">获取脚本 & NotebookLM 提取</h3>
+                        <p class="text-gray-600 leading-[1.8]">
+                            搜索剧集脚本（如 "series name transcript season X episode Y"）并保存为 PDF。导入 <strong class="text-braun-dark">NotebookLM</strong>。作为一个封闭系统，它只基于你提供的素材工作，绝不产生幻觉或编造不属于该剧集的例句。
+                        </p>
+                    </div>
+                    <div class="xl:col-span-8 bg-white p-8 md:p-12 shadow-sm relative group">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-braun-red"></div>
+                        <p class="font-mono text-xs text-gray-400 mb-6 uppercase">Prompt / 提取指令</p>
+                        <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap leading-relaxed overflow-x-auto">
+I'm learning [English]. My level: [B2].
+
+From this transcript, extract the 50 most useful
+words and expressions for a learner at my level.
+
+Focus on:
+- Phrasal verbs (get away with, pull off, cut it out)
+- Idioms and fixed expressions
+- Colloquial and conversational language
+- Slang
+- Complex vocabulary (B2-C1, skip anything basic)
+
+For each item:
+- The word or phrase
+- Translation to [your language]
+- IPA transcription
+- The exact sentence from the transcript where it appears
+- Translation of that sentence
+
+Numbered list. Maximum 50 items.</pre>
+                    </div>
+                </div>
+
+                <!-- Step 3: Claude Formatting -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-16">
+                    <div class="xl:col-span-4">
+                        <span class="text-sm font-mono text-braun-red font-bold block mb-4">STEP 03</span>
+                        <h3 class="text-3xl font-bold mb-4">Claude 结构化重组</h3>
+                        <p class="text-gray-600 leading-[1.8]">
+                            将 NotebookLM 的输出交给 Claude 处理。在结构化数据格式化方面，Claude 的表现极为出色。它能输出极其纯净的 CSV，不丢行、不乱码。
+                        </p>
+                    </div>
+                    <div class="xl:col-span-8 bg-white p-8 md:p-12 shadow-sm relative group">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-gray-800"></div>
+                        <p class="font-mono text-xs text-gray-400 mb-6 uppercase">Prompt / 格式转换指令</p>
+                        <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap leading-relaxed overflow-x-auto">
+Here's a word list from a series transcript.
+Create a CSV with two columns:
+
+Column 1 (front): sentence in [your language]
+with the target word translated. After the sentence
+in parentheses: translation and IPA transcription.
+
+Column 2 (back): the original English sentence
+from the transcript, exactly as written.
+
+CSV format, comma-separated.
+Each row = one flashcard.
+Don't modify the original English sentences.</pre>
+                    </div>
+                </div>
+
+                <!-- Step 4: Anki & FSRS -->
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-16">
+                    <div class="xl:col-span-4">
+                        <span class="text-sm font-mono text-braun-red font-bold block mb-4">STEP 04</span>
+                        <h3 class="text-3xl font-bold mb-4">Anki 与 FSRS 算法</h3>
+                        <p class="text-gray-600 leading-[1.8]">
+                            将 CSV 导入 Anki。2023年，Anki 淘汰了自 1987 年（里根时代）以来的旧算法，引入了基于 7 亿次真实复习数据训练的 <strong class="text-braun-dark">FSRS (Free Spaced Repetition Scheduler)</strong> 机器学习模型。
+                        </p>
+                    </div>
+                    <div class="xl:col-span-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-white p-8 border border-gray-200">
+                                <i class="ri-settings-4-line text-2xl text-braun-red mb-4 block"></i>
+                                <h4 class="font-bold mb-2">FSRS 设置规范</h4>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li class="flex items-center gap-2"><i class="ri-check-line text-green-500"></i> 开启 FSRS 功能</li>
+                                    <li class="flex items-center gap-2"><i class="ri-check-line text-green-500"></i> <strong class="text-braun-dark">Desired Retention: 0.90</strong> (研究证实的最佳甜点，切勿设高)</li>
+                                    <li class="flex items-center gap-2"><i class="ri-check-line text-green-500"></i> Learning steps: 1m 10m</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-8 border border-gray-200">
+                                <i class="ri-mouse-line text-2xl text-braun-red mb-4 block"></i>
+                                <h4 class="font-bold mb-2">极简交互原则</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    复习时仅使用 <strong class="text-braun-dark">Again (重来)</strong> 和 <strong class="text-braun-dark">Good (认识)</strong> 两个按钮。Hard 和 Easy 会干扰 FSRS 的优化逻辑。保持界面绝对纯净。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION V: 逆向思维 (视觉断点) -->
+        <section class="px-6 md:px-12 xl:px-24 py-32 border-t border-gray-200">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-braun-dark uppercase leading-[0.9] mb-8">
+                        Flip<br>
+                        <span class="text-braun-red">The Order.</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 leading-[1.8] font-light">
+                        大多数人：看剧 -> 听不懂 -> 沮丧 -> 谷歌查3个词 -> 下周全忘。<br><br>
+                        <strong class="text-braun-dark text-2xl font-normal block mb-4">翻转这个顺序。先刷卡片，再看剧集。</strong>
+                    </p>
+                    <p class="text-lg text-gray-500 leading-relaxed mt-4">
+                        花 10-15 分钟让 Anki 将 50 个词汇载入短期记忆，然后去观看。你刚学过的每一个词都会在一个带有情感、人声和语境的真实场景中出现。大脑不会把这当作“学习”，而是当作<strong class="text-braun-dark">“识别 (Recognition)”</strong>。识别，是从短期记忆通往长期记忆的最快路径。
+                    </p>
+                </div>
+                <div class="bg-gray-100 aspect-square flex items-center justify-center p-12 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1550592704-6c76defa99ce?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-multiply grayscale"></div>
+                    <div class="text-center z-10">
+                        <p class="text-sm font-mono text-braun-red mb-4 uppercase">Krashen's Principle</p>
+                        <h3 class="text-4xl md:text-6xl font-black tracking-tighter text-braun-dark">i + 1</h3>
+                        <p class="mt-4 text-gray-600 font-medium">语言习得发生在输入刚好略高于你当前水平时。</p>
+                        <p class="mt-2 text-sm text-gray-500">（且务必仅开启英文字幕）</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VI: 体验升级 (极简列表) -->
+        <section class="px-6 md:px-12 xl:px-24 py-24 bg-white">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-12 border-b border-gray-200 pb-4">系统模块升级 (Upgrades)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
+                <div class="space-y-4">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-mono text-sm text-gray-500">1</div>
+                    <h4 class="font-bold text-lg">TTS 语音注入</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">在 Anki 安装 AwesomeTTS/HyperTTS 插件，调用 Azure Neural TTS 为每张卡片生成语音；或让 NotebookLM 直接附带 IPA 音标。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-mono text-sm text-gray-500">2</div>
+                    <h4 class="font-bold text-lg">手势极速剔除</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">在移动端 Anki 设置手势，如点击右上角直接“删除卡片”。遇到已掌握的词汇？轻轻一点，瞬间销毁，摒弃冗杂菜单。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-mono text-sm text-gray-500">3</div>
+                    <h4 class="font-bold text-lg">沉浸式批处理</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">一天一集。一季结束时，你将积累 500-1000 张真正源于真实语境的 B2-C1 级别高优词汇卡片。毫无教科书的陈腐气。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUMMARY / ENDING -->
+        <footer class="px-6 md:px-12 xl:px-24 py-32 bg-braun-dark text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-12">
+            <div class="max-w-3xl space-y-8">
+                <blockquote class="text-3xl md:text-5xl font-light text-white leading-tight tracking-tight">
+                    "每个人都想<em class="text-braun-red font-normal italic not-italic border-b-2 border-braun-red">学会</em>一门语言。<br>
+                    但没有人想<em class="text-gray-500 font-normal italic not-italic line-through decoration-1">学习</em>一门语言。"
+                </blockquote>
+                <p class="text-gray-400 text-lg md:text-xl font-light leading-relaxed">
+                    这个系统消除了“死记硬背”。<br>
+                    留下的只有剧集，10分钟的卡片，<br>
+                    以及你真真切切听懂他们对白时那份缓慢流淌的顿悟。<br>
+                    <span class="text-white mt-4 block text-sm font-mono opacity-50">THAT FEELING IS WORTH MORE THAN ANY CERTIFICATE.</span>
+                </p>
+            </div>
+            
+            <div class="text-right">
+                <div class="w-16 h-16 rounded-full border border-gray-700 flex items-center justify-center text-gray-500 mx-auto md:mx-0 hover:bg-white hover:text-black transition-colors cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="ri-arrow-up-line text-2xl"></i>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

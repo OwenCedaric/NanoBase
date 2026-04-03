@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嵌套学习：谷歌AI记忆突破性范式</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet"/>
+    <style>
+        /* 从独立页面继承的全局样式 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* 从独立页面继承的图表样式 */
+        .bar-chart-bar { background-color: #E5E7EB; position: relative; overflow: hidden; }
+        .bar-chart-fill { background-color: #111827; position: absolute; bottom: 0; left: 0; width: 100%; }
+        .bar-chart-label { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        /* Responsive font scaling */
+        @media (max-width: 1024px) {
+            .responsive-hero { font-size: 15vw !important; line-height: 1 !important; }
+            .responsive-title { font-size: 8vw !important; line-height: 1.1 !important; }
+            .responsive-subtitle { font-size: 5vw !important; }
+            .responsive-text { font-size: 4vw !important; }
+            .responsive-bg-symbol { font-size: 80vw !important; }
+        }
+    </style>
+</head>
+<body class="bg-zinc-100 flex items-center justify-center min-h-screen p-4 md:p-8">
+
+    <!-- 主容器，用于并排显示画布和导航 -->
+    <div class="flex items-center justify-center gap-x-6">
+        
+        <!-- 
+          主画布 - 严格固定尺寸
+        -->
+        <main id="canvas" class="w-full max-w-[1200px] bg-white shadow-lg relative flex flex-col mx-auto">
+            
+            <!-- !!! 关键整合区域: 所有页面的<section>已被插入到这里 !!! -->
+            
+            <!-- Page 0: Cover -->
+            <section id="page-0" class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100">
+                <div class="p-24 h-full w-full">
+                    <div class="absolute -right-1/4 -bottom-1/4 text-gray-100/60 responsive-bg-symbol" style="font-size: 70rem; z-index: 0; transform: rotate(10deg);">
+                        <i class="ri-braces-line"></i>
+                    </div>
+                    <div class="relative h-full flex flex-col justify-between" style="z-index: 1;">
+                        <div class="flex justify-between items-center text-xl text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-google-fill"></i>
+                                <span>谷歌研究突破</span>
+                            </div>
+                            <span>/ 机器学习</span>
+                        </div>
+                        <div class="w-full mt-auto mb-auto pr-12">
+                            <h1 class="text-9xl responsive-hero font-black text-black tracking-wide leading-none">
+                                AI 健忘症
+                            </h1>
+                            <p class="mt-8 text-2xl text-gray-700 max-w-2xl leading-relaxed">
+                                谷歌提出“嵌套学习”新范式，从根本上解决<strong class="font-semibold text-black">灾难性遗忘</strong>问题。
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-end text-xl">
+                             <p class="text-gray-500 max-w-md">
+                                一项旨在重塑机器如何记忆与成长的革命性突破。
+                            </p>
+                            <div class="text-gray-400">
+                                <span>封面 / 04</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Page 1: Problem -->
+            <section id="page-1" class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100">
+                <div class="p-24 flex flex-col justify-between h-full w-full">
+                    <div class="absolute top-24 left-24 text-8xl font-bold text-gray-100" style="z-index: 0;">01</div>
+                    <div class="relative flex justify-between items-start" style="z-index: 1;">
+                        <h2 class="text-5xl font-bold text-black tracking-wide max-w-lg leading-tight">
+                            “遗忘”的诅咒：<br>现代AI的阿喀琉斯之踵
+                        </h2>
+                        <span class="text-xl text-gray-500">/ 议题</span>
+                    </div>
+                    <div class="w-full flex justify-center items-center grow">
+                        <div class="max-w-3xl space-y-9">
+                            <p class="text-xl leading-9 text-gray-800">
+                                近十年，机器学习（ML）取得了惊人进展，尤其是在大型语言模型（LLM）领域。然而，一个根本性挑战依然存在：持续学习（Continual Learning）——让模型能像人一样，在不遗忘旧知识的前提下，主动获取新知识和技能。
+                            </p>
+                            <div class="border-l-4 border-black pl-6">
+                                <p class="text-2xl font-semibold leading-relaxed text-black">
+                                    这种能力的缺失，导致了所谓的“灾难性遗忘” (Catastrophic Forgetting)。
+                                </p>
+                            </div>
+                            <p class="text-xl leading-9 text-gray-800">
+                                当我们试图用新数据持续更新一个模型时，它在学习新任务的同时，会牺牲掉在旧任务上的熟练度。这就像一个患有顺行性遗忘症的病人，其知识被永远困在了预训练的那个静态瞬间，无法真正地成长和适应。
+                            </p>
+                             <p class="text-xl leading-9 text-gray-800">
+                                长期以来，研究者们将模型的<strong class="font-semibold text-black">架构（网络结构）</strong>和<strong class="font-semibold text-black">优化算法（训练规则）</strong>视为两个独立的实体来处理。这种分离，恰恰是阻碍我们构建一个真正统一、高效的学习系统的根本原因。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative flex justify-end items-center text-xl text-gray-400" style="z-index: 1;">
+                        <span>页面 01 / 04</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Page 2: Paradigm -->
+            <section id="page-2" class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100">
+                <div class="p-24 flex flex-col justify-between h-full w-full">
+                    <div class="absolute top-24 left-24 text-8xl font-bold text-gray-100" style="z-index: 0;">02</div>
+                    <div class="relative flex justify-between items-start" style="z-index: 1;">
+                        <h2 class="text-5xl font-bold text-black tracking-wide max-w-lg leading-tight">
+                            嵌套学习：<br>架构即优化
+                        </h2>
+                        <span class="text-xl text-gray-500">/ 范式</span>
+                    </div>
+                    <div class="w-full flex-grow flex items-center justify-between gap-16">
+                        <div class="w-1/2 max-w-lg space-y-9">
+                            <p class="text-xl leading-9 text-gray-800">
+                                我们在NeurIPS 2025的论文中提出“嵌套学习” (Nested Learning) 范式，旨在弥合这一鸿沟。其核心观点颠覆了传统认知：
+                            </p>
+                            <div class="border-l-4 border-black pl-6">
+                                 <p class="text-2xl font-semibold leading-relaxed text-black">
+                                    一个机器学习模型，并非单一的连续过程，而是一个由相互关联、多层级的学习问题组成的嵌套系统。
+                                </p>
+                            </div>
+                            <p class="text-xl leading-9 text-gray-800">
+                                换言之，<strong class="font-semibold text-black">模型架构</strong>与<strong class="font-semibold text-black">优化规则</strong>本质上是同一概念。它们只是具有不同更新频率和内部信息流（“上下文流”）的优化“层级”。
+                            </p>
+                             <p class="text-xl leading-9 text-gray-800">
+                                这个视角揭示了一个全新的、曾被忽视的设计维度，允许我们构建具有更深计算深度的学习组件，从而根本上解决灾难性遗忘问题。
+                            </p>
+                        </div>
+                        <div class="w-1/2 flex flex-col items-center justify-center text-center">
+                            <div class="space-y-4 w-full">
+                                <div class="p-4 border border-gray-300 rounded-lg">
+                                    <p class="text-sm text-gray-400 tracking-widest">传统范式</p>
+                                    <div class="mt-4 flex items-center justify-center gap-4">
+                                        <div class="border border-blue-300 bg-blue-50/50 p-6 rounded-md">
+                                            <p class="text-lg font-semibold text-blue-800">架构</p>
+                                        </div>
+                                        <span class="text-3xl text-gray-300">+</span>
+                                        <div class="border border-green-300 bg-green-50/50 p-6 rounded-md">
+                                            <p class="text-lg font-semibold text-green-800">优化</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="self-center text-3xl text-gray-400 my-4">↓</div>
+                                <div class="p-6 border-2 border-black rounded-lg bg-gray-50/50">
+                                    <p class="text-sm text-black tracking-widest">嵌套学习范式</p>
+                                    <div class="mt-4 p-4 border border-gray-400 rounded-md">
+                                        <p class="text-sm font-semibold text-gray-600">优化层 1 (e.g. 注意力)</p>
+                                        <div class="mt-2 p-4 border border-gray-400 rounded-md">
+                                            <p class="text-sm font-semibold text-gray-600">优化层 2 (e.g. 动量)</p>
+                                            <div class="mt-2 p-4 border border-gray-400 rounded-md">
+                                               <p class="text-sm font-semibold text-gray-600">优化层 N ...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-4 text-lg font-bold">架构 = 优化</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative flex justify-end items-center text-xl text-gray-400" style="z-index: 1;">
+                        <span>页面 02 / 04</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Page 3: Proof -->
+            <section id="page-3" class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100">
+                <div class="p-24 flex flex-col justify-between h-full w-full">
+                    <div class="absolute top-24 left-24 text-8xl font-bold text-gray-100" style="z-index: 0;">03</div>
+                    <div class="relative flex justify-between items-start" style="z-index: 1;">
+                        <h2 class="text-5xl font-bold text-black tracking-wide max-w-lg leading-tight">
+                            Hope: 自我修改架构的实证
+                        </h2>
+                        <span class="text-xl text-gray-500">/ 验证</span>
+                    </div>
+                    <div class="flex-grow flex flex-col justify-around">
+                        <p class="text-xl leading-9 text-gray-800 max-w-4xl">
+                            作为概念验证，我们设计了 <strong class="font-semibold text-black">Hope</strong>，一个自修改的循环架构。它利用我们提出的“连续体内存系统”（CMS），其中内存被视为一个由不同更新频率模块组成的频谱。Hope 能够通过自引用过程优化自身内存，创造出无限循环的学习层级。
+                        </p>
+                        <div class="flex gap-12">
+                            <div class="w-1/2 flex flex-col">
+                                <p class="text-lg font-semibold text-center mb-4">语言建模 & 常识推理</p>
+                                <div class="flex-grow flex items-end justify-around gap-4 border-b border-black pb-2 px-2">
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 95%;"></div></div>
+                                        <p class="mt-2 text-sm font-bold">Hope</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 80%;"></div></div>
+                                        <p class="mt-2 text-sm">Titans</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 75%;"></div></div>
+                                         <p class="mt-2 text-sm">Samba</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 70%;"></div></div>
+                                         <p class="mt-2 text-sm">Transformer</p>
+                                    </div>
+                                </div>
+                                <p class="text-center text-sm text-gray-500 mt-2">综合性能（越高越好）</p>
+                            </div>
+                            <div class="w-1/2 flex flex-col">
+                                <p class="text-lg font-semibold text-center mb-4">长上下文任务 (大海捞针)</p>
+                                 <div class="flex-grow flex items-end justify-around gap-4 border-b border-black pb-2 px-2">
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 98%;"></div></div>
+                                        <p class="mt-2 text-sm font-bold">Hope</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 85%;"></div></div>
+                                        <p class="mt-2 text-sm">Titans</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 65%;"></div></div>
+                                         <p class="mt-2 text-sm">TTT</p>
+                                    </div>
+                                    <div class="w-1/4 flex flex-col items-center">
+                                        <div class="w-full h-56 bar-chart-bar"><div class="bar-chart-fill" style="height: 60%;"></div></div>
+                                         <p class="mt-2 text-sm">Mamba2</p>
+                                    </div>
+                                </div>
+                                <p class="text-center text-sm text-gray-500 mt-2">记忆管理效率（越高越好）</p>
+                            </div>
+                        </div>
+                         <p class="text-xl leading-9 text-gray-800 max-w-4xl">
+                            实验证明，Hope 在语言建模、常识推理及长上下文“大海捞针”等任务上，其困惑度更低，准确性更高，展现了远超现代循环模型和标准Transformer的卓越性能。
+                        </p>
+                    </div>
+                    <div class="relative flex justify-end items-center text-xl text-gray-400" style="z-index: 1;">
+                        <span>页面 03 / 04</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Page 4: Future -->
+            <section id="page-4" class="page-content w-full min-h-[800px] md:min-h-screen">
+                 <div class="p-24 flex flex-col h-full w-full">
+                    <div class="absolute top-24 left-24 text-8xl font-bold text-gray-100" style="z-index: 0;">04</div>
+                    <div class="relative flex justify-between items-start" style="z-index: 1;">
+                        <h2 class="text-5xl font-bold text-black tracking-wide max-w-lg leading-tight">
+                            结论：迈向自我进化的AI
+                        </h2>
+                        <span class="text-xl text-gray-500">/ 展望</span>
+                    </div>
+                    <div class="flex-grow flex items-center">
+                        <div class="max-w-4xl space-y-9">
+                            <p class="text-2xl leading-relaxed text-gray-800">
+                                嵌套学习范式代表了我们对深度学习理解的一次跃迁。通过将架构与优化视为一个统一、连贯的嵌套系统，我们为AI设计开启了一个全新的维度。
+                            </p>
+                            <div class="border-l-4 border-black pl-6">
+                                <p class="text-3xl font-bold leading-relaxed text-black">
+                                     我们相信，这一范式为弥合当前LLMs的“遗忘”天性与人脑卓越的持续学习能力之间的鸿沟，提供了一个坚实的理论基础。
+                                </p>
+                            </div>
+                             <p class="text-2xl leading-relaxed text-gray-800">
+                                我们期待研究社区能与我们一同探索这个新维度，共同构建下一代真正能够自我完善和进化的人工智能。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative w-full border-t border-gray-200 pt-10 mt-10">
+                        <h3 class="text-2xl font-bold mb-4">深入探索</h3>
+                        <div class="flex items-center text-xl text-gray-800 hover:text-black transition-colors duration-300 group">
+                            <i class="ri-arrow-right-line mr-4 transform group-hover:translate-x-1 transition-transform"></i>
+                            <a href="https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/" target="_blank" class="font-mono">
+                                阅读原始论文： "Nested Learning: The Illusion of Deep Learning Architectures"
+                            </a>
+                        </div>
+                        <div class="flex items-center text-xl text-gray-800 hover:text-black transition-colors duration-300 group mt-4">
+                             <i class="ri-file-text-line mr-4"></i>
+                            <a href="https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/" target="_blank">
+                                查看谷歌研究官方博客文章
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative flex justify-end items-center text-xl text-gray-400 mt-auto" style="z-index: 1;">
+                        <span>页面 04 / 04</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        </main>
+    </div>
+
+</body>
+</html>

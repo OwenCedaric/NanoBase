@@ -1,0 +1,294 @@
+{
+  "total": 31,
+  "last_updated": "2026-04-02T04:51:39.599Z",
+  "documents": [
+    {
+      "id": "3611a34f-9f66-40d7-ab8e-d65d29103d66",
+      "title": "The Autopilot Thesis | 自动驾驶商业法则",
+      "slug": "the-autopilot-thesis-html",
+      "upload_date": "2026-04-02",
+      "path": "/api/data/documents/the-autopilot-thesis.html",
+      "original_url": "https://x.com/JulienBek/status/2029680516568600933",
+      "part_number": 1,
+      "total_parts": 1
+    },
+    {
+      "id": "61cc2202-4b88-46e3-9a1d-95f5ca562647",
+      "title": "Rocket Lab: The Space Infrastructure — Digital Editorial",
+      "slug": "spc-02-rocket-lab-infrastructure-html",
+      "upload_date": "2026-04-01",
+      "path": "/api/data/documents/spc-02-rocket-lab-infrastructure.html",
+      "original_url": "https://x.com/nft_hu/status/2039257756943986849",
+      "part_number": 1,
+      "total_parts": 1
+    },
+    {
+      "id": "a66f7172-0cad-4c46-9d08-021eb1a90a61",
+      "title": "CLAUDE CODE: System Prompt Architecture",
+      "slug": "claude-code-architecture-spec-html",
+      "upload_date": "2026-04-01",
+      "path": "/api/data/documents/claude-code-architecture-spec.html",
+      "original_url": "https://xiangyangqiaomu.feishu.cn/wiki/PKN7wAB7UiGZSWkuOcKcxS62n4f",
+      "part_number": 1,
+      "total_parts": 1
+    },
+    {
+      "id": "402b3a97-5dda-4208-b3a9-637405c2a75d",
+      "title": "Claude Code: Beyond the Prompt | Architectural Archive",
+      "slug": "cc-4756-architecture-archive-html",
+      "upload_date": "2026-04-01",
+      "path": "/api/data/documents/cc-4756-architecture-archive.html",
+      "original_url": "https://x.com/tvytlx/status/2038939480892346699",
+      "part_number": 1,
+      "total_parts": 1
+    },
+    {
+      "id": "75045452-8d89-4c1c-b340-09e45628a950",
+      "title": "技术的青春期 | 达里奥·阿莫迪 (Dario Amodei)",
+      "slug": "da-adolescence-of-technology-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/da-adolescence-of-technology.html",
+      "original_url": "https://www.darioamodei.com/essay/the-adolescence-of-technology",
+      "part_number": 1,
+      "total_parts": 1
+    },
+    {
+      "id": "9e5c443c-cf64-44da-8df8-48b2f32b5580",
+      "title": "架构01：自媒体商业变现的倒推法则",
+      "slug": "arch-01-reverse-monetization-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-01-reverse-monetization.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 1,
+      "total_parts": 12
+    },
+    {
+      "id": "b3646357-4085-4609-a003-e7fa5303aae4",
+      "title": "架构02：价值锚定与差距套利",
+      "slug": "arch-02-value-arbitrage-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-02-value-arbitrage.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 2,
+      "total_parts": 12
+    },
+    {
+      "id": "94353e74-12c1-451d-bc49-9e845b9ff8df",
+      "title": "架构03：零成果冷启动的拓扑结构",
+      "slug": "arch-03-zero-start-topology-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-03-zero-start-topology.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 3,
+      "total_parts": 12
+    },
+    {
+      "id": "4c0f0224-ee85-45ca-ac91-340df7c89d37",
+      "title": "架构03：锁定付费客群与转化阈值",
+      "slug": "arch-03-target-resolution-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-03-target-resolution.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 4,
+      "total_parts": 12
+    },
+    {
+      "id": "1c779038-b0e7-4f3f-a447-c11bbc948ef8",
+      "title": "架构04：从观点输出到信任建构的转化模型",
+      "slug": "arch-04-conversion-structure-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-04-conversion-structure.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 5,
+      "total_parts": 12
+    },
+    {
+      "id": "078bd88e-90ed-46ac-9adb-a97e239c5414",
+      "title": "架构04 加餐：证明型文案的工业化锻造协议",
+      "slug": "arch-04-proof-templates-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-04-proof-templates.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 6,
+      "total_parts": 12
+    },
+    {
+      "id": "2856b14b-b0c1-4c18-b0c8-255b9d5db17f",
+      "title": "架构05：商业对标与成交结构的逆向工程",
+      "slug": "arch-05-benchmark-deconstruction-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-05-benchmark-deconstruction.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 7,
+      "total_parts": 12
+    },
+    {
+      "id": "2778cdfd-22d6-40d3-ab0a-e6bc08ae8652",
+      "title": "架构06：AI辅助的工业化内容生产流水线",
+      "slug": "arch-06-ai-writing-pipeline-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-06-ai-writing-pipeline.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 8,
+      "total_parts": 12
+    },
+    {
+      "id": "af99203a-8257-4b90-8ee4-bbac6d2a62b7",
+      "title": "架构07：实体部署与初始转化闭环",
+      "slug": "arch-07-deployment-loop-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-07-deployment-loop.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 9,
+      "total_parts": 12
+    },
+    {
+      "id": "880599b2-d379-4dd8-93d7-0bc93b90e02c",
+      "title": "架构08：系统化转化路径与产品阶梯设计",
+      "slug": "arch-08-monetization-system-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-08-monetization-system.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 10,
+      "total_parts": 12
+    },
+    {
+      "id": "328cc7bb-782a-4639-a273-1dfa10cd7789",
+      "title": "架构08 加餐：虚拟资产合规化与交付升维",
+      "slug": "arch-08-virtual-assets-compliance-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-08-virtual-assets-compliance.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 11,
+      "total_parts": 12
+    },
+    {
+      "id": "b4139b5d-3216-47f2-880b-562f12eee74f",
+      "title": "架构09：30天持续现金流测试系统",
+      "slug": "arch-09-30days-cashflow-system-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/arch-09-30days-cashflow-system.html",
+      "series_id": "09894fe5-40d9-416b-a8fa-071af1cf55e6",
+      "series_title": "自媒体变现思维",
+      "part_number": 12,
+      "total_parts": 12
+    },
+    {
+      "id": "b03dc380-6ea5-4ae2-b888-35d5e167e582",
+      "title": "三十年豪赌的到期日 | 2026日本宏观经济特刊",
+      "slug": "macro-01-the-2026-liquidity-graveyard-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/macro-01-the-2026-liquidity-graveyard.html",
+      "original_url": "https://x.com/Areskapitalon/status/2038395699402887651"
+    },
+    {
+      "id": "532f64eb-f43a-4c34-a137-0b4cccaafede",
+      "title": "2026 IRAN WAR BRIEFING | 30-Day Escalation",
+      "slug": "tq-01-iran-war-30days-briefing-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/tq-01-iran-war-30days-briefing.html"
+    },
+    {
+      "id": "ccac093f-23dd-43ff-8925-dd16083baf48",
+      "title": "CLI的重构：面向人类与AI代理的双重架构 | Digital Editorial",
+      "slug": "cli-01-dual-audience-architecture-html",
+      "upload_date": "2026-03-31",
+      "path": "/api/data/documents/cli-01-dual-audience-architecture.html",
+      "original_url": "https://x.com/GoogleCloudTech/status/2038778093104779537"
+    },
+    {
+      "id": "080ee2b8-6b3b-4fa8-97be-b3211a4c4e7a",
+      "title": "自我演化：信息分发的算法解构 - Digital Editorial",
+      "slug": "zy-01-self-evolving-algorithm-html",
+      "upload_date": "2026-03-30",
+      "path": "/api/data/documents/zy-01-self-evolving-algorithm.html"
+    },
+    {
+      "id": "3b1314dd-f1de-44b8-870e-e8dd2cd12715",
+      "title": "Agent Skill: 复杂任务的系统化封装 (Systematic Encapsulation)",
+      "slug": "as-01-systematic-encapsulation-html",
+      "upload_date": "2026-03-30",
+      "path": "/api/data/documents/as-01-systematic-encapsulation.html",
+      "original_url": "https://x.com/veyhon/status/2032279681706442882"
+    },
+    {
+      "id": "848c1a8e-1aa3-48b3-9d28-cbf97aa5f7d3",
+      "title": "THE SHORT: Japan's Oil Crisis | Digital Editorial",
+      "slug": "arch-jp-oil-short-crisis-2026-html",
+      "upload_date": "2026-03-30",
+      "path": "/api/data/documents/arch-jp-oil-short-crisis-2026.html"
+    },
+    {
+      "id": "ca938dbe-aa99-4bcd-87cd-2b6dd798c89c",
+      "title": "Claude Skills",
+      "slug": "claude-skills-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/claude-skills.html",
+      "original_url": "https://claude.com/blog/equipping-agents-for-the-real-world-with-agent-skills"
+    },
+    {
+      "id": "abc694a0-cfe8-4d22-95d7-fdd8e6ed9829",
+      "title": "智能体时代：创始人行动手册",
+      "slug": "founder-handbook-agent-era-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/founder-handbook-agent-era.html"
+    },
+    {
+      "id": "e4597fae-a6f4-4100-a791-4604e754acfa",
+      "title": "MCP - 解锁AI自主能力的新协议",
+      "slug": "mcp-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/mcp.html"
+    },
+    {
+      "id": "c19053cc-a71c-4dc0-a9c0-861d10a839f2",
+      "title": "嵌套学习：谷歌AI记忆突破性范式",
+      "slug": "nested-learning-google-ai-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/nested-learning-google-ai.html",
+      "original_url": "https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/"
+    },
+    {
+      "id": "00df9618-6a42-46e8-8d32-e6f54541f221",
+      "title": "Attention Is All You Need 解析",
+      "slug": "attention-is-all-you-need-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/attention-is-all-you-need.html"
+    },
+    {
+      "id": "e7ad4cb7-3a63-4de2-a062-8309cf26a65e",
+      "title": "The Language OS | AI-Driven Immersion Protocol",
+      "slug": "lang-os-01-ai-immersion-protocol-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/lang-os-01-ai-immersion-protocol.html",
+      "original_url": "https://x.com/phosphenq/status/2037225607180800036"
+    },
+    {
+      "id": "0564ce89-ee48-432f-a9d8-13859a1785b2",
+      "title": "MSA / 100,000,000 TOKENS",
+      "slug": "sys-msa-sparse-architecture-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/sys-msa-sparse-architecture.html",
+      "original_url": "https://arxiv.org/abs/2603.23516"
+    },
+    {
+      "id": "44f2a728-be4d-404c-b0b8-b033a67284c8",
+      "title": "TurboQuant: 重新定义AI效率 - Google Research",
+      "slug": "tq-01-extreme-compression-html",
+      "upload_date": "2026-03-27",
+      "path": "/api/data/documents/tq-01-extreme-compression.html",
+      "original_url": "https://research.google/blog/turboquant-redefining-ai-efficiency-with-extreme-compression/"
+    }
+  ]
+}
