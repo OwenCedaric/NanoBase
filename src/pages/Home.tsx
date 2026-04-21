@@ -210,10 +210,10 @@ const Home: React.FC = () => {
           ))
         ) : paginatedDocuments.length > 0 ? (
           paginatedDocuments.map((doc) => (
-            <motion.div key={doc.id} variants={itemVariants}>
+            <motion.div key={doc.id} variants={itemVariants} className="group relative">
               <Link
                 to={`/${doc.slug}`}
-                className="group relative flex flex-col p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800 transition-all hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-200/30 dark:hover:shadow-none h-full"
+                className="flex flex-col p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-zinc-800 transition-all hover:bg-white dark:hover:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-xl hover:shadow-zinc-200/30 dark:hover:shadow-none h-full"
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-8 h-8 rounded-lg bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-all border border-zinc-100 dark:border-white/5">
@@ -241,21 +241,21 @@ const Home: React.FC = () => {
                   </div>
                 </div>
                 <ArrowRightSLineIcon className="absolute bottom-4 right-4 w-4 h-4 text-zinc-200 group-hover:text-zinc-900 dark:group-hover:text-white transition-all transform group-hover:translate-x-1" />
-
-                {(doc as any).isSeries && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      navigate(`/upload?edit=${doc.series_id}`);
-                    }}
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 dark:bg-black/10 dark:hover:bg-black/20 text-zinc-400 hover:text-white dark:hover:text-zinc-900 transition-all border border-white/10 dark:border-black/5"
-                    title="Edit Collection"
-                  >
-                    <Edit2LineIcon size={14} />
-                  </button>
-                )}
               </Link>
+
+              {(doc as any).isSeries && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate(`/upload?edit=${doc.series_id}`);
+                  }}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-50/50 hover:bg-zinc-900 dark:bg-zinc-900/50 dark:hover:bg-white text-zinc-400 hover:text-white dark:hover:text-zinc-900 transition-all border border-zinc-100 dark:border-zinc-800 z-10 cursor-pointer shadow-sm hover:shadow-md"
+                  title="Edit Collection"
+                >
+                  <Edit2LineIcon size={14} />
+                </button>
+              )}
             </motion.div>
           ))
         ) : (
