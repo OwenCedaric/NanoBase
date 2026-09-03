@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude Skills</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* 从原始页面中提取并全局化的字体定义，确保一致性 */
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap");
+      body {
+        font-family: "system-ui", "-apple-system", "Noto Sans SC", sans-serif;
+      }
+      /* 从封面页提取的特定排版类，以确保其在整合后依然生效 */
+      .dramatic-title {
+        font-size: 180px;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+      }
+      /* Responsive font scaling */
+      @media (max-width: 1024px) {
+        .dramatic-title { font-size: 15vw !important; }
+        .responsive-title { font-size: 8vw !important; line-height: 1.1 !important; }
+        .responsive-subtitle { font-size: 5vw !important; }
+        .responsive-text { font-size: 4vw !important; }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-zinc-100 flex items-center justify-center min-h-screen p-4 md:p-8"
+  >
+    <!-- 主容器，用于并排显示画布和导航 -->
+    <div class="flex items-center justify-center gap-x-6">
+      <!-- 
+          主画布 - 关键变更点: 
+          使用 w-[1200px] 和 h-[1600px] 严格固定画布尺寸，
+          确保设计稿的1:1还原和最佳可读性。
+        -->
+      <main
+        id="canvas"
+        class="w-full max-w-[1200px] bg-white shadow-lg relative flex flex-col mx-auto"
+      >
+        <!-- !!! 关键整合区域: 所有页面的<section>将被插入到这里 !!! -->
+
+        <!-- Page 0: Cover -->
+        <section
+          id="page-0"
+          class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100 relative flex flex-col justify-between p-24"
+        >
+          <!-- 背景概念符号: 使用清晰的Claude Logo -->
+          <i
+            class="ri-claude-fill text-[60rem] absolute top-10 right-[-10rem] text-zinc-100/90 select-none -z-0 -rotate-12"
+          ></i>
+
+          <!-- 顶部锚点 -->
+          <header class="w-full flex justify-between items-center z-10">
+            <span class="text-xl font-bold tracking-widest text-gray-800"
+              >ANTHROPIC SKILLS 解析</span
+            >
+            <!-- 使用母公司Logo作为次要品牌标识 -->
+            <i class="ri-anthropic-fill text-3xl text-gray-400"></i>
+          </header>
+
+          <!-- 核心视觉区 -->
+          <main
+            class="flex-grow flex flex-col justify-center z-10 relative pl-4"
+          >
+            <div class="space-y-12">
+              <!-- 主标题 -->
+              <h1 class="dramatic-title font-black text-gray-900">
+                超越<br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-slate-800"
+                >
+                  工具论
+                </span>
+              </h1>
+
+              <!-- 副标题 -->
+              <div class="border-l-[12px] border-blue-600 pl-10">
+                <h2
+                  class="text-6xl font-bold text-gray-800 tracking-wide leading-tight"
+                >
+                  智能体架构的<br />
+                  <span class="text-blue-700">缺失环</span>
+                </h2>
+              </div>
+            </div>
+          </main>
+
+          <!-- 底部价值承诺 -->
+          <footer class="z-10">
+            <p
+              class="text-2xl text-gray-600 font-medium leading-normal max-w-4xl"
+            >
+              为何
+              <span class="text-black font-bold">Skills</span> 不仅仅是另一个
+              MCP，<br />而是通向通用 Agent 的关键架构演进。
+            </p>
+          </footer>
+        </section>
+
+        <!-- Page 1: Definition -->
+        <section
+          id="page-1"
+          class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100 relative p-24 flex flex-col"
+        >
+          <!-- Header -->
+          <header
+            class="flex justify-between items-start border-b border-gray-200 pb-8"
+          >
+            <div class="text-gray-900">
+              <h1 class="text-6xl responsive-title font-bold tracking-wide">定义与分野</h1>
+              <p class="text-2xl text-gray-500 mt-4">
+                厘清核心概念：为何 Skills 不是另一种 MCP
+              </p>
+            </div>
+            <div class="text-8xl font-bold text-gray-200">01</div>
+          </header>
+
+          <!-- Main Content Grid -->
+          <main class="mt-20 grid grid-cols-12 gap-x-12 flex-grow">
+            <!-- Left Column -->
+            <div class="col-span-7">
+              <div class="space-y-16">
+                <div>
+                  <h2 class="text-3xl font-bold text-gray-800 tracking-wider">
+                    MCP: 工具能力
+                  </h2>
+                  <p class="mt-6 text-xl text-gray-700 leading-9">
+                    通常，我们将 MCP (Model-Controller-Plugin) 定义为 Agent
+                    的**工具能力**。它的核心是让模型能够访问外部系统、执行具体流程和获取关键信息。MCP
+                    的边界可以很狭义，也可以很广义，这主要取决于具体实践中的定义。本质上，MCP
+                    定位在**工具**——它更原子化，负责执行一个明确的任务。
+                  </p>
+                  <p class="mt-6 text-xl text-gray-700 leading-9">
+                    可以将其理解为：命令行、自定义脚本、API
+                    调用等一系列可执行单元的集合。
+                  </p>
+                </div>
+
+                <div>
+                  <h2 class="text-3xl font-bold text-gray-800 tracking-wider">
+                    SKILLS: 技能抽象
+                  </h2>
+                  <p class="mt-6 text-xl text-gray-700 leading-9">
+                    技能（Skills）则是更高维度的概念，是 Agent
+                    通过学习、训练或经验获得的综合**能力**。如果说过去的 Agent
+                    依赖其内在的通用知识，那么 Skills
+                    则提供了一个可供参考的、结构化的“强化学习路径”或“行为模板”。它描述的是如何运用多个工具和知识来完成一个更复杂的、带有策略性的目标。
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Right Column - Visual Anchor -->
+            <div
+              class="col-span-5 flex flex-col justify-start items-center pt-8"
+            >
+              <div class="border border-gray-200 p-8 w-full text-center">
+                <div class="text-gray-400 text-lg tracking-widest">
+                  本质区别
+                </div>
+                <div class="my-10">
+                  <div class="text-5xl font-bold text-gray-800">SKILLS</div>
+                  <div class="text-7xl font-light text-gray-300 my-4">≠</div>
+                  <div class="text-5xl font-bold text-gray-800">MCP</div>
+                </div>
+                <div class="text-gray-500 text-lg leading-relaxed">
+                  MCP 定位在工具<br />
+                  Skills 定位在技能
+                </div>
+              </div>
+              <div class="w-full mt-12">
+                <p class="text-xl text-gray-500 leading-9">
+                  正如 Anthropic 官方图示所表达的，Skills 并非要替换
+                  MCP。工具是构成技能的基础，而技能则赋予了 Agent
+                  更高的自主性和解决问题的能力。
+                </p>
+              </div>
+            </div>
+          </main>
+        </section>
+
+        <!-- Page 2: Architecture -->
+        <section
+          id="page-2"
+          class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100 relative p-24 flex flex-col justify-between"
+        >
+          <!-- Header -->
+          <header class="flex justify-between items-start">
+            <div class="text-gray-900">
+              <h1 class="text-6xl responsive-title font-bold tracking-wide">
+                架构的启发
+              </h1>
+              <p class="text-2xl text-gray-500 mt-4">
+                在智能体和工具之间，增加一个新的抽象层
+              </p>
+            </div>
+            <div class="text-8xl font-bold text-gray-200">02</div>
+          </header>
+
+          <!-- Main Content - The Insight -->
+          <main class="w-full flex justify-center">
+            <div class="w-3/4 text-left">
+              <p class="text-xl text-gray-600 leading-9 mb-12">
+                在过往的架构设计中，复杂的“技能”往往会演变成一个独立的子智能体（Agent
+                as Tool / Agent as
+                Skill），其技能详情则固化为子智能体的系统提示。这种设计增加了系统的复杂性。
+              </p>
+              <h2
+                class="text-5xl font-bold text-gray-900 leading-tight tracking-wide"
+              >
+                若在智能体和工具之间<br />引入一个
+                <span class="text-blue-600">技能层 (Skill Layer)</span
+                >，<br />我们将重新思考一个核心问题：
+              </h2>
+              <p
+                class="mt-12 text-3xl font-medium text-gray-700 leading-relaxed tracking-wider"
+              >
+                是否还需要额外引入一个子 Agent，<br />如果其核心能力可以被一个
+                Skill 清晰地承载？
+              </p>
+            </div>
+          </main>
+
+          <!-- Footer - Hierarchy Visualization -->
+          <footer class="w-full flex flex-col items-center pb-8">
+            <div
+              class="text-center text-xl text-gray-400 tracking-[0.3em] mb-8"
+            >
+              新的架构思考
+            </div>
+            <div
+              class="flex items-center space-x-8 text-3xl font-semibold tracking-wider text-gray-700"
+            >
+              <span>工具 (MCP)</span>
+              <span class="text-gray-300 font-light text-4xl">→</span>
+              <span class="border-2 border-blue-500 text-blue-600 py-3 px-6"
+                >技能 (SKILLS)</span
+              >
+              <span class="text-gray-300 font-light text-4xl">→</span>
+              <span>智能体 (AGENT)</span>
+            </div>
+          </footer>
+        </section>
+
+        <!-- Page 3: Practice -->
+        <section
+          id="page-3"
+          class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100 relative p-24 flex flex-col"
+        >
+          <!-- Header -->
+          <header class="flex justify-between items-start pb-8">
+            <div class="text-gray-900">
+              <h1 class="text-6xl responsive-title font-bold tracking-wide">实践与远方</h1>
+              <p class="text-2xl text-gray-500 mt-4">从设计哲学到行动指南</p>
+            </div>
+            <div class="text-8xl font-bold text-gray-200">03</div>
+          </header>
+
+          <!-- Main Content -->
+          <main class="mt-16 flex-grow space-y-20">
+            <div>
+              <h2 class="text-3xl font-bold text-gray-800 tracking-wider">
+                友好的设计哲学
+              </h2>
+              <p class="mt-6 text-xl text-gray-700 leading-9 max-w-4xl">
+                Skills 的设计对普通用户极为友好。要实现一个 MCP
+                工具，非编程科班出身的人可能会对诸多概念望而却步。而 Skill
+                的设计核心，无非是像写文档一样，清晰地讲明白一件事。为了执行脚本和代码，Anthropic
+                必然提供了一个虚拟执行环境，将技术复杂性转交给了容器，这本身就是一个值得关注的技术趋势。
+              </p>
+            </div>
+
+            <div>
+              <h2 class="text-3xl font-bold text-gray-800 tracking-wider">
+                行动建议：深入了解 Skill
+              </h2>
+              <p class="mt-6 text-xl text-gray-700 leading-9">
+                要真正理解 Skills，建议从以下两步开始：
+              </p>
+              <div class="mt-8 border-l-4 border-gray-200 pl-8 space-y-8">
+                <div class="step">
+                  <h3 class="text-2xl font-semibold text-gray-800">
+                    1. 上手实例
+                  </h3>
+                  <p class="mt-2 text-xl text-gray-600 leading-9">
+                    从官方 GitHub
+                    仓库的每个例子开始，对“技能”是什么建立初步的、具体的概念。
+                  </p>
+                  <a
+                    href="https://github.com/anthropics/skills"
+                    target="_blank"
+                    class="text-lg text-blue-600 hover:underline mt-2 inline-block"
+                    >github.com/anthropics/skills</a
+                  >
+                </div>
+                <div class="step">
+                  <h3 class="text-2xl font-semibold text-gray-800">
+                    2. 精读原文
+                  </h3>
+                  <p class="mt-2 text-xl text-gray-600 leading-9">
+                    阅读工程文章，深入了解 Skills 背后的设计哲学与实现细节。
+                  </p>
+                  <a
+                    href="https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills"
+                    target="_blank"
+                    class="text-lg text-blue-600 hover:underline mt-2 inline-block"
+                    >anthropic.com/engineering/agent-skills</a
+                  >
+                </div>
+              </div>
+            </div>
+          </main>
+
+          <!-- Footer -->
+          <footer class="mt-24 border-t border-gray-200 pt-12 text-center">
+            <p class="text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              <span class="block mt-6 font-semibold text-gray-900"
+                >它也许像浩瀚天空中的一颗星，为我们指明了某些方向。</span
+              >
+            </p>
+          </footer>
+        </section>
+      </main>
+
+      </main>
+    </div>
+  </body>
+</html>

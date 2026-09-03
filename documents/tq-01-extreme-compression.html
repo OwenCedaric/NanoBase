@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboQuant: 重新定义AI效率 - Google Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+        :root {
+            --braun-red: #FF3300;
+            --bg-color: #F8F8F6;
+            --text-main: #111111;
+            --text-muted: #666666;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Axiom 2: Absolute Readability */
+        .text-body {
+            font-size: 20px;
+            line-height: 1.8;
+            font-weight: 400;
+            color: #2A2A2A;
+        }
+
+        /* Grid Framework */
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .editorial-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .editorial-grid {
+                grid-template-columns: repeat(12, 1fr);
+            }
+        }
+
+        /* Abstract UI Elements */
+        .braun-accent {
+            width: 16px;
+            height: 16px;
+            background-color: var(--braun-red);
+        }
+
+        .braun-line {
+            height: 2px;
+            background-color: var(--text-main);
+            width: 100%;
+        }
+
+        .node-circle {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--braun-red);
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            mt: 8px;
+        }
+
+        .node-circle.black {
+            background-color: var(--text-main);
+        }
+
+        .flow-line {
+            position: absolute;
+            left: 6px;
+            top: 14px;
+            bottom: -40px;
+            width: 2px;
+            background-color: #E5E5E5;
+            z-index: 1;
+        }
+
+        /* Image Treatment for Editorial Feel */
+        .img-editorial {
+            filter: grayscale(100%) contrast(1.05);
+            mix-blend-mode: multiply;
+            transition: all 0.5s ease;
+            width: 100%;
+            height: auto;
+        }
+
+        .img-wrapper:hover .img-editorial {
+            filter: grayscale(0%) contrast(1);
+            mix-blend-mode: normal;
+        }
+
+        /* Graphic Diagrams */
+        .polar-diagram {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .polar-circle {
+            position: absolute;
+            border: 1px dashed #999;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .polar-line {
+            width: 100px;
+            height: 2px;
+            background-color: var(--braun-red);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: left center;
+            transform: translateY(-50%) rotate(-37deg);
+        }
+
+        .polar-point {
+            width: 8px;
+            height: 8px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            right: 0;
+            top: -3px;
+        }
+
+        .giant-bg-text {
+            font-size: 25vw;
+            font-weight: 900;
+            line-height: 0.8;
+            color: #EFEFEA;
+            position: fixed;
+            top: 10vh;
+            left: -2vw;
+            z-index: -1;
+            user-select: none;
+            letter-spacing: -0.05em;
+        }
+
+        /* Section Spacing */
+        .section-padding {
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+    </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+    <!-- Ambient Background Anchor -->
+    <div class="giant-bg-text" aria-hidden="true">TQ</div>
+
+    <!-- Main Container -->
+    <main class="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-24">
+
+        <!-- Header / Meta -->
+        <header class="editorial-grid py-8 border-b-2 border-black sticky top-0 bg-[#F8F8F6]/90 backdrop-blur-md z-50">
+            <div class="col-span-4 md:col-span-4 lg:col-span-3 flex items-center gap-4">
+                <div class="braun-accent"></div>
+                <div>
+                    <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500">Google Research</p>
+                    <p class="text-[10px] font-medium tracking-widest text-gray-400 mt-1">MARCH 24, 2026</p>
+                </div>
+            </div>
+            <div class="col-span-4 md:col-span-4 lg:col-span-9 flex items-center justify-end">
+                <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-black">Document 01 : Extreme Compression
+                </p>
+            </div>
+        </header>
+
+        <!-- 01. COVER SECTION -->
+        <section class="section-padding min-h-[85vh] flex flex-col justify-center">
+            <div class="editorial-grid">
+                <!-- Empty space for asymmetry on large screens -->
+                <div class="hidden lg:block lg:col-span-2">
+                    <div class="h-full border-l border-gray-300 ml-4 relative">
+                        <span
+                            class="absolute top-0 -left-[14px] text-xs font-bold text-gray-400 rotate-90 origin-left tracking-widest">VOL.
+                            26</span>
+                    </div>
+                </div>
+
+                <div class="col-span-4 md:col-span-8 lg:col-span-9">
+                    <h2 class="text-xl md:text-2xl font-light tracking-[0.3em] text-gray-500 mb-8 uppercase">TurboQuant
+                    </h2>
+                    <h1 class="text-5xl md:text-7xl lg:text-[100px] font-black leading-[1.05] tracking-tight text-black mb-12"
+                        style="font-family: 'PingFang SC', sans-serif;">
+                        重新定义AI效率：<br>极限压缩的艺术
+                    </h1>
+
+                    <div class="editorial-grid mt-16 lg:mt-24">
+                        <div class="col-span-4 md:col-span-5 lg:col-span-6 border-l-2 border-black pl-6 md:pl-10">
+                            <p class="text-[22px] md:text-[28px] font-light leading-[1.6] text-gray-800">
+                                我们引入了一套基于坚实理论基础的高级量化算法，在零精度损失的前提下，实现了对大型语言模型与向量搜索引擎的庞大压缩。
+                            </p>
+                        </div>
+                        <div
+                            class="col-span-4 md:col-span-3 lg:col-span-3 lg:col-start-8 mt-12 md:mt-0 flex flex-col justify-end">
+                            <p
+                                class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4 border-b border-gray-300 pb-2">
+                                Core Researchers</p>
+                            <p class="text-lg font-bold text-black">Amir Zandieh</p>
+                            <p class="text-sm text-gray-500 mb-6">Research Scientist</p>
+                            <p class="text-lg font-bold text-black">Vahab Mirrokni</p>
+                            <p class="text-sm text-gray-500">VP and Google Fellow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUICK LINKS -->
+        <section class="py-12 border-y border-gray-200">
+            <div class="editorial-grid">
+                <div class="col-span-4 md:col-span-2 lg:col-span-2">
+                    <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400">Quick Links</p>
+                </div>
+                <div class="col-span-4 md:col-span-6 lg:col-span-10 flex flex-wrap gap-x-12 gap-y-4">
+                    <a href="https://arxiv.org/abs/2504.19874" target="_blank"
+                        class="text-sm font-semibold hover:text-[#FF3300] transition-colors flex items-center gap-2">
+                        <i class="ri-arrow-right-up-line"></i> TurboQuant [Arxiv]
+                    </a>
+                    <a href="https://arxiv.org/abs/2406.03482" target="_blank"
+                        class="text-sm font-semibold hover:text-[#FF3300] transition-colors flex items-center gap-2">
+                        <i class="ri-arrow-right-up-line"></i> Quantized Johnson-Lindenstrauss
+                    </a>
+                    <a href="https://arxiv.org/abs/2502.02617" target="_blank"
+                        class="text-sm font-semibold hover:text-[#FF3300] transition-colors flex items-center gap-2">
+                        <i class="ri-arrow-right-up-line"></i> PolarQuant
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02. THE BOTTLENECK -->
+        <section class="section-padding">
+            <div class="editorial-grid">
+                <!-- Anchor marker -->
+                <div
+                    class="col-span-4 md:col-span-8 lg:col-span-12 flex justify-between items-end border-b border-gray-300 pb-4 mb-16">
+                    <h2 class="text-5xl md:text-7xl font-black text-gray-200 tracking-tighter">01</h2>
+                    <h3 class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">The Bottleneck / 向量与记忆的困境
+                    </h3>
+                </div>
+
+                <!-- Abstract side -->
+                <div class="hidden lg:block lg:col-span-3">
+                    <div class="sticky top-32">
+                        <i class="ri-database-2-line text-[120px] text-gray-200 leading-none"></i>
+                        <div class="mt-8 border-l-2 border-[#FF3300] pl-4">
+                            <p class="text-xl font-light text-gray-800 leading-snug">
+                                高维向量极其强大，但也吞噬着海量的内存资源。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="col-span-4 md:col-span-8 lg:col-span-7 lg:col-start-5">
+                    <div class="text-body space-y-8">
+                        <p>
+                            <strong class="font-bold text-black">向量 (Vectors)</strong> 是 AI
+                            模型理解和处理信息的基础方式。小型向量描述简单的属性，例如图表中的一个点；而“高维”向量则捕捉复杂的信息，例如图像的特征、单词的含义或数据集的属性。
+                        </p>
+                        <p>
+                            高维向量虽然强大，但它们也消耗海量的内存。这种消耗直接导致了<strong class="font-bold text-black">键值缓存 (KV Cache)</strong>
+                            的瓶颈。KV Cache 就如同一个高速的“数字小抄”，在简单的标签下存储频繁使用的信息，以便计算机能够即时检索，而无需在缓慢、庞大的数据库中进行搜索。
+                        </p>
+
+                        <div class="my-16 pl-6 md:pl-10 border-l-4 border-black bg-white py-6 pr-6 shadow-sm">
+                            <p class="text-[22px] md:text-[26px] leading-[1.6] font-light text-black italic">
+                                “传统向量量化在解决一个问题的同时，引入了自身的‘内存开销’，这在很大程度上抵消了压缩的初衷。”
+                            </p>
+                        </div>
+
+                        <p>
+                            <strong class="font-bold text-black">向量量化 (Vector quantization)</strong>
+                            是一种强大的经典数据压缩技术，旨在减小高维向量的体积。这项优化解决了 AI 的两个关键层面：首先，它通过实现更快的相似度查找，增强了驱动大规模 AI
+                            和搜索引擎的底层高速技术——<strong class="font-bold text-black">向量搜索</strong>；其次，它通过缩减键值对的大小，帮助疏通 KV
+                            Cache 瓶颈，从而降低内存成本。
+                        </p>
+                        <p>
+                            然而，传统的向量量化通常会引入自身的“内存开销 (Memory Overhead)”。因为大多数现有方法都需要为每一小块数据计算并以全精度存储<strong
+                                class="font-bold text-black">量化常数 (quantization constants)</strong>。这种开销会为每个数字额外增加 1 到 2
+                            个比特，部分抵消了向量量化的本来目的。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03. THE ARCHITECTURE -->
+        <section
+            class="section-padding bg-white mx-[-1.5rem] px-[1.5rem] md:mx-[-3rem] md:px-[3rem] lg:mx-[-6rem] lg:px-[6rem] border-y border-gray-200">
+            <div class="max-w-[1600px] mx-auto editorial-grid">
+
+                <div
+                    class="col-span-4 md:col-span-8 lg:col-span-12 flex justify-between items-end border-b border-gray-300 pb-4 mb-24">
+                    <h2 class="text-5xl md:text-7xl font-black text-gray-200 tracking-tighter">02</h2>
+                    <h3 class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">The Architecture / 破局：双步机制
+                    </h3>
+                </div>
+
+                <!-- Intro Center -->
+                <div class="col-span-4 md:col-span-6 md:col-start-2 lg:col-span-8 lg:col-start-3 text-center mb-24">
+                    <p class="text-body mb-8">
+                        今天，我们正式推出 <strong class="font-bold text-black">TurboQuant</strong>（将在 ICLR 2026
+                        发表），这是一种旨在从根本上解决向量量化中内存开销挑战的最佳压缩算法。
+                    </p>
+                    <p class="text-body">
+                        同时，我们展示了 <strong>量化 Johnson-Lindenstrauss (QJL)</strong> 以及 <strong>PolarQuant</strong>（将在
+                        AISTATS 2026 发表）。TurboQuant 是一种能够在实现极高模型压缩率的同时保持零精度损失的方法，它是支持 KV Cache
+                        压缩与向量搜索的理想之选。它通过以下两个关键步骤实现：
+                    </p>
+                </div>
+
+                <!-- Two Steps Layout -->
+                <div class="col-span-4 md:col-span-8 lg:col-span-10 lg:col-start-2">
+                    <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 relative">
+
+                        <!-- Step 1 -->
+                        <div class="flex-1 relative">
+                            <div class="flex gap-6">
+                                <div class="relative pt-2">
+                                    <div class="node-circle"></div>
+                                    <div class="flow-line hidden lg:block"></div>
+                                </div>
+                                <div>
+                                    <h4 class="text-[28px] font-bold text-black mb-2">1. 高质量压缩</h4>
+                                    <p
+                                        class="text-[11px] font-bold text-[#FF3300] uppercase tracking-[0.2em] mb-8 pb-4 border-b border-gray-200">
+                                        The PolarQuant Method</p>
+                                    <div class="text-body space-y-6">
+                                        <p>
+                                            TurboQuant 首先对数据向量进行随机旋转。这一巧妙的步骤简化了数据的几何形态，使得标准的、高质量的量化器能够轻松应用于向量的各个独立部分。
+                                        </p>
+                                        <p class="text-gray-500 text-[16px] leading-[1.6]">
+                                            *(注：量化器是一种将大量连续值映射为较小、离散符号集的工具，类似于音频量化或 JPEG 压缩)*。
+                                        </p>
+                                        <p>
+                                            在第一阶段，算法投入了大部分的压缩算力（绝大多数比特位），用于精准捕捉原始向量的核心概念与强度。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex-1 relative lg:pt-[120px]">
+                            <div class="flex gap-6">
+                                <div class="relative pt-2">
+                                    <div class="node-circle black"></div>
+                                </div>
+                                <div>
+                                    <h4 class="text-[28px] font-bold text-black mb-2">2. 消除隐藏误差</h4>
+                                    <p
+                                        class="text-[11px] font-bold text-black uppercase tracking-[0.2em] mb-8 pb-4 border-b border-gray-200">
+                                        The QJL Algorithm</p>
+                                    <div class="text-body space-y-6">
+                                        <p>
+                                            TurboQuant 运用极少量的残余压缩算力（仅需 <strong
+                                                class="font-bold text-black">1-bit</strong>），将 QJL 算法应用于第一阶段遗留的微小误差上。
+                                        </p>
+                                        <p>
+                                            在这一环节中，QJL 阶段化身为一个严密的数学纠错器，彻底消除系统的量化偏差 (bias)，从而为最终计算生成极其精准的注意力分数 (Attention
+                                            Score)。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 04. DEEP DIVE ENGINES -->
+        <section class="section-padding">
+            <div class="editorial-grid">
+
+                <div
+                    class="col-span-4 md:col-span-8 lg:col-span-12 flex justify-between items-end border-b border-gray-300 pb-4 mb-16">
+                    <h2 class="text-5xl md:text-7xl font-black text-gray-200 tracking-tighter">03</h2>
+                    <h3 class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">The Engines / 核心引擎解析</h3>
+                </div>
+
+                <!-- Engine: QJL -->
+                <div class="col-span-4 md:col-span-4 lg:col-span-5 text-body">
+                    <h4 class="text-[32px] font-bold text-black mb-2">QJL</h4>
+                    <p
+                        class="text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase mb-8 pb-4 border-b border-gray-300 w-3/4">
+                        零开销、1-Bit 技巧</p>
+
+                    <div class="space-y-6">
+                        <p>
+                            QJL 运用了一种被称为 <strong>Johnson-Lindenstrauss Transform</strong>
+                            的数学技术，在收缩复杂的高维数据的同时，完美保留数据点之间关键的距离与关系。
+                        </p>
+                        <p>
+                            它将转换后的每一个向量数值，极限压缩为一个单一的<strong>符号位 (sign bit, +1 或
+                                -1)</strong>。这个算法本质上创造了一种超高速的速记法，要求<strong>零内存开销</strong>。
+                        </p>
+                        <p>
+                            为了维持精确度，QJL 采用了一个特殊的估算器，在“高精度查询”与“低精度简化数据”之间进行战略性的平衡。这使得模型能够准确计算决策依据。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Divider on mobile -->
+                <div class="col-span-4 block md:hidden border-t border-gray-200 my-8"></div>
+
+                <!-- Engine: PolarQuant -->
+                <div class="col-span-4 md:col-span-4 lg:col-span-6 lg:col-start-7 text-body">
+                    <h4 class="text-[32px] font-bold text-black mb-2">PolarQuant</h4>
+                    <p
+                        class="text-[11px] font-bold tracking-[0.2em] text-[#FF3300] uppercase mb-8 pb-4 border-b border-gray-300 w-3/4">
+                        压缩的新“角度”</p>
+
+                    <div class="space-y-6">
+                        <p>
+                            PolarQuant 采用了一种截然不同的路径来解决内存开销问题。它不再使用标准的笛卡尔坐标系来观察内存向量，而是<strong>将向量转化为极坐标 (Polar
+                                coordinates)</strong>。
+                        </p>
+
+                        <div class="bg-gray-100 p-6 md:p-8 border-l-2 border-[#FF3300] my-8">
+                            <p class="text-[18px] md:text-[20px] font-medium italic text-black leading-relaxed">
+                                这就像是将指令“向东走3个街区，向北走4个街区”，替换为了更简练的指令：“呈37度角，总共走5个街区”。
+                            </p>
+                        </div>
+
+                        <p>
+                            这一转换产生了两个关键信息：<strong>半径 (Radius)</strong>（数据强度）与<strong>角度 (Angle)</strong>（数据方向）。
+                        </p>
+                        <p>
+                            由于角度的模式是已知的且高度集中的，模型不再需要执行昂贵的数据标准化。它将数据映射到一个固定且可预测的“圆形”网格上。这种范式转换使得 PolarQuant
+                            能够彻底消除传统方法的内存开销。
+                        </p>
+                    </div>
+
+                    <!-- Abstract Polar Graphic -->
+                    <div
+                        class="mt-16 py-12 bg-white border border-gray-200 flex justify-center items-center overflow-hidden">
+                        <div class="polar-diagram">
+                            <div class="polar-circle" style="width: 200px; height: 200px;"></div>
+                            <div class="polar-circle" style="width: 100px; height: 100px;"></div>
+                            <div class="polar-line">
+                                <div class="polar-point"></div>
+                            </div>
+                            <div class="absolute w-[260px] h-[1px] bg-gray-200 top-[50%] left-[-30px]"></div>
+                            <div class="absolute h-[260px] w-[1px] bg-gray-200 left-[50%] top-[-30px]"></div>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-right font-bold tracking-[0.2em] text-gray-400 mt-4 uppercase">Figure A.
+                        Cartesian to Polar</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05. DATA & PROOF -->
+        <section class="section-padding">
+            <div class="editorial-grid">
+
+                <div
+                    class="col-span-4 md:col-span-8 lg:col-span-12 flex justify-between items-end border-b border-gray-300 pb-4 mb-16">
+                    <h2 class="text-5xl md:text-7xl font-black text-gray-200 tracking-tighter">04</h2>
+                    <h3 class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">The Proof / 无损的跃升</h3>
+                </div>
+
+                <div class="col-span-4 md:col-span-6 lg:col-span-5 text-body space-y-6">
+                    <p>
+                        我们使用开源 LLMs (Gemma 和 Mistral) 在标准长上下文基准测试中对这三种算法进行了严格评估，包括：LongBench, Needle In A Haystack,
+                        ZeroSCROLLS, RULER 以及 L-Eval。
+                    </p>
+                    <p>
+                        实验数据证明，TurboQuant 在<strong>点积失真 (dot product distortion)</strong> 和<strong>召回率 (recall)</strong>
+                        方面均达到了最优得分，同时将 KV 内存占用降至最低。在“大海捞针”任务中，TurboQuant 取得了完美的下游结果，同时将内存缩小了至少 6 倍。
+                    </p>
+                    <p class="mt-8 font-semibold text-black">
+                        TurboQuant 证明了它能够将 KV Cache 量化至区区 <span
+                            class="text-[#FF3300] text-2xl px-1">3-bit</span>，且无需任何训练或微调。在 H100 GPU 加速器上，其速度提升最高可达 8 倍。
+                    </p>
+                </div>
+
+                <!-- Charts Container -->
+                <div class="col-span-4 md:col-span-8 lg:col-span-6 lg:col-start-7 mt-12 lg:mt-0 flex flex-col gap-12">
+
+                    <figure class="border border-gray-200 p-4 bg-white img-wrapper">
+                        <img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-2.width-1250.png"
+                            alt="LongBench Benchmark" class="img-editorial">
+                        <figcaption class="mt-4 border-t border-gray-100 pt-4 text-sm leading-relaxed text-gray-500">
+                            <strong>Chart 1:</strong> TurboQuant 在 LongBench 基准测试中的稳健 KV Cache
+                            压缩表现（Llama-3.1-8B-Instruct）。
+                        </figcaption>
+                    </figure>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <figure class="border border-gray-200 p-4 bg-white img-wrapper">
+                            <img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-3.width-1250.png"
+                                alt="Speedup" class="img-editorial">
+                            <figcaption
+                                class="mt-4 border-t border-gray-100 pt-4 text-xs leading-relaxed text-gray-500">
+                                <strong>Chart 2:</strong> 4-bit TurboQuant 相比未经量化的 32-bit 基准 (JAX)，实现了极大幅度的性能提升。
+                            </figcaption>
+                        </figure>
+
+                        <figure class="border border-gray-200 p-4 bg-white img-wrapper">
+                            <img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-4.width-1250.png"
+                                alt="Retrieval" class="img-editorial">
+                            <figcaption
+                                class="mt-4 border-t border-gray-100 pt-4 text-xs leading-relaxed text-gray-500">
+                                <strong>Chart 3:</strong> GloVe 数据集上最优的 1@k 召回率比率。
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 06. HORIZON & OUTRO -->
+        <section class="section-padding border-t-2 border-black">
+            <div class="editorial-grid">
+
+                <div class="col-span-4 md:col-span-8 lg:col-span-7 text-body">
+                    <h4 class="text-4xl font-black text-black mb-8 tracking-tight">展望未来 (Looking Ahead)</h4>
+                    <p class="mb-6">
+                        TurboQuant、QJL 和 PolarQuant
+                        不仅是实用的工程方案，更是有坚实理论证明支撑的<strong>底层算法贡献</strong>。它们被证明是高效的，且运行在理论下限附近。这种严谨的基础使得它们对于关键的大规模系统而言，极具稳健性与可信度。
+                    </p>
+                    <p>
+                        除了解决如 Gemini 等模型中的 KV Cache 瓶颈，现代搜索正向着理解“意图与含义”进化，这要求极其强大的向量搜索能力。TurboQuant
+                        为这一使命提供了关键技术：允许在极小内存、近乎零预处理时间下构建和查询庞大的向量索引。随着 AI 深度融入各个产品，这一底层向量量化工作将前所未有地重要。
+                    </p>
+                </div>
+
+                <!-- Meta & Acknowledgements Sidebar -->
+                <div
+                    class="col-span-4 md:col-span-6 lg:col-span-4 lg:col-start-9 mt-12 lg:mt-0 flex flex-col justify-between bg-white border border-gray-200 p-8 shadow-sm">
+                    <div>
+                        <p
+                            class="text-[11px] font-bold tracking-[0.2em] text-black uppercase mb-6 border-b border-gray-200 pb-2">
+                            Acknowledgements</p>
+                        <ul class="text-[15px] text-gray-600 leading-[2] space-y-2">
+                            <li><strong class="text-black">Praneeth Kacham</strong>, Google 研究员</li>
+                            <li><strong class="text-black">Majid Hadian</strong>, Google DeepMind 首席工程师</li>
+                            <li><strong class="text-black">Insu Han</strong>, KAIST 助理教授</li>
+                            <li><strong class="text-black">Majid Daliri</strong>, NYU 博士生</li>
+                            <li><strong class="text-black">Lars Gottesbüren</strong>, Google 研究员</li>
+                            <li><strong class="text-black">Rajesh Jayaram</strong>, Google 研究员</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-12 pt-8 border-t border-gray-200">
+                        <p class="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">Labels</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="text-[12px] font-medium text-[#FF3300] bg-[#FF3300]/10 px-3 py-1 rounded-full">Algorithms
+                                & Theory</span>
+                            <span
+                                class="text-[12px] font-medium text-[#FF3300] bg-[#FF3300]/10 px-3 py-1 rounded-full">Generative
+                                AI</span>
+                            <span
+                                class="text-[12px] font-medium text-[#FF3300] bg-[#FF3300]/10 px-3 py-1 rounded-full">Machine
+                                Intelligence</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 flex justify-between items-center border-t border-gray-300">
+            <div class="flex items-center gap-3">
+                <div class="braun-accent w-3 h-3"></div>
+                <span class="text-xs font-bold tracking-widest text-black">END OF DOCUMENT</span>
+            </div>
+            <a href="#"
+                class="text-xs font-bold tracking-widest text-gray-400 hover:text-black transition-colors uppercase">
+                Back to Top <i class="ri-arrow-up-line ml-1"></i>
+            </a>
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

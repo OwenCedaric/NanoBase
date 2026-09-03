@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURSUE | 战争部解密不明异常现象档案</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration for "Braun/Archive" Aesthetic -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'braun-red': '#FF3300',
+                        'archive-bg': '#F4F3EF', // Off-white/newsprint
+                        'ink-black': '#111111',
+                        'ink-light': '#555555',
+                    },
+                    fontFamily: {
+                        sans:[
+                            'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 
+                            '"Helvetica Neue"', 'Helvetica', 'Arial', '"PingFang SC"', 
+                            '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'
+                        ],
+                        mono:['"SFMono-Regular"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+                    },
+                    fontSize: {
+                        'giant': 'clamp(4rem, 15vw, 15rem)',
+                        'display': 'clamp(2rem, 5vw, 5rem)',
+                    },
+                    letterSpacing: {
+                        'tighter-xl': '-0.04em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base typography and scrollbar reset */
+        body {
+            background-color: theme('colors.archive-bg');
+            color: theme('colors.ink-black');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        ::selection {
+            background-color: theme('colors.braun-red');
+            color: #ffffff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.archive-bg');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.ink-black');
+        }
+
+        /* Editorial utilities */
+        .grid-lines > * {
+            border-right: 1px solid rgba(17, 17, 17, 0.1);
+            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+        }
+        .text-balance {
+            text-wrap: balance;
+        }
+        .hanging-quotes {
+            text-indent: -0.5em;
+        }
+    </style>
+</head>
+<body class="font-sans leading-relaxed selection:bg-braun-red selection:text-white">
+
+    <!-- Top Archival Meta Bar (Functionalism) -->
+    <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference text-archive-bg border-b border-archive-bg/20 backdrop-blur-sm">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-8 py-3 flex justify-between items-center text-xs font-mono uppercase tracking-widest">
+            <div class="flex items-center gap-4">
+                <span class="w-2 h-2 bg-braun-red rounded-full animate-pulse"></span>
+                <span>DOW / PURSUE / 2026</span>
+            </div>
+            <div class="hidden md:block">
+                <span>Classification: UNCLASSIFIED / PUBLIC RELEASE</span>
+            </div>
+            <div>
+                <span>FILE REF: DOW-01-UAP</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+
+        <!-- Section 01: The Hero (Asymmetric Balance & Typographic Impact) -->
+        <section class="relative min-h-[90vh] flex flex-col justify-center border-b border-ink-black/10 overflow-hidden">
+            <!-- Giant Watermark -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-giant font-bold text-ink-black/5 select-none pointer-events-none whitespace-nowrap tracking-tighter-xl z-0">
+                UAP DECLASSIFIED
+            </div>
+
+            <div class="max-w-[1600px] w-full mx-auto px-4 md:px-8 relative z-10 grid grid-cols-1 xl:grid-cols-12 gap-8 items-end pb-24">
+                
+                <!-- Left Title Block (Spans 8 cols) -->
+                <div class="xl:col-span-8">
+                    <p class="text-braun-red font-mono text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
+                        <i class="ri-folder-lock-line text-lg"></i>
+                        Historic Transparency Effort
+                    </p>
+                    <h1 class="text-display font-bold leading-[1.1] tracking-tighter-xl text-balance mb-8">
+                        战争部发布不明异常现象历史性档案。
+                    </h1>
+                </div>
+
+                <!-- Right Lead Paragraph (Spans 4 cols, asymmetric push) -->
+                <div class="xl:col-span-4 xl:pb-4 border-l border-braun-red pl-6">
+                    <p class="text-lg md:text-xl text-ink-light leading-relaxed mb-6">
+                        今日，战争部 (DOW) 宣布首次公开前所未见的“不明异常现象” (UAP) 档案。此举标志着<strong class="text-ink-black">总统UAP遭遇解密与报告系统 (PURSUE)</strong> 的正式启动。
+                    </p>
+                    <a href="#details" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-braun-red transition-colors">
+                        Scroll to inspect <i class="ri-arrow-down-line"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 02: The Framework (Grid System & Information Density) -->
+        <section id="details" class="py-24 md:py-32 border-b border-ink-black/10">
+            <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-16">
+                    
+                    <!-- Section Meta -->
+                    <div class="xl:col-span-3">
+                        <h2 class="text-6xl font-bold tracking-tighter text-ink-black/20 mb-4">01</h2>
+                        <h3 class="text-lg font-bold uppercase tracking-widest border-b border-ink-black pb-4">The Directive</h3>
+                    </div>
+
+                    <!-- Core Text (Spans 9 cols) -->
+                    <div class="xl:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-12 text-lg leading-relaxed">
+                        <div>
+                            <p class="mb-6">
+                                本次解密行动遵循 <a href="https://truthsocial.com/@realDonaldTrump/posts/116100300268316472" target="_blank" class="text-braun-red border-b border-braun-red hover:bg-braun-red hover:text-white transition-all">特朗普总统的直接指示</a>，旨在为了绝对透明的公共利益，启动鉴定与解密UAP相关政府档案的进程。历史上从未有任何一届政府在UAP透明度上兑现过如此级别的承诺。
+                            </p>
+                            <p>
+                                过去几届政府试图抹黑或劝阻美国民众，而现任政府则专注于为公众提供最大程度的透明度。所有的原始数据交由公众，让民众根据档案内容自行判断。
+                            </p>
+                        </div>
+                        <div class="bg-ink-black text-archive-bg p-8 md:p-12 relative overflow-hidden">
+                            <i class="ri-radar-line absolute -right-8 -bottom-8 text-9xl text-archive-bg/10"></i>
+                            <h4 class="font-mono text-sm text-braun-red mb-6">INTERAGENCY COALITION (跨部门联盟)</h4>
+                            <ul class="space-y-3 font-mono text-sm md:text-base opacity-90">
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px]"></i> 白宫 (The White House)</li>
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px]"></i> 国家情报总监办公室 (ODNI)</li>
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px]"></i> 能源部 (DOE)</li>
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] text-braun-red"></i> 战争部全域异常解决办公室 (AARO)</li>
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px]"></i> 国家航空航天局 (NASA)</li>
+                                <li class="flex items-center gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px]"></i> 联邦调查局 (FBI)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 03: The Voices (Heavy WCU / Sequential Editorial Rhythm) -->
+        <section class="py-24 md:py-32 bg-ink-black text-archive-bg border-b border-ink-black">
+            <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+                
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-16">
+                    <!-- Sticky Title -->
+                    <div class="xl:col-span-4 relative">
+                        <div class="sticky top-32">
+                            <h2 class="text-6xl font-bold tracking-tighter text-archive-bg/20 mb-4">02</h2>
+                            <h3 class="text-lg font-bold uppercase tracking-widest border-b border-archive-bg/30 pb-4 mb-8">Official Statements</h3>
+                            <p class="text-archive-bg/60 text-sm font-mono leading-relaxed max-w-xs">
+                                EXCERPTS FROM THE BRIEFING. THE AMERICAN PEOPLE CAN NOW ACCESS DECLASSIFIED UAP FILES INSTANTLY — NO CLEARANCE REQUIRED.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Scrolling Quotes List -->
+                    <div class="xl:col-span-8 flex flex-col gap-24">
+                        
+                        <!-- Quote 01 -->
+                        <article class="relative pl-6 md:pl-12 border-l border-archive-bg/20 hover:border-braun-red transition-colors duration-500">
+                            <i class="ri-double-quotes-l absolute top-0 left-[-1rem] md:left-[-1.5rem] text-3xl md:text-5xl text-archive-bg/10"></i>
+                            <h4 class="font-mono text-sm text-braun-red mb-4 uppercase tracking-wider">Pete Hegseth / 战争部部长</h4>
+                            <p class="text-2xl md:text-4xl font-bold leading-tight tracking-tight hanging-quotes text-balance text-archive-bg mb-6">
+                                “战争部与特朗普总统步调一致，为我国政府对不明异常现象的认知带来史无前例的透明度。”
+                            </p>
+                            <p class="text-lg text-archive-bg/70 leading-relaxed">
+                                这些长期隐藏在保密级别背后的档案，曾引发了合理的猜测——现在是时候让美国人民亲眼看看了。此次解密文件的发布，证明了本届政府对前所未有的透明度的真诚承诺。
+                            </p>
+                        </article>
+
+                        <!-- Quote 02 -->
+                        <article class="relative pl-6 md:pl-12 border-l border-archive-bg/20 hover:border-braun-red transition-colors duration-500">
+                            <h4 class="font-mono text-sm text-braun-red mb-4 uppercase tracking-wider">Tulsi Gabbard / 国家情报总监</h4>
+                            <p class="text-2xl md:text-4xl font-bold leading-tight tracking-tight hanging-quotes text-balance text-archive-bg mb-6">
+                                “美国人民长期以来一直寻求透明度……国家情报总监办公室正积极协调情报界，确保进行仔细、全面且史无前例的审查。”
+                            </p>
+                            <p class="text-lg text-archive-bg/70 leading-relaxed">
+                                在总统的领导下，我们与战争部共同努力，为美国人民提供最大的透明度。今天的发布只是正在进行的联合解密与发布工作的第一步。
+                            </p>
+                        </article>
+
+                        <!-- Quote 03 -->
+                        <article class="relative pl-6 md:pl-12 border-l border-archive-bg/20 hover:border-braun-red transition-colors duration-500">
+                            <h4 class="font-mono text-sm text-braun-red mb-4 uppercase tracking-wider">Kash Patel / 联邦调查局局长</h4>
+                            <p class="text-2xl md:text-4xl font-bold leading-tight tracking-tight hanging-quotes text-balance text-archive-bg mb-6">
+                                “历史上第一次，美国人民可以毫无障碍地访问有关不明异常现象的解密政府文件——这是历届政府都未能达到的透明度。”
+                            </p>
+                            <p class="text-lg text-archive-bg/70 leading-relaxed">
+                                FBI很荣幸在这一具有里程碑意义的记录发布中并肩作战。我们始终致力于以处理每项国家安全事务时相同的严谨与正直，来支持这项滚动解密工作。随着这些档案的持续审查与发布，美国人民可以相信，他们的安全仍然是我们的最高考量。
+                            </p>
+                        </article>
+
+                        <!-- Quote 04 -->
+                        <article class="relative pl-6 md:pl-12 border-l border-archive-bg/20 hover:border-braun-red transition-colors duration-500">
+                            <h4 class="font-mono text-sm text-braun-red mb-4 uppercase tracking-wider">Jared Isaacman / NASA 局长</h4>
+                            <p class="text-2xl md:text-4xl font-bold leading-tight tracking-tight hanging-quotes text-balance text-archive-bg mb-6">
+                                “我们的职责是汇聚最聪明的大脑和最先进的科学仪器，遵循数据，分享发现。”
+                            </p>
+                            <p class="text-lg text-archive-bg/70 leading-relaxed">
+                                我赞赏总统为美国人民带来更高透明度所做的全政府努力。对于我们已知为真的、尚未理解的以及所有有待发现的事物，我们将保持坦诚。探索与追求知识，是我们致力于解开宇宙秘密时，NASA使命的核心。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 04: The Call to Action (Thunder Strike / Maximum Minimalism) -->
+        <section class="py-32 md:py-48 relative flex items-center justify-center text-center overflow-hidden">
+            <!-- Grid background pattern -->
+            <div class="absolute inset-0 z-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, black 1px, transparent 0); background-size: 40px 40px;"></div>
+            
+            <div class="relative z-10 max-w-4xl mx-auto px-4">
+                <p class="font-mono text-braun-red text-sm tracking-[0.3em] uppercase mb-8">Access the database</p>
+                <a href="https://WAR.GOV/UFO" target="_blank" class="block group">
+                    <h2 class="text-5xl md:text-8xl font-bold tracking-tighter-xl text-ink-black group-hover:text-braun-red transition-colors duration-300">
+                        WAR.GOV/UFO
+                    </h2>
+                    <div class="h-[2px] w-0 bg-braun-red mx-auto mt-4 group-hover:w-full transition-all duration-700 ease-in-out"></div>
+                </a>
+                <p class="mt-12 text-lg text-ink-light max-w-2xl mx-auto">
+                    战争部专用门户页面。所有最新的UAP视频、照片及跨越整个美国政府部门的原始文档，现已汇集于此。请保持关注，最新解密文件将滚动释出。
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Grid & Order) -->
+    <footer class="border-t border-ink-black border-4 py-8 md:py-12 bg-ink-black text-archive-bg">
+        <div class="max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 font-mono text-xs uppercase tracking-widest opacity-60">
+            <div>
+                <p>PUBLISHED BY THE DEPARTMENT OF WAR.</p>
+                <p>UNDER THE PURSUE DIRECTIVE.</p>
+            </div>
+            <div class="text-left md:text-right">
+                <p>FILE RELEASE: MAY 2026</p>
+                <p>STATUS: UNCLASSIFIED</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>架构06：AI辅助的工业化内容生产流水线</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google Fonts: Inter & Noto Sans SC & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            dark: '#111111',
+                            gray: '#E5E5E5',
+                            bg: '#F9F9FA',
+                        }
+                    },
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tight: '-0.02em',
+                        widest: '0.1em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F9F9FA;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* 巨大化背景文字水印 */
+        .giant-watermark {
+            position: absolute;
+            font-size: 15vw;
+            font-weight: 900;
+            line-height: 0.8;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: -0.05em;
+        }
+
+        /* 纯净的排版约束 */
+        .editorial-p {
+            font-size: clamp(1rem, 1.2vw, 1.25rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #333333;
+        }
+
+        /* 响应式网格线 */
+        .grid-guide {
+            background-size: 100% 1px, 1px 100%;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+
+        /* 代码/Prompt 块样式 */
+        .prompt-block {
+            background-color: #111;
+            color: #E5E5E5;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2rem;
+            position: relative;
+            border-left: 4px solid #FF3300;
+        }
+        .prompt-block::before {
+            content: 'PROMPT';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #FF3300;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            letter-spacing: 0.1em;
+        }
+
+        /* 填空占位符 */
+        .input-slot {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 1px dashed #FF3300;
+            margin: 0 4px;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden selection:bg-braun-red selection:text-white">
+
+    <!-- 全局网格背景 -->
+    <div class="fixed inset-0 grid-guide pointer-events-none z-0"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 w-full px-6 py-6 flex justify-between items-center z-50 mix-blend-difference text-white">
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-3 bg-braun-red rounded-full"></div>
+            <span class="font-bold tracking-widest text-xs uppercase">Architecture Vol.06</span>
+        </div>
+        <div class="text-xs uppercase tracking-widest opacity-50 hidden md:block">AI Production Pipeline</div>
+    </header>
+
+    <main class="relative z-10 max-w-[1600px] mx-auto">
+
+        <!-- HERO SECTION: 工业化流水线概念 -->
+        <section class="relative min-h-[90vh] flex flex-col justify-end px-6 md:px-12 lg:px-24 pb-24 md:pb-32 pt-32">
+            <div class="giant-watermark top-1/4 left-0 select-none">PIPELINE</div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+                <div class="lg:col-span-10 lg:col-start-2">
+                    <p class="text-braun-red font-bold tracking-widest text-sm mb-6 uppercase flex items-center gap-4">
+                        <i class="ri-cpu-line"></i> Algorithmic Co-creation
+                    </p>
+                    <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter leading-[1.05] mb-10">
+                        结构化投喂：<br/>构建AI工业化写作流水线.
+                    </h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                        <div class="md:col-span-2 hidden md:flex justify-end pt-2">
+                            <div class="w-12 h-[1px] bg-braun-red"></div>
+                        </div>
+                        <div class="md:col-span-10 max-w-3xl">
+                            <p class="text-xl md:text-2xl font-light text-gray-500 leading-relaxed mb-8">
+                                抛弃“灵感匮乏”的借口。AI产出劣质内容的唯一原因，是你输入了缺乏边界的模糊指令。我们必须建立一套包含**原料控制、结构约束、风格校准与终端适配**的四级迭代流水线。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 01: 核心语料库投喂 (The Raw Material) -->
+        <section class="px-6 md:px-12 lg:px-24 py-32 border-t border-black/10 bg-white relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+                
+                <div class="lg:col-span-4">
+                    <span class="text-6xl font-black text-gray-200 block mb-4">01</span>
+                    <h2 class="text-3xl font-bold tracking-tight mb-4 uppercase">基准语料输入阵列</h2>
+                    <p class="text-gray-500 text-sm tracking-widest uppercase mb-8">Data Ingestion</p>
+                    <p class="editorial-p">
+                        严禁让AI直接生成文案。必须先人为定义以下六个物理维度的核心参数。这是决定最终产物质量80%的底层原料。
+                    </p>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="border border-black/10 p-8 md:p-12 bg-gray-50 shadow-sm">
+                        <p class="text-xs font-bold text-braun-red tracking-widest uppercase mb-8 border-b border-black/10 pb-4">The 6-Parameter Matrix</p>
+                        
+                        <ul class="space-y-6 text-sm md:text-base font-medium text-gray-800">
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">01]</span>
+                                <span class="w-32 shrink-0 font-bold text-black">目标人群画像:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">(精确到微观场景)</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">02]</span>
+                                <span class="w-32 shrink-0 font-bold text-black">崩溃触发阈值:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">(最近一次焦虑/失败的瞬间)</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">03]</span>
+                                <span class="w-32 shrink-0 font-bold text-black">核心阻塞节点:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">(具体卡在执行的哪一步)</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">04]</span>
+                                <span class="w-32 shrink-0 font-bold text-black">干预执行动作:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">①__ ②__ ③__ (你的优化/拆解步骤)</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">05]</span>
+                                <span class="w-32 shrink-0 font-bold text-black text-braun-red">物理结果证据:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">(从 ___ 跃迁至 ___)</span>
+                            </li>
+                            <li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                                <span class="w-8 font-mono text-gray-400">06]</span>
+                                <span class="w-32 shrink-0 font-bold text-black">转化承接动作:</span>
+                                <span class="input-slot flex-1 text-braun-dark font-light">(单一极简指令: 评论/私信/主页锚点)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 02: 提示词工程四级瀑布流 (The Prompts) -->
+        <section class="px-6 md:px-12 lg:px-24 py-32 bg-braun-dark text-white relative">
+            <div class="mb-16">
+                <span class="text-6xl font-black text-white/10 block mb-4">02</span>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight uppercase mb-6">四级迭代提示词序列</h2>
+                <p class="text-gray-400 font-medium max-w-3xl">
+                    将大语言模型视为执行器而非创作者。严格按顺序输入以下指令集，完成从骨架生成到终端适配的工业化升维。
+                </p>
+            </div>
+
+            <!-- 垂直瀑布流布局 -->
+            <div class="max-w-4xl mx-auto space-y-16">
+                
+                <!-- Iteration 1 -->
+                <div class="relative">
+                    <div class="absolute -left-12 top-0 text-3xl font-black text-braun-red/30 hidden md:block">1</div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                        <i class="ri-layout-masonry-line text-braun-red"></i> 结构化成型 (Structural Generation)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4">目标：强制AI严格遵守《证明型内容公理》，产出逻辑严密的底层文稿。</p>
+                    
+                    <div class="prompt-block text-sm leading-relaxed">
+                        请基于我提供的【6格矩阵参数】，分别输出三种版本的内容：短版、标准版、长版。<br><br>
+                        <span class="text-braun-red font-bold">绝对执行约束：</span><br>
+                        1）必须严格按以下序列推进：场景代入 → 根源点破 → 过程展示 → 结果对比 → 行动指引 → 轻承接。<br>
+                        2）必须显式呈现“前后对比证据”（参数05）。<br>
+                        3）语言高度口语化，摒弃一切AI常说的机器感宏大词汇。<br>
+                        4）结尾植入自然且不显突兀的转化承接（参数06）。<br><br>
+                        <span class="text-gray-500">
+                        输出规范：<br>
+                        [短版] 6-8句核心逻辑<br>
+                        [标准版] 350-500字<br>
+                        [长版] 800-1200字，要求具备结构化的小标题与清单模块
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Iteration 2 -->
+                <div class="relative">
+                    <div class="absolute -left-12 top-0 text-3xl font-black text-braun-red/30 hidden md:block">2</div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                        <i class="ri-equalizer-line text-braun-red"></i> 风格系数量化校准 (Tone Calibration)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4">目标：剥离“AI味”，将冰冷的逻辑转化为具备极高人味的真实对话。</p>
+                    
+                    <div class="prompt-block text-sm leading-relaxed">
+                        请在不破坏原有逻辑链条、不删减任何证明模块的前提下，将【标准版】重新编译为具备极高“陪伴感与人味”的口语化文案。<br><br>
+                        <span class="text-braun-red font-bold">校准参数：</span><br>
+                        - 极大增加短句比例，消灭冗长的复杂从句。<br>
+                        - 开头必须具备极强的场景刺痛感（模拟面对面交谈）。<br>
+                        - 过程描述必须大量使用第一人称微观视角（如：“我当时判断…” / “我会先…”）。<br>
+                        - 承接话术必须极其自然，杜绝营销腔调。<br><br>
+                        <span class="text-gray-500">
+                        请输出两种维度的语气分发：<br>
+                        [A版本] 温柔陪伴型（注重情绪共鸣）<br>
+                        [B版本] 干脆利落型（注重效率与专业压制）
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Iteration 3 -->
+                <div class="relative">
+                    <div class="absolute -left-12 top-0 text-3xl font-black text-braun-red/30 hidden md:block">3</div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                        <i class="ri-shield-check-line text-braun-red"></i> 证据链增幅补丁 (Evidence Enhancement)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4">目标：针对容易导致信任流失的虚假感（过程太空、证据太虚），进行强制修复。</p>
+                    
+                    <div class="prompt-block text-sm leading-relaxed">
+                        启动逻辑缺陷扫描协议。请检查当前文案：<br><br>
+                        1）<span class="text-braun-red">过程透明度检测：</span> 如果执行动作不够具象，请强制扩写为“3个精确步骤 + 每步附加一条原理解释”。<br>
+                        2）<span class="text-braun-red">结果可感知度检测：</span> 如果变化证据过于模糊，请提供3种不同维度的具象写法供我选择（A.绝对数据型 B.时间跨度型 C.物理状态对比型）。<br>
+                        3）<span class="text-braun-red">执行阻力检测：</span> 请将最后的行动指引，极限压缩为一个用户“仅需30秒即可完成”的最小阻力动作。<br><br>
+                        <span class="text-gray-500">
+                        输出要求：生成一份注入上述补丁的最终增强稿，并独立列出三种证据备选方案。
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Iteration 4 -->
+                <div class="relative">
+                    <div class="absolute -left-12 top-0 text-3xl font-black text-braun-red/30 hidden md:block">4</div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                        <i class="ri-smartphone-line text-braun-red"></i> 跨媒介终端编译 (Media Output)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4">目标：生成针对不同分发平台特性的最终渲染物（流媒体口播 & 碎片化图文）。</p>
+                    
+                    <div class="prompt-block text-sm leading-relaxed">
+                        执行最终媒介输出协议：<br><br>
+                        <span class="text-braun-red font-bold">任务 01：[60秒口播流重构]</span><br>
+                        - 0~3s：极限抛出场景刺痛<br>
+                        - 3~13s：一针见血点破根源病灶<br>
+                        - 13~43s：极速输出3个步骤（每步仅用一句短促精悍的指令）<br>
+                        - 43~53s：抛出不可辩驳的结果对比<br>
+                        - 53~60s：下达行动指引与承接指令<br>
+                        * 必须在文本中标注【停顿/重音/情绪节奏】提示。<br><br>
+                        <span class="text-braun-red font-bold">任务 02：[碎片化阅读排版 (如小红书)]</span><br>
+                        - 产出10个A/B测试标题（需覆盖：强场景、强结果、强对比三种模型）。<br>
+                        - 正文执行严格的区块化排版（短段落、Emoji区隔、小标题锚点）。<br>
+                        - 核心金句强制使用【符号】加粗框定。<br>
+                        - 提取出一份仅限150-200字的极简核心逻辑，作为“朋友圈流转版本”。
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CLOSING / PHILOSOPHY -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 text-center bg-white border-t border-black/10">
+            <h3 class="text-2xl md:text-3xl font-black tracking-tight mb-6">写作不再依赖灵感。</h3>
+            <p class="text-gray-500 max-w-2xl mx-auto editorial-p text-sm">
+                你并非在撰写一篇孤立的文章，而是在搭建一套参数化的内容生成架构。当原料精准、约束严苛、迭代彻底时，“写不出来”的系统性瘫痪将彻底不复存在。
+            </p>
+            <div class="mt-8 flex justify-center">
+                <div class="border border-black px-6 py-2 text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white transition-colors cursor-default">
+                    System.Run(Pipeline)
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-black/10 bg-white">
+        <div class="max-w-[1600px] mx-auto px-6 flex flex-col items-center justify-center gap-6">
+            <div class="w-2 h-2 bg-braun-red rounded-full"></div>
+            <div class="text-center text-xs font-mono uppercase tracking-widest text-gray-400">
+                <p>System Architecture // Prompt Engineering</p>
+                <p class="mt-2 text-gray-300">End of Module 06</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

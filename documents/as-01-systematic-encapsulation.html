@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Skill: 复杂任务的系统化封装 (Systematic Encapsulation)</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        braun: {
+                            bg: '#F4F4F2',    // 经典的博朗灰白，降低屏幕反光
+                            text: '#111111',  // 极深灰，提供最佳对比度
+                            red: '#FF3300',   // 功能性警示/引导红
+                            line: '#D1D1CD'   // 档案感分割线
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Helvetica Neue"', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+                        mono: ['"SFMono-Regular"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    fontSize: {
+                        'giant': 'clamp(4rem, 12vw, 16rem)',
+                        'display': 'clamp(2rem, 5vw, 5rem)',
+                    },
+                    lineHeight: {
+                        'editorial': '1.75',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 针对极简排版的微调 */
+        body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        ::-moz-selection { background: #FF3300; color: #fff; }
+        ::selection { background: #FF3300; color: #fff; }
+        .grid-guide { border-left: 1px solid rgba(209, 209, 205, 0.3); }
+        .text-justify-inter-word { text-align: justify; text-justify: inter-word; }
+    </style>
+</head>
+
+<body class="bg-braun-bg text-braun-text font-sans selection:bg-braun-red selection:text-white">
+
+    <!-- 网格背景辅助线 (仅在超宽屏隐约可见，增强秩序感) -->
+    <div class="fixed inset-0 pointer-events-none flex justify-center max-w-[1600px] mx-auto z-0 opacity-50">
+        <div class="w-full h-full grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-8 px-6 md:px-12">
+            <div class="grid-guide h-full"></div><div class="grid-guide h-full hidden md:block"></div>
+            <div class="grid-guide h-full hidden md:block"></div><div class="grid-guide h-full hidden md:block"></div>
+            <div class="grid-guide h-full hidden md:block"></div><div class="grid-guide h-full hidden md:block"></div>
+            <div class="grid-guide h-full hidden md:block"></div><div class="grid-guide h-full hidden md:block"></div>
+            <div class="grid-guide h-full hidden md:block"></div><div class="grid-guide h-full hidden md:block"></div>
+            <div class="grid-guide h-full hidden md:block"></div><div class="grid-guide h-full hidden md:block border-r border-braun-line/30"></div>
+        </div>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <main class="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 overflow-hidden">
+
+        <!-- ==========================================
+             HERO SECTION (首屏：认知缺口与视觉震撼)
+             ========================================== -->
+        <section class="min-h-[90vh] flex flex-col justify-between py-12 md:py-24 border-b border-braun-line">
+            
+            <header class="flex justify-between items-start">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 bg-braun-red rounded-full"></div>
+                    <span class="text-sm tracking-widest font-mono uppercase text-gray-500">Editorial Spec. 01</span>
+                </div>
+                <div class="text-right text-sm tracking-widest font-mono uppercase text-gray-500 hidden md:block">
+                    Architectural Data / System Workflow
+                </div>
+            </header>
+
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-8 mt-24 mb-12">
+                <div class="col-span-4 md:col-span-12">
+                    <h1 class="text-giant font-black tracking-tighter leading-none uppercase mix-blend-multiply opacity-90">
+                        Agent<br/>Skill.
+                    </h1>
+                </div>
+                <div class="col-span-4 md:col-start-6 md:col-span-7 mt-8 md:mt-16 flex flex-col gap-8">
+                    <h2 class="text-2xl md:text-4xl font-light tracking-tight leading-snug">
+                        它表面上和提示词很接近，<br class="hidden md:block">
+                        但继续往下拆，会发现它对应的是一套<br class="hidden md:block">
+                        <span class="font-medium bg-braun-text text-braun-bg px-2 leading-tight">更完整的任务组织结构</span>。
+                    </h2>
+                    <p class="text-lg md:text-xl leading-editorial text-gray-600 max-w-2xl">
+                        把资料、案例、结构逐层拆开之后，对 Agent Skill 的关注，更多落在它所体现出的 AI 工作组织方式上。这篇内容将用清晰、可复用的方式，解构其本质。
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-8">
+                <i class="ri-arrow-down-line text-3xl animate-bounce text-braun-red"></i>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 1: 定义 (轻度负荷：过渡与核心概念)
+             ========================================== -->
+        <section class="py-24 md:py-32 border-b border-braun-line">
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-8 items-start">
+                <!-- 侧边留白与小标题 -->
+                <div class="col-span-4 md:col-span-3">
+                    <h3 class="text-sm tracking-widest font-mono uppercase text-gray-400 sticky top-24">01. Definition</h3>
+                </div>
+                
+                <!-- 核心文本内容 -->
+                <div class="col-span-4 md:col-span-7 text-lg md:text-xl leading-editorial">
+                    <div class="border-l-4 border-braun-red pl-6 md:pl-8 mb-16">
+                        <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
+                            Agent Skill 是把某一类任务的规则、流程、参考资料、可执行脚本、素材资源，<span class="text-braun-red">封装成一个可被 AI 按需调用的能力单元</span>。
+                        </p>
+                    </div>
+
+                    <p class="mb-8">如果把它类比成人类技能，会比较容易理解。一个厨师会做菜，背后依赖的是一整套能力体系：知道目标菜品是什么、处理顺序、调味规则、在不同场景下怎么调整、该调用什么工具，以及哪些配方和材料要优先使用。</p>
+                    
+                    <p>Agent Skill 的思路与此接近。它会把任务所需的规则、资料、流程和资源组织起来，让 AI 在合适的时机完成加载、判断和执行。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 2: 差异化对比 (重度负荷：逻辑解构)
+             ========================================== -->
+        <section class="py-24 md:py-32 border-b border-braun-line">
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-8">
+                <div class="col-span-4 md:col-span-3">
+                    <h3 class="text-sm tracking-widest font-mono uppercase text-gray-400 sticky top-24">02. Vs. Prompts</h3>
+                    <h2 class="text-display font-bold tracking-tight mt-4 mb-8 leading-none">不仅是<br/>更长的<br/>提示词。</h2>
+                </div>
+
+                <div class="col-span-4 md:col-span-8 md:col-start-5">
+                    <p class="text-xl leading-editorial text-gray-600 mb-16">
+                        普通提示词更接近一次性的对话指令；Skill 更接近可复用的任务模块。其差异主要体现在三个核心维度：
+                    </p>
+
+                    <!-- 三大差异模块 (网格系统) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+                        
+                        <article class="flex flex-col gap-4">
+                            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-mono text-sm mb-2">1</div>
+                            <h4 class="text-xl font-bold">按需加载，拒绝冗余</h4>
+                            <p class="text-gray-600 leading-editorial text-justify-inter-word">
+                                普通提示词一次性写入大量要求，任务复杂时会导致上下文冗长、信息干扰。Agent Skill 采用<strong class="text-black">分层加载</strong>。最上层仅暴露简要描述；模型判断需要时，才读取完整规则、参考资料或执行脚本。内容根据任务需要逐步暴露。
+                            </p>
+                        </article>
+
+                        <article class="flex flex-col gap-4">
+                            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-mono text-sm mb-2">2</div>
+                            <h4 class="text-xl font-bold">解构复杂场景</h4>
+                            <p class="text-gray-600 leading-editorial text-justify-inter-word">
+                                面对如“品牌物料生成”（含海报、包装、社交配图等多场景），全塞入提示词维护成本极高。Skill 结构将内容拆开组织，按目录约定隔离主说明与附属规则，使任务结构清晰，扩展方便。
+                            </p>
+                        </article>
+
+                        <article class="flex flex-col gap-4">
+                            <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-mono text-sm mb-2">3</div>
+                            <h4 class="text-xl font-bold">理解与执行解耦</h4>
+                            <p class="text-gray-600 leading-editorial text-justify-inter-word">
+                                普通提示词停留在“生成内容”。Skill 则将<strong class="text-black">理解任务</strong>和<strong class="text-black">执行动作</strong>拆开：模型负责理解，规则文件约束输出，参考资料补充细节，脚本真正执行动作。这让 Skill 更胜任复杂工作流。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 3: 架构解析 (技术/工程感：代码与目录视觉)
+             ========================================== -->
+        <section class="py-24 md:py-32 bg-black text-white -mx-6 px-6 md:-mx-12 md:px-12">
+            <div class="max-w-[1600px] mx-auto grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-8">
+                
+                <div class="col-span-4 md:col-span-12 mb-12 flex justify-between items-end border-b border-white/20 pb-8">
+                    <div>
+                        <h3 class="text-sm tracking-widest font-mono uppercase text-white/50 mb-4">03. The Architecture</h3>
+                        <h2 class="text-display font-bold tracking-tight leading-none">三层加载机制</h2>
+                    </div>
+                    <i class="ri-terminal-window-line text-4xl text-braun-red hidden md:block"></i>
+                </div>
+
+                <!-- 架构拆解 -->
+                <div class="col-span-4 md:col-span-4">
+                    <p class="text-xl leading-editorial text-white/70 mb-12">
+                        以“品牌物料生成”为例。如果只用普通聊天，每次需重复交代品牌名称、调性、视觉风格、输出格式等。采用 Anthropic 常见的 Skill 目录约定，逻辑被清晰划分为三层。
+                    </p>
+                    <div class="bg-white/5 p-6 rounded-sm border border-white/10 font-mono text-sm mb-8">
+                        <div class="text-braun-red mb-4">// Standard Directory Structure</div>
+                        <div class="flex items-center gap-2 mb-2"><i class="ri-file-markdown-fill text-white/50"></i> SKILL.MD</div>
+                        <div class="flex items-center gap-2 mb-2"><i class="ri-folder-fill text-white/50"></i> references/</div>
+                        <div class="flex items-center gap-2 mb-2"><i class="ri-folder-fill text-white/50"></i> scripts/</div>
+                        <div class="flex items-center gap-2"><i class="ri-folder-fill text-white/50"></i> assets/</div>
+                    </div>
+                </div>
+
+                <div class="col-span-4 md:col-span-7 md:col-start-6 space-y-16">
+                    
+                    <!-- L1 -->
+                    <div class="relative pl-8 border-l border-white/20">
+                        <div class="absolute w-3 h-3 bg-braun-red rounded-full -left-[1.5px] top-2 transform -translate-x-1/2"></div>
+                        <h4 class="text-sm font-mono text-braun-red uppercase tracking-widest mb-2">Layer 1 : Meta Info</h4>
+                        <h3 class="text-2xl font-bold mb-4">让模型知道“技能存在”</h3>
+                        <p class="text-white/70 leading-editorial mb-4">
+                            最短的描述，位于 <code>SKILL.MD</code> 元信息区，充当目录。告诉模型：技能叫什么、功能范围、触发条件。模型需先知道当前可用技能及其职责。
+                        </p>
+                    </div>
+
+                    <!-- L2 -->
+                    <div class="relative pl-8 border-l border-white/20">
+                        <div class="absolute w-3 h-3 bg-white rounded-full -left-[1.5px] top-2 transform -translate-x-1/2"></div>
+                        <h4 class="text-sm font-mono text-white/50 uppercase tracking-widest mb-2">Layer 2 : Directives</h4>
+                        <h3 class="text-2xl font-bold mb-4">写入具体规则 (SKILL.MD)</h3>
+                        <p class="text-white/70 leading-editorial mb-4">
+                            当任务匹配时，模型读取 <code>SKILL.MD</code> 主体。这里定义了品牌背景、输出规则（如：默认先输出创意方案，再输出成品建议）、常见交付物。这取代了口语化描述，采用严格配置文件结构。
+                        </p>
+                    </div>
+
+                    <!-- L3 -->
+                    <div class="relative pl-8 border-l border-white/20">
+                        <div class="absolute w-3 h-3 bg-white rounded-full -left-[1.5px] top-2 transform -translate-x-1/2"></div>
+                        <h4 class="text-sm font-mono text-white/50 uppercase tracking-widest mb-2">Layer 3 : Resources</h4>
+                        <h3 class="text-2xl font-bold mb-4">按需调用的底层支撑</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div>
+                                <h5 class="font-bold flex items-center gap-2"><i class="ri-book-open-line text-braun-red"></i> references/</h5>
+                                <p class="text-white/60 text-sm mt-2 leading-relaxed">
+                                    补充规则的存放地。按场景拆分（如线下物料、社交媒体规范、包装指南）。模型仅在需要生成特定规格物料时才加载对应文件。
+                                </p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold flex items-center gap-2"><i class="ri-code-box-line text-braun-red"></i> scripts/</h5>
+                                <p class="text-white/60 text-sm mt-2 leading-relaxed">
+                                    负责真正执行动作（如生成海报、调整尺寸）。<code>SKILL.MD</code> 中指引模型传入对应参数调用脚本，将生成与执行剥离。
+                                </p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <h5 class="font-bold flex items-center gap-2"><i class="ri-image-line text-braun-red"></i> assets/</h5>
+                                <p class="text-white/60 text-sm mt-2 leading-relaxed">
+                                    统一管理品牌Logo、色板、参考图。约束模型在视觉生成时维持品牌一致性。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 4: 实践指南 (功能主义列表排版)
+             ========================================== -->
+        <section class="py-24 md:py-32 border-b border-braun-line">
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-8">
+                
+                <div class="col-span-4 md:col-span-4">
+                    <h3 class="text-sm tracking-widest font-mono uppercase text-gray-400 mb-4">04. Application</h3>
+                    <h2 class="text-3xl font-bold tracking-tight mb-8">哪些任务适合做成 Skill？</h2>
+                    <p class="text-lg text-gray-600 leading-editorial pr-8">
+                        不是每个人都需要从复杂脚本开始。更合适的起点，是把你最常做、最有标准、最稳定的方法沉淀下来。它必须满足三个条件：
+                        <br><br>
+                        <span class="block border-l-2 border-braun-red pl-4 text-black font-medium">1. 高频重复<br>2. 有稳定标准<br>3. 有明确流程</span>
+                    </p>
+                </div>
+
+                <div class="col-span-4 md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 mt-8 md:mt-0">
+                    
+                    <!-- Role Card -->
+                    <div class="border-t border-black pt-4">
+                        <h4 class="font-mono text-sm tracking-widest uppercase mb-4 text-braun-red">Creator</h4>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>长文改写</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>Thread 结构生成</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>文章配图说明生成</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>固定风格摘要</li>
+                        </ul>
+                    </div>
+
+                    <!-- Role Card -->
+                    <div class="border-t border-black pt-4">
+                        <h4 class="font-mono text-sm tracking-widest uppercase mb-4 text-braun-red">Educator</h4>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>教案生成</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>课件结构生成</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>练习题设计</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>知识点讲解框架</li>
+                        </ul>
+                    </div>
+
+                    <!-- Role Card -->
+                    <div class="border-t border-black pt-4">
+                        <h4 class="font-mono text-sm tracking-widest uppercase mb-4 text-braun-red">Professional</h4>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>周报整理与会议纪要</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>项目进展总结</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>汇报材料初稿</li>
+                        </ul>
+                    </div>
+
+                    <!-- Role Card -->
+                    <div class="border-t border-black pt-4">
+                        <h4 class="font-mono text-sm tracking-widest uppercase mb-4 text-braun-red">Legal / Audit</h4>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>风险标注与条款审查</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>问题归类</li>
+                            <li class="flex items-start gap-3"><i class="ri-checkbox-blank-circle-fill text-[8px] mt-[9px] text-gray-300"></i>审阅建议格式化输出</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 5: 行动号召 (最小可行性产品理念)
+             ========================================== -->
+        <section class="py-24 md:py-32 border-b border-braun-line">
+            <div class="grid grid-cols-4 md:grid-cols-12 gap-8 md:gap-8 items-center">
+                
+                <div class="col-span-4 md:col-span-5 relative">
+                    <div class="text-[15vw] md:text-[8vw] font-black leading-none tracking-tighter text-gray-200 uppercase pointer-events-none">
+                        M V P
+                    </div>
+                    <h2 class="text-3xl font-bold tracking-tight absolute inset-0 flex items-center mt-8">
+                        与其追求数量，不如<br>先做一个能用的版本。
+                    </h2>
+                </div>
+
+                <div class="col-span-4 md:col-span-6 md:col-start-7 text-lg leading-editorial text-gray-700 space-y-8">
+                    <p>如果刚开始接触 Skill，先做 1 个你会高频使用的。它的价值在于<strong class="text-black">持续复用、稳定输出、不断迭代</strong>。从最小可用版本开始：</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="font-mono text-braun-red font-bold">01</div>
+                            <div>
+                                <h4 class="font-bold text-black mb-1">先定义任务的边界</h4>
+                                <p class="text-base text-gray-600">明确只负责什么，不负责什么（例如：只改写结构，不负责配图）。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="font-mono text-braun-red font-bold">02</div>
+                            <div>
+                                <h4 class="font-bold text-black mb-1">先写清核心规则</h4>
+                                <p class="text-base text-gray-600">把最重要的判断规则写明白（保留核心观点、适配节奏、避免过度口语化），让输出稳定。</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="font-mono text-braun-red font-bold">03</div>
+                            <div>
+                                <h4 class="font-bold text-black mb-1">先规范输出格式</h4>
+                                <p class="text-base text-gray-600">格式不明确结果容易飘。规定好先输出什么、再输出什么（如先标题备选，再正文）。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             FOOTER / CONCLUSION (极致留白与终极奥义)
+             ========================================== -->
+        <footer class="py-32 md:py-48 flex flex-col items-center justify-center text-center">
+            
+            <i class="ri-shape-line text-4xl text-braun-red mb-12"></i>
+            
+            <p class="text-2xl md:text-4xl font-light tracking-tight leading-snug max-w-4xl mx-auto text-black balance-text">
+                Agent Skill 的价值，体现在它可以让 AI 在<strong class="font-medium bg-black text-white px-2 leading-tight">明确结构</strong>下，稳定调用规则、资料、资源和执行能力。
+            </p>
+
+            <div class="mt-24 text-sm font-mono tracking-widest text-gray-400 uppercase flex items-center gap-4">
+                <div class="w-8 h-[1px] bg-gray-300"></div>
+                End of Document
+                <div class="w-8 h-[1px] bg-gray-300"></div>
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>当AI开始构建自己 | Recursive Self-Improvement</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- RemixIcon via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            braun: {
+              bg: '#F9F9F8',
+              text: '#121212',
+              red: '#FF3300',
+              gray: '#666666',
+              line: '#E5E5E5',
+              darkbg: '#1A1A1A'
+            }
+          },
+          fontFamily: {
+            sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"SFMono-Regular"', 'Consolas', '"Liberation Mono"', 'Menlo', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* 核心阅读排版预设 (The Axiom of Absolute Readability) */
+    html { scroll-behavior: smooth; }
+    body { font-size: 16px; background-color: #F9F9F8; color: #121212; -webkit-font-smoothing: antialiased; }
+    @media (min-width: 768px) { body { font-size: 20px; } }
+    
+    /* 严格的行高与段落间距 */
+    p { line-height: 1.65; margin-bottom: 2rem; }
+    p:last-child { margin-bottom: 0; }
+    
+    /* 巨大化视觉符号字体 */
+    .giant-type { 
+      font-size: clamp(6rem, 15vw, 20rem); 
+      line-height: 0.8; 
+      letter-spacing: -0.06em; 
+    }
+    
+    /* 档案室图表纹理 */
+    .grid-bg { 
+      background-size: 40px 40px; 
+      background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), 
+        linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px); 
+    }
+    
+    /* CSS图像滤镜 - 编辑室复古感 */
+    .editorial-filter {
+      filter: grayscale(100%) contrast(120%);
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body class="selection:bg-braun-red selection:text-white relative overflow-x-hidden">
+
+  <!-- 顶部导航线 -->
+  <div class="fixed top-0 w-full h-1 bg-braun-red z-50"></div>
+
+  <!-- SECTION I: The Hero (轻度负荷 / 雷霆一击) -->
+  <header class="min-h-[95vh] relative pt-32 pb-24 px-6 md:px-12 max-w-[1600px] mx-auto flex flex-col justify-between">
+    <!-- 背景巨大化留白锚点 -->
+    <div class="absolute top-0 right-0 md:right-12 pointer-events-none opacity-[0.03] overflow-hidden text-right translate-y-[10%]">
+      <span class="font-bold giant-type text-braun-text">R.S.I.</span>
+    </div>
+    
+    <!-- 顶层信息网格 -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 z-10">
+      <div class="col-span-1 md:col-span-3 text-braun-gray flex flex-col gap-6">
+        <span class="text-xs md:text-sm uppercase tracking-[0.2em] border-b border-braun-line pb-3 inline-block w-max font-mono">Anthropic Institute</span>
+        <div class="text-sm font-mono leading-relaxed">
+          ARCHIVE REF: 01 <br>
+          SUBJECT: RECURSIVE SELF-IMPROVEMENT<br>
+          DATE: 2026-06
+        </div>
+      </div>
+      
+      <div class="col-span-1 md:col-span-8 md:col-start-4 mt-12 md:mt-0">
+        <h1 class="text-[3rem] md:text-[6rem] font-bold tracking-tighter text-braun-text leading-[1.05] mb-6">
+          当AI开始构建自己
+        </h1>
+        <h2 class="text-braun-gray font-normal text-2xl md:text-4xl tracking-tight mb-16">
+          Recursive Self-Improvement
+        </h2>
+        <p class="text-lg md:text-2xl text-braun-text max-w-3xl leading-[1.6] font-medium border-l-4 border-braun-red pl-6">
+          在人工智能的大部分历史中，人类推动了发展周期的每一步。但如今，我们将越来越大比例的 AI 开发工作交接给 AI 系统本身<sup class="text-braun-red font-mono text-xs ml-1"></sup>。这并非不可避免，但它的到来，可能比大多数机构准备的要早得多。
+        </p>
+      </div>
+    </div>
+    
+    <!-- 视觉缺口与滚动引导 -->
+    <div class="mt-24 md:mt-0 grid grid-cols-1 md:grid-cols-12 gap-8 border-t border-braun-line pt-8">
+       <div class="md:col-start-4 md:col-span-4 text-braun-red text-sm font-mono flex items-center gap-3">
+         <i class="ri-arrow-down-line text-lg animate-bounce"></i> SCROLL TO EXPLORE THE PARADIGM SHIFT
+       </div>
+    </div>
+  </header>
+
+  <!-- SECTION II: The Evolution (重度负荷 / 结构化叙事) -->
+  <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-braun-line">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+      
+      <!-- 极简不对称左侧栏 -->
+      <div class="md:col-span-3 relative">
+        <div class="md:sticky md:top-24">
+          <h2 class="text-3xl font-bold mb-2">进化轨迹</h2>
+          <p class="text-braun-gray font-mono text-sm uppercase tracking-widest mb-6">The Evolution</p>
+          <div class="h-0.5 w-16 bg-braun-red"></div>
+        </div>
+      </div>
+      
+      <!-- 轴线文本流 -->
+      <div class="md:col-span-7 md:col-start-5 mt-12 md:mt-0">
+        <p class="text-xl md:text-2xl font-medium mb-16">
+          如果给予足够的计算能力，AI 终将能够完全自主设计并开发其继任者，即“递归自我改进”<sup class="text-braun-red font-mono text-xs ml-1"></sup>。目前我们尚未到达终点，但演化的链条已经清晰可见：
+        </p>
+        
+        <div class="border-l-2 border-braun-line pl-8 md:pl-12 relative space-y-20">
+          
+          <div class="relative">
+            <div class="absolute -left-[35px] md:-left-[51px] top-2 w-3 h-3 rounded-full bg-braun-text"></div>
+            <p class="text-xs text-braun-gray font-mono mb-3">2021–2023</p>
+            <h3 class="text-2xl font-bold mb-4">纯人类编码时代 <span class="text-braun-gray font-normal text-lg ml-2">Building the first Claude</span></h3>
+            <p class="text-braun-gray">早期的工作模式与传统科技公司无异：工程师在笔记本上编写代码与文档，人类主导了 100% 的思考与执行。</p>
+          </div>
+          
+          <div class="relative">
+            <div class="absolute -left-[35px] md:-left-[51px] top-2 w-3 h-3 rounded-full bg-braun-gray"></div>
+            <p class="text-xs text-braun-gray font-mono mb-3">2023–2025</p>
+            <h3 class="text-2xl font-bold mb-4">聊天机器人辅助 <span class="text-braun-gray font-normal text-lg ml-2">Chatbots</span></h3>
+            <p class="text-braun-gray">人们开始利用早期模型协助部分流程，生成简短的代码片段并手动复制粘贴进入编辑器。自动化仅存在于微观节点。</p>
+          </div>
+          
+          <div class="relative">
+            <div class="absolute -left-[35px] md:-left-[51px] top-2 w-3 h-3 rounded-full bg-braun-gray"></div>
+            <p class="text-xs text-braun-gray font-mono mb-3">2025–2026</p>
+            <h3 class="text-2xl font-bold mb-4">编程智能体介入 <span class="text-braun-gray font-normal text-lg ml-2">Coding agents</span></h3>
+            <p class="text-braun-gray">智能体能力跃升，开始能够自主编写和编辑代码，有时甚至能一次性处理完整的项目文件，显著降低了人类的输入负荷。</p>
+          </div>
+          
+          <div class="relative">
+            <div class="absolute -left-[35px] md:-left-[51px] top-2 w-3 h-3 rounded-full bg-braun-red ring-4 ring-braun-red/20"></div>
+            <p class="text-xs text-braun-red font-mono mb-3">Today</p>
+            <h3 class="text-2xl font-bold mb-4 text-braun-red">全自主智能体 <span class="text-braun-red/70 font-normal text-lg ml-2">Autonomous agents</span></h3>
+            <p class="text-braun-text">我们正处在这一节点。智能体不仅能自主运行代码，还能将长达数小时的工作任务分配给其他智能体，形成初步的协作网络<sup class="text-braun-red font-mono text-xs ml-1"></sup>。</p>
+          </div>
+          
+          <div class="relative">
+            <div class="absolute -left-[35px] md:-left-[51px] top-2 w-3 h-3 rounded-full border-2 border-braun-text bg-transparent"></div>
+            <p class="text-xs text-braun-gray font-mono mb-3">20XX?</p>
+            <h3 class="text-2xl font-bold mb-4">闭环效应 <span class="text-braun-gray font-normal text-lg ml-2">Closing the loop</span></h3>
+            <p class="text-braun-gray">在未来，智能体可能具备自主构建和训练模型的能力。若此景成真，未来的系统将由系统自身进行持续的无衰减改进。</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION III: Velocity Check (极轻度负荷 / 视觉核爆) -->
+  <section class="py-32 bg-braun-darkbg text-braun-bg px-6 md:px-12 relative overflow-hidden">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 relative z-10">
+      
+      <!-- 说明区域 -->
+      <div class="md:col-span-5 flex flex-col justify-center">
+        <div class="flex items-center gap-3 text-braun-red font-mono text-sm uppercase tracking-widest mb-8 border-b border-[#333] pb-4">
+          <i class="ri-pulse-line text-xl"></i> Velocity Check
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-[1.2]">开发加速度正在突破人类物理极限</h2>
+        <p class="text-[#A0A0A0] leading-[1.7] max-w-md">
+          基于公共基准测试与 Anthropic 内部直接数据的印证，AI 不仅仅是“被制造”的产物，它已成为极其高效的“制造者”。代码的生成量与有效率均呈现非线性飙升。
+        </p>
+      </div>
+      
+      <!-- 数据矩阵 -->
+      <div class="md:col-span-6 md:col-start-7 grid grid-cols-1 gap-16 md:gap-24">
+        
+        <div class="relative">
+          <div class="text-[6rem] md:text-[10rem] font-bold leading-none text-braun-red tracking-tighter mb-4">
+            8<span class="text-5xl md:text-7xl font-light">x</span>
+          </div>
+          <div class="h-px w-full bg-[#333] mb-6"></div>
+          <p class="text-xl font-light text-[#D0D0D0] leading-[1.6]">
+            在 2026 年第二季度，典型工程师每天合并的代码量，是 2024 年同期的 8 倍<sup class="text-braun-red font-mono text-xs ml-1"></sup>。人类正在从“撰写者”转变为“引导与审查者”。
+          </p>
+        </div>
+        
+        <div class="relative">
+          <div class="text-[6rem] md:text-[10rem] font-bold leading-none text-white tracking-tighter mb-4">
+            >80<span class="text-5xl md:text-7xl font-light">%</span>
+          </div>
+          <div class="h-px w-full bg-[#333] mb-6"></div>
+          <p class="text-xl font-light text-[#D0D0D0] leading-[1.6]">
+            截至 2026 年 5 月，合并入 Anthropic 代码库的增量代码中，有超过 80% 的作者是 Claude<sup class="text-braun-red font-mono text-xs ml-1"></sup>。
+          </p>
+        </div>
+        
+      </div>
+    </div>
+    
+    <!-- 背景修饰符号 -->
+    <div class="absolute bottom-0 right-0 translate-x-[10%] translate-y-[20%] opacity-5 pointer-events-none select-none">
+      <i class="ri-braces-line text-[60vw]"></i>
+    </div>
+  </section>
+
+  <!-- SECTION IV: Internal Reality (重度负荷 / 编辑室档案) -->
+  <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-line">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+      
+      <!-- 章节标题区 -->
+      <div class="md:col-span-12 mb-8 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-braun-line pb-8">
+         <h2 class="text-3xl md:text-5xl font-bold tracking-tight">工程师视角的代际跃迁</h2>
+         <span class="uppercase tracking-widest text-xs font-bold font-mono text-braun-gray">Inside the Laboratory</span>
+      </div>
+
+      <!-- 核心论述正文区 -->
+      <div class="md:col-span-7">
+        <p>
+          构建前沿模型需要两大类工作：<strong class="text-braun-text">工程（Engineering）</strong>与<strong class="text-braun-text">研究（Research）</strong>。在这两个领域，工作流的底层逻辑已发生根本性转变。在工程中，人类只需提供目标，不再需要提供方法。
+        </p>
+        <p>
+          AI 编写的代码不仅能正常工作，且日益规范。在处理最高难度、无明确规范的开放性任务时（例如实时排查导致数万个训练任务崩溃的未知缺陷），Claude 在 2026 年 5 月的成功率飙升至 76%<sup class="text-braun-red font-mono text-xs ml-1"></sup>。曾经需要人类工程师两到三天排查的系统崩溃，AI 只用了大约两小时即独立定位并修复。
+        </p>
+        
+        <!-- 视觉化插入物（符合图表滤镜原则） -->
+        <div class="w-full bg-[#EFEFEF] relative overflow-hidden flex flex-col items-center justify-center editorial-filter border border-braun-gray my-16 py-12 md:py-24">
+           <div class="absolute inset-0 grid-bg opacity-40"></div>
+           <i class="ri-line-chart-line text-[5rem] md:text-[8rem] text-[#1A1A1A] opacity-60 mb-6 relative z-10"></i>
+           <div class="text-center relative z-10 bg-white/80 px-4 py-2 border border-[#1a1a1a]">
+             <span class="text-xs md:text-sm font-mono text-[#1A1A1A] font-bold">FIG 1. SUCCESS RATE ON OPEN-ENDED TASKS RISING TO 76%</span>
+           </div>
+        </div>
+
+        <p>
+          代码审查的范式也正在被颠覆。如今，所有代码在合并前都由自动化的 Claude 审查员进行安全与缺陷检查。一项回顾性分析表明，这一系统本可以捕捉到过去平台上三分之一的漏洞——这意味着，<strong class="text-braun-text">机器正在捕捉那些世界上最顶尖工程师所遗漏的错误</strong>。
+        </p>
+      </div>
+
+      <!-- 侧边栏/引言区块 (不对称平衡) -->
+      <div class="md:col-span-4 md:col-start-9 space-y-16 mt-12 md:mt-0">
+        
+        <blockquote class="relative">
+          <i class="ri-double-quotes-l text-4xl text-braun-line absolute -top-4 -left-4"></i>
+          <p class="text-xl md:text-2xl font-medium text-braun-text leading-[1.5] pt-6 border-t-2 border-braun-red">
+            "大约一年前，我开始深度依赖『Claude化』工作流。那是一场疯狂的冒险。如今，我已经大约 5 个月没有亲手写过任何代码了<sup class="text-braun-red font-mono text-xs ml-1"></sup>。"
+          </p>
+          <footer class="mt-4 text-xs font-mono text-braun-gray uppercase">— Anthropic Employee</footer>
+        </blockquote>
+
+        <blockquote class="relative">
+          <i class="ri-double-quotes-l text-4xl text-braun-line absolute -top-4 -left-4"></i>
+          <p class="text-xl md:text-2xl font-medium text-braun-text leading-[1.5] pt-6 border-t-2 border-braun-text">
+            "在一切运转顺利的日子里，我忍不住觉得我所做的一切都无足轻重，所有事情都被自动化了，而且比我永远能做到的都要好、要快<sup class="text-braun-red font-mono text-xs ml-1"></sup>。"
+          </p>
+          <footer class="mt-4 text-xs font-mono text-braun-gray uppercase">— Anthropic Employee</footer>
+        </blockquote>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION V: AI as Researcher (网格与逻辑系统) -->
+  <section class="py-32 px-6 md:px-12 bg-[#F0F0EE]">
+    <div class="max-w-[1600px] mx-auto text-center">
+      <i class="ri-test-tube-line text-5xl text-braun-red mb-8 inline-block"></i>
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-8 text-braun-text">机器接管实验室</h2>
+      <p class="text-xl md:text-2xl leading-[1.6] text-braun-gray max-w-4xl mx-auto text-left md:text-center mb-24">
+        在“运行实验以达成目标”这一环节，AI 正从极具帮助（Helpful）走向超越人类（Superhuman）。
+      </p>
+      
+      <!-- 三栏网格卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-left">
+        
+        <div class="border-t border-braun-line pt-8">
+          <div class="text-3xl font-mono text-braun-red mb-4">01</div>
+          <h4 class="font-bold text-xl mb-4">极速的实验循环</h4>
+          <p class="text-braun-gray">
+            在优化微型研究循环（重写代码、运行、计时并迭代）时，Claude Mythos Preview 实现了 52 倍的加速。作为对比，一名熟练的人类研究员需要花费 4 到 8 小时才能实现仅 4 倍的加速<sup class="text-braun-red font-mono text-xs ml-1"></sup>。
+          </p>
+        </div>
+        
+        <div class="border-t border-braun-line pt-8">
+          <div class="text-3xl font-mono text-braun-text mb-4">02</div>
+          <h4 class="font-bold text-xl mb-4">端到端研究自主性</h4>
+          <p class="text-braun-gray">
+            在一项公开的 AI 安全问题研究中，智能体在 800 小时的累积自主计算内设计了所有实验步骤，人类的作用已被压缩至最初的宏观“方向设定”。
+          </p>
+        </div>
+        
+        <div class="border-t border-braun-line pt-8">
+          <div class="text-3xl font-mono text-braun-text mb-4">03</div>
+          <h4 class="font-bold text-xl mb-4">超越直觉的判断力</h4>
+          <p class="text-braun-gray">
+            在修正偏离正轨的研究方向时，面对复杂的“下一步怎么做”，模型在 2026 年 4 月已有 64% 的概率做出比人类研究员更优的判断<sup class="text-braun-red font-mono text-xs ml-1"></sup>。
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION VI: The Verdict (极度留白 / 思想沉淀) -->
+  <section class="py-48 px-6 md:px-12 max-w-[1200px] mx-auto text-center relative">
+    <!-- 背景隐藏质量 -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] md:text-[18vw] text-braun-line opacity-30 font-bold pointer-events-none select-none tracking-tighter z-0">
+      99%
+    </div>
+    
+    <div class="relative z-10 flex flex-col items-center">
+      <div class="w-12 h-1 bg-braun-red mb-16"></div>
+      <p class="text-2xl md:text-4xl font-medium leading-[1.6] text-braun-text mb-12 max-w-3xl">
+        “爱迪生曾说，天才是 1% 的灵感加上 99% 的汗水。但现在我们看到，那 99% 的汗水正在迅速被自动化<sup class="text-braun-red font-mono text-xs ml-1"></sup>。”
+      </p>
+      <p class="text-xl md:text-2xl text-braun-gray leading-[1.7] max-w-2xl">
+        AI 的进步极少源于偶然的灵光乍现。大多数进展是渐进的：我们扩大规模，观察哪里崩溃，修复它，然后再次尝试。
+        <strong class="text-braun-text block mt-6">而这，正是它们如今最擅长的工作流。</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER: Swiss Minimalist Format -->
+  <footer class="py-12 px-6 md:px-12 border-t border-braun-line max-w-[1600px] mx-auto text-xs md:text-sm text-braun-gray font-mono flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+    <div class="leading-relaxed">
+      <span class="text-braun-text font-bold">SYSTEM_ARCHIVE:</span> END OF DOCUMENT <br>
+      SUBJECT: RECURSIVE SELF-IMPROVEMENT (ANTHROPIC)<sup class="text-braun-red font-mono text-xs ml-1"></sup>
+    </div>
+    <div class="text-left md:text-right leading-relaxed">
+      AESTHETIC <span class="text-braun-text">FUNCTIONALISM / BRAUN</span> <br>
+      GRID <span class="text-braun-text">RESPONSIVE ASYMMETRIC</span>
+    </div>
+  </footer>
+
+</body>
+</html>

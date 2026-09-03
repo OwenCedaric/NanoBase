@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSA / 100,000,000 TOKENS</title>
+    <!-- Fonts: Inter for English/Numbers, Noto Sans SC for Chinese -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans:['Inter', 'Noto Sans SC', 'sans-serif'],
+                        mono: ['Courier New', 'Courier', 'monospace'],
+                    },
+                    colors: {
+                        'braun-red': '#FF3300',
+                        'paper': '#FAFAFA',
+                        'ink': '#111111',
+                        'graphite': '#333333',
+                        'ash': '#CCCCCC'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- The Core Axioms Implementation --- */
+        
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink');
+            /* Smooth scrolling for continuous vertical narrative */
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: theme('colors.braun-red');
+            color: #FFFFFF;
+        }
+
+        /* Absolute Readability - Desktop >= 20px, Mobile >= 16px. Line-height 1.6 - 1.8. */
+        .text-body {
+            font-size: 16px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        @media (min-width: 1024px) {
+            .text-body {
+                font-size: 20px;
+                line-height: 1.8;
+            }
+        }
+        
+        /* Paragraph spacing strictly > line height */
+        .text-body p {
+            margin-bottom: 2.5rem;
+            text-align: justify;
+        }
+
+        /* Giant Typography */
+        .giant-text {
+            font-size: clamp(4rem, 15vw, 20rem);
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+        }
+        
+        .watermark {
+            font-size: clamp(8rem, 25vw, 30rem);
+            line-height: 0.7;
+            color: rgba(0, 0, 0, 0.03);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        /* Swiss Grid System Borders */
+        .border-grid {
+            border-top: 1px solid theme('colors.ash');
+        }
+
+        /* Structural Anchor / Braun UI Elements */
+        .anchor-dot {
+            width: 12px;
+            height: 12px;
+            background-color: theme('colors.braun-red');
+            display: inline-block;
+            border-radius: 50%;
+        }
+
+        /* Technical / Math Blocks */
+        .tech-block {
+            background-color: #EFEFEF;
+            border-left: 4px solid theme('colors.ink');
+            padding: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Swiss Graphic Design Wireframe Grid Background */
+        .bg-wireframe {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 4rem 4rem;
+        }
+
+        /* Archival Imagery Filter */
+        .archival-filter {
+            filter: grayscale(100%) contrast(120%) brightness(95%);
+            mix-blend-mode: multiply;
+        }
+        
+        /* Layout resets */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="selection:bg-braun-red selection:text-white">
+
+    <!-- Global Header -->
+    <nav class="fixed top-0 left-0 w-full p-6 lg:p-12 flex justify-between items-start z-50 pointer-events-none mix-blend-difference text-white">
+        <div class="text-xs font-bold tracking-[0.2em] uppercase">
+            DIGITAL EDITORIAL<br>
+            <span class="text-braun-red">VOL. 01</span>
+        </div>
+        <div class="text-xs font-bold tracking-[0.2em] text-right uppercase">
+            MSA ARCHITECTURE<br>
+            End-to-End Memory
+        </div>
+    </nav>
+
+    <!-- SECTION 00: HERO (Light WCU, High Visual Impact) -->
+    <header class="relative min-h-screen bg-wireframe flex flex-col justify-end pb-12 lg:pb-32 px-6 lg:px-12 max-w-[1600px] mx-auto">
+        <div class="content-layer">
+            <div class="w-24 h-1 bg-braun-red mb-12"></div>
+            <h1 class="giant-text font-black uppercase text-ink">100M<br>Tokens.</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-12 lg:mt-24">
+                <div class="lg:col-span-3">
+                    <p class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">The Target</p>
+                </div>
+                <div class="lg:col-span-6 lg:col-start-4">
+                    <h2 class="text-2xl lg:text-4xl font-bold leading-tight">
+                        MSA: 迈向一亿 Token 的终极记忆架构
+                    </h2>
+                    <p class="mt-6 text-lg text-graphite max-w-2xl">
+                        长短期记忆是人类智能的基石。然而，当今大语言模型的上下文极限仍受困于算力与架构的桎梏。抛弃传统的外部检索补丁，这是一种秩序优先、绝对可扩展的内在记忆系统。
+                    </p>
+                </div>
+                <div class="lg:col-span-3 lg:col-start-10 border-t border-black pt-4">
+                    <p class="text-[10px] font-bold tracking-widest text-gray-400 uppercase mb-2">AUTHORS</p>
+                    <p class="text-sm font-medium leading-relaxed">
+                        Yu Chen, Runkai Chen, Sheng Yi, Xinda Zhao, Xiaohong Li, Jianjin Zhang, Jun Sun, Chuanrui Hu, Yunyun Han, Lidong Bing, Yafeng Deng, Tianqiao Chen.<br>
+                        <span class="text-gray-500 text-xs mt-2 block">Evermind / Shanda Group / Peking University</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECTION 01: THE CONFLICT (Heavy WCU, Deep Narrative) -->
+        <section class="relative py-24 lg:py-40 px-6 lg:px-12 max-w-[1600px] mx-auto border-grid overflow-hidden">
+            <div class="absolute top-12 left-0 watermark">01</div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 content-layer">
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 sticky top-12">
+                        <span class="anchor-dot mr-2"></span>认知缺口与困境
+                    </h3>
+                </div>
+                
+                <div class="lg:col-span-7 lg:col-start-5 text-body">
+                    <p>
+                        认知科学研究表明，人类记忆的功能性信息容量预估在 10<sup>9</sup> 比特左右。假设每个 Token 的有效语义密度为 3 至 5 比特，这相当于约 2 亿至 3 亿个 Token 的终身容量。
+                    </p>
+                    <p>
+                        要真正弥合人工智能与人类规模记忆之间的鸿沟，并催生如稳定人格的数字孪生（Digital Twins）或长历史多智能体推理等复杂应用，模型必须具备处理上亿 Token 级别上下文的能力。然而，当前的现实是骨感的：即使是明确为长上下文设计的顶尖大语言模型（LLMs），其有效长度极限通常也停留在 100 万 Token 的阈值。
+                    </p>
+                    <p>
+                        现有的探索在应对极限长度时，往往暴露出致命的缺陷。混合线性注意力、固定大小记忆状态（如 RNNs）或是外部存储系统（如 RAG），在上下文规模暴增时，不仅面临着严重的精度衰减、延迟激增，还缺乏端到端的优化能力，甚至无法动态修改记忆内容。这成为了限制 AI 进化为“数字生命”的算力与架构枷锁。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 02: THE PARADIGMS (Light WCU, Grid Layout, Dark Theme) -->
+        <section class="py-24 lg:py-40 px-6 lg:px-12 bg-ink text-white">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+                    <div class="lg:col-span-12">
+                        <h2 class="text-4xl lg:text-7xl font-bold tracking-tighter mb-6">三种流派，一种答案。</h2>
+                        <p class="text-xl text-gray-400 max-w-3xl">当前的 LLM 长期记忆研究主要分为三大范式，但只有重构注意力机制，才能实现绝对的可扩展性与高保真度。</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                    <!-- Paradigm 1 -->
+                    <article class="border-t border-graphite pt-6">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-4">Paradigm I</h4>
+                        <h3 class="text-2xl font-bold mb-4">参数化记忆<br><span class="text-base font-normal text-gray-400">Parameter-Based</span></h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            直接更新模型参数（如 LoRA 或 CPT）或利用测试时训练（如 Titans）。虽然具备高语义整合度，但根本上缺乏容量扩展性，极易遭遇**灾难性遗忘（Catastrophic Forgetting）**，且训练开销高昂。
+                        </p>
+                    </article>
+
+                    <!-- Paradigm 2 -->
+                    <article class="border-t border-graphite pt-6">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-4">Paradigm II</h4>
+                        <h3 class="text-2xl font-bold mb-4">外部存储记忆<br><span class="text-base font-normal text-gray-400">External Storage</span></h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            以 RAG 和 MemAgent 为代表。容量可自然扩展至终身级别且无遗忘问题，但由于依赖离散的语义表示（如文本块或外部向量），无法实现端到端的可微性优化，导致检索精度存在固有天花板。
+                        </p>
+                    </article>
+
+                    <!-- Paradigm 3 -->
+                    <article class="border-t border-graphite pt-6">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-4">Paradigm III</h4>
+                        <h3 class="text-2xl font-bold mb-4">潜在状态记忆<br><span class="text-base font-normal text-gray-400">Latent State</span></h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">
+                            在模型原生表示空间内构建记忆（如 DeltaNet、RWKV）。线性注意力通过将历史压缩至固定大小状态来实现极高效率，但在极端长度下这种有损压缩必定导致严重的性能衰减与信息丢失。
+                        </p>
+                    </article>
+
+                    <!-- The Solution -->
+                    <article class="border-t-4 border-braun-red pt-5 bg-graphite/20 p-6 -mt-6">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-braun-red mb-4">The Solution</h4>
+                        <h3 class="text-2xl font-bold mb-4">MSA (Ours)<br><span class="text-base font-normal text-gray-300">Memory Sparse Attention</span></h3>
+                        <p class="text-gray-200 leading-relaxed text-sm">
+                            端到端可训练、高检索精度、完美的 𝒪(L) 线性复杂度。通过解耦记忆容量与推理能力，既保留了潜在状态记忆的高保真度，又赋予了模型扩展至一亿 Token 的终身记忆生命力。
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 03: THE ARCHITECTURE (Heavy WCU, Structured Data) -->
+        <section class="relative py-24 lg:py-40 px-6 lg:px-12 max-w-[1600px] mx-auto border-grid overflow-hidden">
+            <div class="absolute top-12 right-0 watermark text-right">02</div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 content-layer">
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 sticky top-12">
+                        <span class="anchor-dot mr-2"></span>记忆稀疏注意力
+                    </h3>
+                </div>
+                
+                <div class="lg:col-span-8 lg:col-start-4">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-16 max-w-3xl leading-tight">彻底打破稠密注意力的算力桎梏。</h2>
+                    
+                    <div class="text-body mb-16">
+                        <p>
+                            为在潜在状态级别高效处理海量记忆，MSA 将标准的稠密自注意力替换为基于文档检索的**稀疏注意力机制（Sparse Attention Mechanism）**。其核心理念是：将记忆空间的检索与最终答案的生成无缝融合为一个端到端优化的统一架构，超越传统“先检索后阅读”的流水线局限。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 flex items-center"><i class="ri-route-line text-braun-red mr-2"></i>路由与压缩机制</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                除了利用骨干模型的投影权重生成标准的键（K）与值（V）矩阵外，MSA 并行引入了一个参数化的 <strong>Router K Projector</strong> 来生成专门的路由键矩阵 <span class="font-mono text-sm bg-gray-100 px-1">K<sup>R</sup></span>。为将内存占用与检索复杂度降至最低，文档被分割为定长块，并执行均值池化（Mean Pooling）将其压缩为极简的潜在表示。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 flex items-center"><i class="ri-bar-chart-horizontal-line text-braun-red mr-2"></i>生成式组装</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                推理阶段，通过计算 Query 路由向量与记忆库压缩路由键的余弦相似度，模型筛选出 Top-k 的高相关度文档。随后，仅加载被选中片段的压缩 KV 矩阵，拼接至当前 Query 的局部缓存之前，最后执行稀疏感知的自回归生成。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="tech-block">
+                        // MSA Core Attention Logic<br>
+                        K<sub>i,h</sub> = H<sub>i</sub> W<sup>h</sup><sub>K</sub>,  V<sub>i,h</sub> = H<sub>i</sub> W<sup>h</sup><sub>V</sub>,  K<sup>R</sup><sub>i,h</sub> = H<sub>i</sub> W<sup>h</sup><sub>K<sup>R</sup></sub><br><br>
+                        // Sparse Generation Assembly<br>
+                        K<sub>ctx</sub> =[ {K̄<sub>i</sub>}<sub>i∈I</sub> ; K<sub>q</sub> ]<br>
+                        Output = Attention(Q<sub>q</sub>, K<sub>ctx</sub>, V<sub>ctx</sub>)
+                    </div>
+
+                    <div class="border-l-4 border-braun-red pl-6 mt-16">
+                        <h4 class="text-2xl font-bold mb-4">解耦位置语义：并行与全局 RoPE</h4>
+                        <p class="text-body text-gray-700">
+                            扩展记忆域面临的一个致命挑战是**训练集（短）与推理集（极长）之间的分布差异**。标准全局位置编码会导致文档数量增多时位置 ID 剧烈偏移，引发性能崩塌。MSA 为每一个入库文档分配独立的 Position ID（均从 0 起始），彻底将位置语义与总文档数解耦；与此同时，对当前活跃的 Query 序列采用考虑检索偏移量的全局 RoPE，从而完美实现了在 64K 上下文上训练，却能零散失泛化至 1 亿 Token 推理的奇迹。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 04: EXECUTION & INFERENCE (Medium WCU, Process Flow) -->
+        <section class="relative py-24 lg:py-40 px-6 lg:px-12 max-w-[1600px] mx-auto border-grid">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 content-layer">
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 sticky top-12">
+                        <span class="anchor-dot mr-2"></span>极限工程与推理
+                    </h3>
+                </div>
+                
+                <div class="lg:col-span-8 lg:col-start-4">
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-12">如何在单节点 2 × A800 上吞噬一亿 Token？</h2>
+                    <p class="text-body mb-12">
+                        理论架构必须服从物理硬件的约束。即使采用池化压缩，1 亿 Token 的 KV 缓存仍需约 169GB 内存，这已突破标准双卡 A800 的显存极限。为此，MSA 设计了**分层存储策略与记忆交织机制**。
+                    </p>
+
+                    <div class="flex flex-col gap-12 border-l border-ash pl-6 md:pl-10 relative">
+                        <!-- Step 1 -->
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-black rounded-full -left-[25px] md:-left-[41px] top-2"></div>
+                            <h4 class="text-xl font-bold uppercase tracking-wide mb-2">Stage 1: 离线全局编码 (Offline)</h4>
+                            <p class="text-gray-600">一次性将海量文档库前向传播，生成并压缩出紧凑的 K、V 与路由键矩阵。这一 𝒪(LG) 复杂度的重度运算被完美摊销为离线操作。</p>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-black rounded-full -left-[25px] md:-left-[41px] top-2"></div>
+                            <h4 class="text-xl font-bold uppercase tracking-wide mb-2">Stage 2: 分层存储与在线路由 (Memory Parallel)</h4>
+                            <p class="text-gray-600">为了打破显存瓶颈，**路由键驻留于 GPU 显存**以保障毫秒级的相似度分布打分；而**海量内容 KVs 则被卸载至 CPU DRAM**。仅当确切的 Top-k 块被选中时，才异步拉取至 GPU 拼接，实现了容量限制的彻底解放。</p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-braun-red rounded-full -left-[25px] md:-left-[41px] top-2 shadow-[0_0_15px_rgba(255,51,0,0.5)]"></div>
+                            <h4 class="text-xl font-bold uppercase tracking-wide mb-2 text-braun-red">Stage 3: 记忆交织机制 (Memory Interleave)</h4>
+                            <p class="text-gray-600">针对复杂的多跳推理（Multi-hop Reasoning），单词静态检索往往不足。MSA 自适应地在“生成检索 ID”与“上下文扩展”之间交替迭代。检索到的文档动态转化为下一轮的查询线索，直到证据链完整闭环，模型才启动自回归生成最终答案。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 05: THE PROOF (Light WCU, Typographic Metrics) -->
+        <section class="relative py-32 lg:py-48 px-6 lg:px-12 max-w-[1600px] mx-auto border-grid overflow-hidden">
+            <div class="absolute inset-0 bg-white z-0"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 content-layer relative z-10">
+                <div class="lg:col-span-12 mb-16 lg:mb-32 flex flex-col items-start">
+                    <p class="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">Extrapolation Robustness</p>
+                    <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-8">
+                        <h2 class="giant-text font-black text-braun-red">&lt; 9<span class="text-[0.4em] tracking-normal text-ink">%</span></h2>
+                    </div>
+                    <p class="text-2xl lg:text-4xl font-bold mt-8 max-w-4xl leading-tight">
+                        从 16K 到 1 亿 Token，MSA 展现出了近乎恐怖的抗衰减能力。在 MS MARCO 基准中，其性能下降不到 9%。
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 border-t border-black pt-6">
+                    <h4 class="text-5xl font-black mb-2">94.84<span class="text-2xl">%</span></h4>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">NIAH Accuracy @ 1M Tokens</p>
+                    <p class="text-sm text-gray-600">
+                        在 RULER 大海捞针（Needle-In-A-Haystack）评测中，常规长文本模型（如 Qwen2.5-14B-1M）在跨越 128K 后迅速崩溃，而 MSA 在 1M Token 时仍维持了 94.84% 的惊人精度，甚至优于专门的外部存储智能体（MemAgent-14B）。
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 border-t border-black pt-6">
+                    <h4 class="text-5xl font-black mb-2 flex items-center gap-2 font-mono">𝒪(L)</h4>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Linear Computational Complexity</p>
+                    <p class="text-sm text-gray-600">
+                        完美解决了算力膨胀问题。无论是训练还是在线推理，MSA 的复杂度均与记忆库容量 L 呈严密的线性关系，彻底规避了稠密注意力 𝒪(L²) 的维数灾难。
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 border-t border-black pt-6">
+                    <h4 class="text-5xl font-black mb-2">SOTA</h4>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Dominance in QA Benchmarks</p>
+                    <p class="text-sm text-gray-600">
+                        在包含 TriviaQA, DuReader, 2WikiMultiHopQA 等九大长文本 QA 测试中，MSA 以仅仅 4B 的骨干网络参数量，全面超越了使用相同骨干的常规 RAG，并能与包含 235B 甚至 70B 顶尖生成器组合的最佳 RAG 架构（Best-of-breed RAG）相抗衡。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 06: CONCLUSION (Medium WCU, Clean Closure) -->
+        <section class="py-24 lg:py-40 px-6 lg:px-12 max-w-[1600px] mx-auto border-grid">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-3">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400">
+                        <span class="anchor-dot bg-black mr-2"></span>结论与未来
+                    </h3>
+                </div>
+                
+                <div class="lg:col-span-7 lg:col-start-5 text-body">
+                    <p>
+                        技术终将趋于无形。MSA 并非仅仅是一个对长上下文模型渐进式改良的参数游戏，而是通往通用人工智能（AGI）生命级记忆伴侣的一块核心架构基石。
+                    </p>
+                    <p>
+                        通过引入具备文档级 RoPE 的稀疏注意力架构、KV缓存压缩以及支持单节点大规模推理的并行设计，MSA 成功实现了**记忆容量与逻辑推理能力的彻底解耦**。正如烧蚀实验（Ablation Study）所严苛证明的：渐进式扩展上下文的课程学习（提升 7.6%）、记忆交织推理（缺失导致复杂任务掉点 19.2%）、生成式检索的预训练，以及保持原生文本语义的完整注入，四者缺一不可，共同铸就了其对抗噪声与遗忘的坚固城墙。
+                    </p>
+                    <p>
+                        尽管在处理跨越极度分散、隐性强耦合文档的结构化关联时仍面临微小挑战，但这仅仅是攀登更高智能维度的序章。MSA 证明了，在应对无限的信息熵增时，遵循克制、留白与秩序的系统设计（稀疏性），往往比野蛮的算力堆砌（稠密计算），拥有更宏大深远的生命力。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-ink text-gray-400 py-12 px-6 lg:px-12">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center text-xs border-t border-gray-800 pt-8 gap-6">
+            <div class="uppercase tracking-widest font-bold text-gray-300">
+                End-to-End Memory Architecture
+            </div>
+            <div class="max-w-xl text-left md:text-right font-mono text-gray-500">
+                <p>Based on: "MSA: Memory Sparse Attention for Efficient End-to-End Memory Model Scaling to 100M Tokens" by Yu Chen et al. (arXiv:2603.23516v1)</p>
+                <p class="mt-2 text-braun-red">Designed under strict functionalism protocols.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

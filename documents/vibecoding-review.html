@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vibe Coding 综述</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Sourced from input files for pixel-perfect rendering */
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap");
+      body {
+        font-family:
+          "Noto Sans SC",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          "Helvetica Neue",
+          Arial,
+          "Noto Sans",
+          sans-serif,
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .vibe-watermark {
+        font-size: 500px;
+        font-weight: 700;
+        color: #e9ecef;
+        z-index: 0;
+        line-height: 1;
+        user-select: none;
+      }
+      /* Responsive font scaling */
+      @media (max-width: 1024px) {
+        .vibe-watermark { font-size: 40vw !important; }
+        .responsive-hero { font-size: 15vw !important; line-height: 1 !important; }
+        .responsive-title { font-size: 8vw !important; line-height: 1.1 !important; }
+        .responsive-subtitle { font-size: 5vw !important; }
+        .responsive-text { font-size: 4vw !important; }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-zinc-100 flex items-center justify-center min-h-screen p-4 md:p-8"
+  >
+    <!-- 主容器，用于并排显示画布和导航 -->
+    <div class="flex items-center justify-center gap-x-6">
+      <!-- 
+          主画布 - 严格固定尺寸
+        -->
+      <main
+        id="canvas"
+        class="w-full max-w-[1200px] bg-white shadow-lg relative flex flex-col mx-auto"
+      >
+        <!-- !!! 关键整合区域: 所有页面的<section>已被插入到这里 !!! -->
+
+        <section id="page-0" class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100">
+          <div
+            class="relative flex flex-col justify-between p-24 h-full overflow-hidden bg-[#F8F9FA]"
+          >
+            <div
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 vibe-watermark transform -rotate-12 opacity-80"
+            >
+              Vibe
+            </div>
+            <header class="relative z-10"></header>
+            <div class="relative z-10 flex-grow flex items-center">
+              <div class="w-full">
+                <h1
+                  class="text-9xl responsive-hero font-bold text-gray-800 tracking-wider leading-none"
+                >
+                  VIBE
+                </h1>
+                <h1
+                  class="text-9xl responsive-hero font-bold text-gray-800 tracking-wider leading-none mt-2"
+                >
+                  CODING
+                </h1>
+                <p
+                  class="mt-8 text-2xl text-gray-600 max-w-2xl leading-relaxed"
+                >
+                  一篇关于人机协同新范式的深度综述：当开发者从代码的创作者，转变为AI成果的验证者。
+                </p>
+              </div>
+            </div>
+            <footer class="relative z-10 flex justify-end items-end">
+              <div class="text-right">
+                <p class="text-xl font-medium text-gray-700">专题 / 00</p>
+                <p class="text-base text-gray-500 mt-1">人机协同的未来</p>
+              </div>
+            </footer>
+          </div>
+        </section>
+
+        <section
+          id="page-1"
+          class="page-content w-full min-h-[800px] md:min-h-screen border-b border-gray-100"
+        >
+          <div
+            class="relative flex flex-col justify-between p-24 h-full bg-[#F8F9FA]"
+          >
+            <header class="flex justify-between items-start">
+              <div class="text-2xl font-bold text-gray-800 tracking-wider">
+                01/ 定义与生态
+              </div>
+              <div class="text-lg text-gray-500">Vibe Coding / 综述</div>
+            </header>
+            <div class="flex-grow mt-16">
+              <div class="grid grid-cols-12 gap-x-8 h-full">
+                <div class="col-span-5 flex flex-col justify-between">
+                  <div>
+                    <h2 class="text-5xl font-bold text-gray-800 leading-tight">
+                      一种范式转变
+                    </h2>
+                    <p class="mt-6 text-xl text-gray-600 leading-9">
+                      Vibe Coding
+                      标志着软件开发从传统的代码编写转变为一种全新的协作模式。在这种模式下，开发者主要通过观察AI代理生成代码的最终运行结果来验证其功能，而非逐行审查代码逻辑。人的角色从代码的直接创作者，演变为意图的阐述者、上下文的管理者和最终质量的仲裁者。
+                    </p>
+                  </div>
+                  <div class="w-full border-t border-gray-300 my-12"></div>
+                  <div>
+                    <p class="text-xl text-gray-600 leading-9">
+                      这种方法论将人、AI代理和软件项目三者动态地联系在一起，形成一个迭代反馈循环，旨在加速开发进程，并降低非专业人士参与软件创造的技术门槛。
+                    </p>
+                  </div>
+                </div>
+                <div class="col-span-7 pl-12 flex flex-col justify-center">
+                  <h3 class="text-3xl font-semibold text-gray-700 mb-8">
+                    核心技术生态四大支柱
+                  </h3>
+                  <div class="space-y-10">
+                    <div class="relative pl-8">
+                      <div
+                        class="absolute left-0 top-1 h-full w-0.5 bg-gray-300"
+                      ></div>
+                      <div
+                        class="absolute left-0 top-1 w-2 h-2 bg-gray-700 rounded-full -translate-x-[3px]"
+                      ></div>
+                      <h4 class="text-2xl font-bold text-gray-800">
+                        为编码优化的语言模型
+                      </h4>
+                      <p class="mt-2 text-xl text-gray-500 leading-9">
+                        基于海量代码语料库进行预训练，并针对特定编程任务进行指令微调，是生成高质量代码的基础。
+                      </p>
+                    </div>
+                    <div class="relative pl-8">
+                      <div
+                        class="absolute left-0 top-1 h-full w-0.5 bg-gray-300"
+                      ></div>
+                      <div
+                        class="absolute left-0 top-1 w-2 h-2 bg-gray-700 rounded-full -translate-x-[3px]"
+                      ></div>
+                      <h4 class="text-2xl font-bold text-gray-800">
+                        基于LLM的编码代理
+                      </h4>
+                      <p class="mt-2 text-xl text-gray-500 leading-9">
+                        具备任务分解、规划、记忆和工具调用能力的智能体，能够自主执行编码、调试和测试等复杂任务。
+                      </p>
+                    </div>
+                    <div class="relative pl-8">
+                      <div
+                        class="absolute left-0 top-1 h-full w-0.5 bg-gray-300"
+                      ></div>
+                      <div
+                        class="absolute left-0 top-1 w-2 h-2 bg-gray-700 rounded-full -translate-x-[3px]"
+                      ></div>
+                      <h4 class="text-2xl font-bold text-gray-800">
+                        编码代理的开发环境
+                      </h4>
+                      <p class="mt-2 text-xl text-gray-500 leading-9">
+                        提供隔离的、可交互的、可编排的执行环境，确保AI代理能够安全、稳定地与项目文件和工具链进行交互。
+                      </p>
+                    </div>
+                    <div class="relative pl-8">
+                      <div
+                        class="absolute left-0 top-1 w-2 h-2 bg-gray-700 rounded-full -translate-x-[3px]"
+                      ></div>
+                      <h4 class="text-2xl font-bold text-gray-800">
+                        多源反馈机制
+                      </h4>
+                      <p class="mt-2 text-xl text-gray-500 leading-9">
+                        整合来自编译器、代码执行结果、人类开发者以及代理自我反思的反馈，形成闭环，持续优化代码质量。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer class="flex justify-end items-center mt-16">
+              <p class="text-2xl font-light text-gray-400">01</p>
+            </footer>
+          </div>
+        </section>
+
+        <section
+          id="page-2"
+          class="page-content w-full min-h-[800px] md:min-h-screen"
+        >
+          <div
+            class="relative flex flex-col justify-between p-24 h-full bg-[#F8F9FA]"
+          >
+            <header class="flex justify-between items-start">
+              <div class="text-2xl font-bold text-gray-800 tracking-wider">
+                02/ 模型与挑战
+              </div>
+              <div class="text-lg text-gray-500">Vibe Coding / 综述</div>
+            </header>
+            <div class="flex-grow mt-16">
+              <div class="grid grid-cols-2 gap-x-16 h-full">
+                <div class="flex flex-col">
+                  <h2 class="text-3xl font-semibold text-gray-700 mb-8">
+                    五种核心开发模型
+                  </h2>
+                  <div class="space-y-8 flex-grow">
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        无约束自动化 (UAM)
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        完全信任AI，仅通过功能测试验证，追求极致速度，适用于快速原型和低风险项目。
+                      </p>
+                    </div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        迭代对话协作 (ICCM)
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        AI作为编程伙伴，人类全程审查代码，在速度与质量间取得平衡，适用于专业开发。
+                      </p>
+                    </div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        规划驱动 (PDM)
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        人类先制定架构蓝图，AI负责具体实现。确保项目方向正确，适用于复杂系统。
+                      </p>
+                    </div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        测试驱动 (TDM)
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        人类先编写测试用例作为精确约束，AI生成代码以通过测试，用机器验证取代人力审查。
+                      </p>
+                    </div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        上下文增强 (CEM)
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        一种可叠加的能力，通过RAG等技术让AI理解整个代码库，生成更符合项目规范的代码。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col border-l border-gray-300 pl-16">
+                  <h2 class="text-3xl font-semibold text-gray-700 mb-8">
+                    未来的机遇与挑战
+                  </h2>
+                  <div class="space-y-8 flex-grow">
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        开发流程重塑
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        传统的瀑布或敏捷模型面临挑战，开发周期被压缩为“提示-生成-验证”的微迭代，开发者角色向提示工程师和系统架构师演变。
+                      </p>
+                    </div>
+                    <div class="w-full border-t border-gray-300 my-8"></div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        代码可靠性与安全
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        AI可能复现训练数据中的安全漏洞。传统手动代码审查不再适用，必须建立集成了SAST/DAST的实时、自动化安全反馈循环。
+                      </p>
+                    </div>
+                    <div class="w-full border-t border-gray-300 my-8"></div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">
+                        可扩展的监督
+                      </h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        当AI代理能够自主大规模生成和部署代码时，如何有效监督成为核心难题。级联错误、依赖扩散和对齐失败是主要风险，需要分层的、多智能体辩论式的监督架构。
+                      </p>
+                    </div>
+                    <div class="w-full border-t border-gray-300 my-8"></div>
+                    <div>
+                      <h3 class="text-2xl font-bold text-gray-800">人因工程</h3>
+                      <p class="mt-2 text-xl text-gray-600 leading-9">
+                        开发者的心智模型从关注代码逻辑转向上下文工程。如何设计有效的协作模式、划分人机责任、避免过度依赖，是实现高效协同的关键。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer class="flex justify-end items-center mt-16">
+              <p class="text-2xl font-light text-gray-400">02</p>
+            </footer>
+          </div>
+        </section>
+      </main>
+
+      </main>
+    </div>
+  </body>
+</html>

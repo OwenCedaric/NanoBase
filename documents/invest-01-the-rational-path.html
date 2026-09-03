@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>普通人投资指南 | 粮厂研究院Will</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google Fonts (Inter for English/Numbers, Noto Sans SC for Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'braun-red': '#FF3300',
+                        'braun-bg': '#F5F5F3',
+                        'braun-ink': '#1A1A1A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        ::selection {
+            background-color: #FF3300;
+            color: #FFFFFF;
+        }
+        /* 强制中英文混排美观与标点避头尾 */
+        p { text-align: justify; text-justify: inter-ideograph; line-break: strict; }
+        .text-balance { text-wrap: balance; }
+        
+        /* 隐藏滚动条但保留功能 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E5E5E5; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF3300; }
+    </style>
+</head>
+<body class="bg-braun-bg text-braun-ink overflow-x-hidden">
+
+    <!-- Header / Nav (Minimalist) -->
+    <header class="fixed top-0 left-0 w-full p-6 md:px-12 z-50 mix-blend-difference text-white flex justify-between items-start pointer-events-none">
+        <div class="text-xs font-bold tracking-[0.2em] uppercase">Will's Editorial<br><span class="font-light opacity-60">Vol. 01</span></div>
+        <div class="w-3 h-3 bg-braun-red rounded-full"></div>
+    </header>
+
+    <main class="max-w-[1600px] mx-auto">
+
+        <!-- THE HERO SECTION (Cover) -->
+        <section class="min-h-screen flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-12 relative border-b-[0.5px] border-zinc-300">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Red Line Anchor -->
+                <div class="hidden md:block col-span-1 border-l-2 border-braun-red h-full"></div>
+                
+                <div class="md:col-span-11 md:col-start-2">
+                    <p class="text-braun-red font-bold text-sm tracking-widest mb-6 uppercase"><i class="ri-article-line align-middle mr-2"></i>Long Read Essay</p>
+                    <h1 class="text-[15vw] md:text-[11vw] leading-[0.85] font-black tracking-tighter text-braun-ink">普通人<br>投资指南.</h1>
+                    
+                    <div class="mt-12 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div class="md:col-span-2">
+                            <p class="text-2xl md:text-3xl lg:text-4xl leading-tight font-light text-zinc-600 text-balance">
+                                投资说到底是一场和自己的漫长对话——<br class="hidden md:block">
+                                <strong class="text-braun-ink font-medium">关于贪婪、关于恐惧、关于对时间的耐心、也关于对自己无知的承认。</strong>
+                            </p>
+                        </div>
+                        <div class="md:col-span-1 flex flex-col justify-end text-sm text-zinc-500 font-medium tracking-wide">
+                            <p class="mb-2">第一，本文不构成任何投资建议。</p>
+                            <p>第二，请不要不加思考地抄作业。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 right-6 md:right-12 animate-bounce">
+                <i class="ri-arrow-down-line text-2xl text-braun-ink"></i>
+            </div>
+        </section>
+
+        <!-- PROLOGUE -->
+        <section class="py-24 md:py-40 px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 relative">
+            <div class="md:col-span-4 md:sticky top-32 h-fit">
+                <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-zinc-400 mb-4">Prologue / 序言</h2>
+                <div class="text-[8vw] md:text-[5vw] leading-none font-black text-zinc-200 -ml-2 tracking-tighter">00</div>
+            </div>
+            
+            <div class="md:col-span-6 text-lg md:text-xl leading-[1.8] text-zinc-800 font-light space-y-8">
+                <p>2021年秋天的一个深夜，我下楼去取宵夜外卖，手机微信突然响了。电话那头是一位小米粉丝，语气里带着掩饰不住的焦虑。他是长春一汽的一名普通职工，在上一轮小米股价上涨中小有盈余。</p>
+                <p>2021年3月小米宣布造车后，身处汽车行业的他对这个消息格外兴奋。他觉得自己比大多数人更懂汽车。在资本市场的热潮裹挟下，他把全部积蓄在30到35港币的价位投入了小米股票。不仅如此，他还把妹妹给女儿结婚买房的钱也“借”了过来，跟妹妹说可以单车变摩托。</p>
+                <p>然后小米的股价开始下跌，跌到23到24块钱的时候，他几乎只能勉强保本，把妹妹的钱还上就已经一分不剩了。</p>
+                <p>我站在寒风里陪他聊了将近30分钟，那天深夜他略带哭腔地问我一个问题：<strong class="text-black font-semibold bg-zinc-200 px-1">为什么小米这么好，雷总这么好，但股价还是会跌？</strong></p>
+                <p>我当时很难回答他这个问题。因为他问的其实不是股价为什么跌——任何一个有基本市场常识的人都知道股价会波动——他问的是：<strong class="text-black font-semibold">我做了一个我认为正确的判断，为什么结果是错的？</strong></p>
+                <p>而真正的答案是：<strong class="text-braun-red font-semibold">他的判断可能是对的，但他的方法是错的。他用了不该用的钱、押了不该押的仓位、在不该恐慌的时候恐慌了。</strong>我除了让他立刻止损，把所有借来的钱还掉，剩下的只能深深地叹息。</p>
+                <p>当时我以为这种粉丝只是少数个例。直到最近，小米股价从60元港币再次回撤接近50%，我再次接到了非常多粉丝的询问。交流下来我发现，绝大多数朋友都出现了几类相似的问题：持仓集中度过高、使用了杠杆和衍生品、追涨杀跌频繁交易。这些问题和四年前那位长春粉丝身上的问题如出一辙。</p>
+                <blockquote class="text-2xl md:text-3xl font-medium leading-relaxed text-black my-12 border-l-2 border-braun-red pl-6">
+                    四年过去了，市场在变，股价在变，但个人投资者犯的错误一点都没变。
+                </blockquote>
+                <p>这让我意识到，这些错误不是因为信息不足或者智商不够，而是因为大多数个人投资者从来没有建立过一套系统的投资原则。他们凭直觉入场，凭情绪操作，凭运气赚钱，然后在运气用完的时候把之前赚的全部吐回去，甚至倒亏。</p>
+                <p><strong class="text-black font-semibold">因此，我决定写这个系列，系统地和大家分享，一个普通人应当如何正确的投资。</strong>由于想写的东西很多，我把这个系列分为上中下三篇：</p>
+                <ul class="list-none space-y-4 text-zinc-600 border-t border-b border-zinc-300 py-8 my-8">
+                    <li><span class="text-braun-red font-bold mr-2">上篇</span>我们讨论一个普通人投资的基本原则——这是所有后续讨论的基础；</li>
+                    <li><span class="text-braun-red font-bold mr-2">中篇</span>我们讨论如何投资自己重仓的标的，我会以小米为例，但方法适用于其他你深度研究的公司；</li>
+                    <li><span class="text-braun-red font-bold mr-2">下篇</span>我们讨论在重仓之外，如何通过共同基金、ETF等普通人摸得着的工具获取市场平均收益，实现长期财富积累。</li>
+                </ul>
+                <p>这个系列的文章会有些长，但全是我金融投资从业15年总结的心得，希望你能坚持看到最后。<strong class="text-black font-semibold">文章不一定能帮你赚到大钱，但起码能帮你避开前面这位粉丝的困境。</strong></p>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="border-t border-zinc-300 mx-6 md:mx-12">
+
+        <!-- PART 1: THE BASELINE -->
+        <section class="py-24 md:py-40 px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 relative">
+            <div class="md:col-span-4 md:sticky top-32 h-fit">
+                <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-braun-red mb-4">Part 1 / 上篇</h2>
+                <div class="text-[8vw] md:text-[5vw] leading-none font-black text-zinc-200 -ml-2 tracking-tighter">01</div>
+                <h3 class="text-3xl font-bold mt-8">底线原则</h3>
+                <p class="mt-4 text-zinc-500 font-light">防守是所有投资讨论的前提。</p>
+            </div>
+            
+            <div class="md:col-span-6 text-lg md:text-xl leading-[1.8] text-zinc-800 font-light space-y-16">
+                
+                <!-- Rule 1 -->
+                <div>
+                    <h4 class="text-2xl font-bold text-black mb-6 flex items-center"><span class="w-2 h-2 bg-braun-red inline-block mr-3"></span>第一：绝对不要用杠杆，建立投资和生活的防火墙。</h4>
+                    <div class="bg-black text-white p-8 md:p-12 mb-8">
+                        <p class="text-2xl md:text-4xl font-medium leading-tight">留在牌桌上是一个普通人要做的所有事情。</p>
+                    </div>
+                    <p class="mb-6">这句话不是鸡汤，而是投资中最冷酷的现实。在资本市场里，亏损50%之后你需要赚100%才能回本，亏损80%之后你需要赚400%。数学上的不对称性决定了：一次致命的亏损就可以让你前面所有的努力归零。<strong class="text-black font-semibold">而杠杆，就是制造致命亏损最高效的工具。</strong></p>
+                    <p class="mb-6">很多人对杠杆的理解很窄，觉得只有借钱炒股才算杠杆。其实杠杆的范围远比你想象的大，我把它分为三个层次。</p>
+                    <ul class="space-y-6">
+                        <li>
+                            <strong class="block text-black font-semibold mb-2">1. 显性的财务杠杆</strong>
+                            场内场外的融资融券、期权期货等各类衍生品、结构化产品中嵌入的杠杆。这些工具的共同特征是放大了你的盈亏倍数。假设你用2倍杠杆买入一只股票，股价下跌50%的时候你就已经清零了。2021年到2022年小米从35港币跌到9港币，跌幅约75%，如果你用了2倍杠杆，在股价下跌50%的位置你就已经被强制平仓了。<strong class="text-braun-red font-semibold">杠杆最残酷的地方在于：它剥夺了你等待的权利。</strong>
+                        </li>
+                        <li>
+                            <strong class="block text-black font-semibold mb-2">2. 隐性的债务杠杆</strong>
+                            信用卡分期套现拿去炒股、消费贷用于投资、把房贷加按后释放的资金投入股市、甚至是把本应偿还其他贷款的钱挪用到投资上——这些本质上都是杠杆。一旦投资亏损，刚性的还款压力会迫使你在最不利的时候卖出。
+                        </li>
+                        <li>
+                            <strong class="block text-black font-semibold mb-2">3. 心理杠杆 (最隐蔽也最危险)</strong>
+                            你用了不该亏的钱去投资——生活费、孩子的教育金、父母的养老金、近期要用的购房款。即便在财务上你没有借一分钱，但心理上你已经给自己加了一个巨大的杠杆。你的大脑会进入生存模式，恐惧和焦虑会完全接管你的决策系统。行为金融学把这叫做损失厌恶——人对亏损的痛感大约是盈利快感的2到2.5倍。开头那位长春粉丝的故事就是第二层和第三层叠加的典型案例。
+                        </li>
+                    </ul>
+                    <div class="mt-8 border-l border-zinc-300 pl-6 py-2 text-zinc-600 italic">
+                        <strong class="text-black not-italic block mb-2">我的建议非常明确：</strong>
+                        一、绝对不使用任何形式的财务杠杆。<br>
+                        二、不用任何有偿还义务的资金去投资。<br>
+                        三、永远不要动用未来6到12个月需要的生活资金去投资。
+                    </div>
+                </div>
+
+                <!-- Rule 2 -->
+                <div>
+                    <h4 class="text-2xl font-bold text-black mb-6 flex items-center"><span class="w-2 h-2 bg-braun-red inline-block mr-3"></span>第二：投资组合分散，严控单一标的集中度。</h4>
+                    <p class="mb-6">在投资领域有一句老话叫不要把所有鸡蛋放在一个篮子里。绝大多数机构投资者对单一标的都有严格的持仓上限，通常是总组合的10%到20%。<strong class="text-black font-semibold">因为他们比任何人都清楚，无论分析做得多么深入，任何单一公司都可能出现无法预见的黑天鹅事件。</strong>（如安然、雷曼兄弟、瑞幸咖啡）。</p>
+                    <p class="mb-6">对于个人投资者来说，无论如何，我不建议单一标的超过总投资组合的50%。但这需要理解一个核心概念：<strong class="text-braun-red font-semibold">相关性</strong>。如果你买了苹果、微软、英伟达，你的组合损失和只持有其中一只几乎没有区别。真正的分散需要从四个维度去思考：</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 my-8 text-base">
+                        <div class="border border-zinc-200 p-6 hover:shadow-lg transition-shadow">
+                            <h5 class="font-bold text-black mb-2">1. 资产类别的分散</h5>
+                            <p class="text-zinc-600">股票、债券、现金、实物资产、另类资产。通过组合不同相关性的资产类别，可以大幅降低组合的整体波动。这是现代投资组合理论的核心。</p>
+                        </div>
+                        <div class="border border-zinc-200 p-6 hover:shadow-lg transition-shadow">
+                            <h5 class="font-bold text-black mb-2">2. 地域的分散</h5>
+                            <p class="text-zinc-600">不要把所有资产放在同一个市场。应对独特的政策风险、货币风险和地缘风险（如俄乌冲突、中概股监管）。</p>
+                        </div>
+                        <div class="border border-zinc-200 p-6 hover:shadow-lg transition-shadow">
+                            <h5 class="font-bold text-black mb-2">3. 时间上的分散</h5>
+                            <p class="text-zinc-600">分批建仓，有效摊低平均成本。因为择时是一个不可能完成的任务，做对两次（高卖低买）的概率极低。</p>
+                        </div>
+                        <div class="border border-zinc-200 p-6 hover:shadow-lg transition-shadow bg-zinc-50">
+                            <h5 class="font-bold text-black mb-2 text-braun-red">4. 人力资本也是资产</h5>
+                            <p class="text-zinc-600">你的人力资本和你所在行业高度相关。地产人买地产股，就是人力资本和金融资产高度正相关的灾难性后果。</p>
+                        </div>
+                    </div>
+                    <p>分散投资还有一个重要的操作层面：<strong class="text-black font-semibold">定期再平衡</strong>。这个操作的核心价值在于它强迫你做逆人性的事情——本质上是一种纪律化的低买高卖。再平衡就是用规则来对抗人性。</p>
+                </div>
+
+                <!-- Rule 3 -->
+                <div>
+                    <h4 class="text-2xl font-bold text-black mb-6 flex items-center"><span class="w-2 h-2 bg-braun-red inline-block mr-3"></span>第三：设定合理预期收益，承认自己不是市场上最聪明的人。</h4>
+                    <p class="mb-6">很多人预期一年能赚30%、50%，甚至翻倍。你知道巴菲特的年化收益是多少吗？巴菲特执掌伯克希尔60年，年化收益率大约是19.9%。近20年，年化收益大约在13%左右。<strong class="text-black font-semibold">无论你选择哪个时间窗口，美国股市的长期年化回报大约在10%上下。</strong></p>
+                    <p class="mb-6">10%的年化复利，10万本金，10年变成26万，20年变成67万，30年变成174万。复利的力量在后半段才真正显现，大部分人放弃的原因恰恰是前半段觉得太慢了。</p>
+                    <p class="mb-6">散户的实际收益远低于市场平均水平（Dalbar研究显示仅约6%到7%）。为什么总是跑输？核心原因有三个：</p>
+                    <ol class="list-decimal list-outside ml-6 space-y-4 text-zinc-600">
+                        <li><strong class="text-black font-semibold">幸存者偏差和信息不对称。</strong>社交媒体上只有赚钱的截图，亏钱的人沉默不语。</li>
+                        <li><strong class="text-black font-semibold">把运气当能力。</strong>无法区分Beta（市场整体上涨）和Alpha（超越市场的选股能力）。</li>
+                        <li><strong class="text-black font-semibold">信息传导链条的劣势。</strong>机构有实地调研、付费数据、投行研报；散户只有新闻和股吧。在这种不对称下频繁交易，胜算极低。</li>
+                    </ol>
+                    <p class="mt-8 text-xl font-medium text-black">把赚大钱的期望从单年的暴利转变为长期的复利积累。这就是投资中最反直觉的真理之一：<span class="text-braun-red">追求更少的回报，反而能得到更多。</span></p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="border-t border-zinc-300 mx-6 md:mx-12">
+
+        <!-- PART 2: THE HEAVY BET -->
+        <section class="py-24 md:py-40 px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 relative">
+            <div class="md:col-span-4 md:sticky top-32 h-fit">
+                <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-braun-red mb-4">Part 2 / 中篇</h2>
+                <div class="text-[8vw] md:text-[5vw] leading-none font-black text-zinc-200 -ml-2 tracking-tighter">02</div>
+                <h3 class="text-3xl font-bold mt-8">能力圈与重仓策略</h3>
+                <p class="mt-4 text-zinc-500 font-light">只重仓你真正了解的，其余向平均收益看齐。</p>
+            </div>
+            
+            <div class="md:col-span-7 md:col-start-6 text-lg md:text-xl leading-[1.8] text-zinc-800 font-light space-y-16">
+                
+                <div class="py-12 border-y-[0.5px] border-zinc-400 my-12">
+                    <p class="text-2xl md:text-3xl font-serif italic text-black mb-6">"What an investor needs is the ability to correctly evaluate selected businesses... The size of that circle is not very important; knowing its boundaries, however, is vital."</p>
+                    <p class="text-base text-zinc-500">— Warren Buffett, 1996</p>
+                </div>
+
+                <p>当我说「只重仓你真正了解的」时候，我是在说一件非常严肃的事情。超过90%的专业投资者都跑不赢市场平均水平，你凭什么认为自己可以？答案只有：<strong class="text-black font-semibold">你在某个特定的领域有超越市场平均水平的认知。</strong>接下来我以小米集团为例来讨论的五个核心命题。</p>
+
+                <!-- Q1 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-2">Question 01</h4>
+                    <h5 class="text-2xl font-bold text-black mb-6">你真的能了解一家公司吗？</h5>
+                    <p class="mb-4">首先，不要太乐观（达克效应：知道得越少，越觉得知道很多）。但也不要太悲观（草台班子效应）。普通人在投资上的劣势是全局性的，但优势可以是局部性的。建立认知护城河有三把铲子：</p>
+                    <ul class="space-y-4 list-disc list-inside text-zinc-600 pl-4">
+                        <li><strong class="text-black">专注：</strong>机构研究员覆盖30家，你只专注一家。</li>
+                        <li><strong class="text-black">热爱：</strong>热爱带来鲜活的一手信息（产品体验、渠道反馈）。</li>
+                        <li><strong class="text-black">AI：</strong>AI是给普通人最大的研究杠杆。用AI读财报、比对管理层发言、交叉验证数据。</li>
+                    </ul>
+                </div>
+
+                <!-- Q2 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-2">Question 02</h4>
+                    <h5 class="text-2xl font-bold text-black mb-6">如何判断自己真正了解一家公司？</h5>
+                    <p class="mb-6">需要满足三个递进的层次：</p>
+                    <div class="border-l-2 border-black pl-6 space-y-4 mb-8">
+                        <p><strong class="text-black">1. 基本面认知：</strong>你不需要精确到小数点，但数量级必须是对的（如业务板块、毛利率）。</p>
+                        <p><strong class="text-black">2. 市场交易认知：</strong>不仅知道自己怎么看，还要知道市场（机构/空头）怎么看。克服选择性接收信息的最好方法是主动寻找反面观点。</p>
+                        <p><strong class="text-black">3. 超越共识的alpha认知：</strong>相比市场已经price-in的，你还知道哪些市场不知道的。</p>
+                    </div>
+                    <p class="mb-6">我一直和粉丝们说，<strong class="text-braun-red font-semibold">模糊的正确比精确的错误来得更重要。</strong>此外，两个测试：</p>
+                    <ul class="space-y-4">
+                        <li class="bg-zinc-100 p-4 rounded-sm"><strong class="text-black block mb-1">电梯测试 (Elevator Pitch)</strong> 能否在90秒内清晰说出：它做什么、为什么赢、值不值、最担心什么？</li>
+                        <li class="bg-zinc-100 p-4 rounded-sm"><strong class="text-black block mb-1">恐慌测试</strong> 股价下跌30%，你是恐慌还是兴奋？（前提是建立在对基本面的深研上）</li>
+                    </ul>
+                </div>
+
+                <!-- Q3 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-2">Question 03</h4>
+                    <h5 class="text-2xl font-bold text-black mb-6">怎么正确地持有？</h5>
+                    <p class="text-3xl font-medium text-black mb-6">答案是四个字：价值投资。<br><span class="text-xl text-zinc-500">说大白话就是减少操作。普通人最大的优势是时间，而不是择时。</span></p>
+                    <p class="mb-4">普通人在资金规模、信息上全面劣势，<strong class="text-black font-semibold">除了一点，那就是没有人逼你交易。</strong>基金经理有考核、排名、赎回压力，而你唯一需要负责的是自己。这是一个巨大的结构性优势。择时需要做对两次决策，统计显示，如果你因为恐慌错过了10个涨幅最大的日子，总回报会减少一半以上。</p>
+                    <p class="font-medium text-black mt-6">实操建议：</p>
+                    <ul class="list-disc list-outside ml-6 space-y-2 mt-2">
+                        <li>区分噪音和信号，不因短期波动改变长期判断。</li>
+                        <li>减少打开交易软件的次数。</li>
+                        <li>设定明确的买卖规则并严格执行。</li>
+                    </ul>
+                </div>
+
+                <!-- Q4 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-2">Question 04</h4>
+                    <h5 class="text-2xl font-bold text-black mb-6">如何表达短期观点？(高阶/慎用)</h5>
+                    <p class="mb-6">可以使用衍生品，但这是<strong class="text-braun-red font-semibold">极其有限的例外</strong>。前提：</p>
+                    <ol class="list-decimal list-outside ml-6 space-y-4 text-zinc-600 mb-6">
+                        <li><strong class="text-black">仓位控制：</strong>不超过总仓位的2-3%。</li>
+                        <li><strong class="text-black">基础常识：</strong>理解时间衰减（time decay）和隐含波动率（implied volatility）。</li>
+                        <li><strong class="text-black">结构简单：</strong>坚决规避雪球产品或Accumulator等复杂/无限亏损风险的产品。</li>
+                    </ol>
+                    <p class="italic text-sm text-zinc-500">如果你不确定自己是否具备必要的知识，那答案就是不要碰。</p>
+                </div>
+
+                <!-- Q5 -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-2">Question 05</h4>
+                    <h5 class="text-2xl font-bold text-black mb-6">如何最大化认知收益？</h5>
+                    <p class="mb-6">交易关联标的。研究一家公司（如小米）必然涉及上下游供应链和竞争对手。这些认知可以转化为两类机会：</p>
+                    <ul class="space-y-4 mb-6">
+                        <li class="pl-4 border-l-[3px] border-zinc-800">
+                            <strong class="text-black block">1. 受益型标的</strong>
+                            例如东风集团（代工预期）、金山云（AI算力基础设施）。
+                        </li>
+                        <li class="pl-4 border-l-[3px] border-zinc-800">
+                            <strong class="text-black block">2. 对冲风险标的</strong>
+                            例如三星/海力士（对冲存储涨价风险）、黄金/中芯国际（对冲地缘风险）、腾讯（对冲虚拟AI风口错配风险）。
+                        </li>
+                    </ul>
+                    <p class="text-sm bg-zinc-100 p-4">注意：关联标的偏交易性质，需要严格控制敞口（5-10%）并设定止损，不要扛成长期持有。</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <hr class="border-t border-zinc-300 mx-6 md:mx-12">
+
+        <!-- PART 3: THE AVERAGE YIELD -->
+        <section class="py-24 md:py-40 px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 relative bg-zinc-900 text-white">
+            <div class="md:col-span-4 md:sticky top-32 h-fit">
+                <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-braun-red mb-4">Part 3 / 下篇</h2>
+                <div class="text-[8vw] md:text-[5vw] leading-none font-black text-zinc-800 -ml-2 tracking-tighter">03</div>
+                <h3 class="text-3xl font-bold mt-8">获取平均收益</h3>
+                <p class="mt-4 text-zinc-400 font-light">时间，是每个普通投资者手里最被低估的武器。</p>
+            </div>
+            
+            <div class="md:col-span-7 md:col-start-6 text-lg md:text-xl leading-[1.8] text-zinc-300 font-light space-y-16">
+                
+                <!-- The Bet -->
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-6">1. 为什么要向平均收益看齐？</h4>
+                    <p class="mb-6">2007年，巴菲特用100万美元和对冲基金经理打赌：标普500指数基金10年内跑赢5只精选对冲基金。结果：标普500累计回报125.8%，对冲基金平均仅36.3%。试图战胜市场是一个负期望值的行为。</p>
+                    <ul class="space-y-6 text-base">
+                        <li><strong class="text-white block text-lg mb-1">数学必然：成本定律</strong> 主动投资者的平均回报必然低于市场回报，差额被管理人和中介收走。</li>
+                        <li><strong class="text-white block text-lg mb-1">目标错配：</strong> 机构追求相对收益（生存排名），你需要的是绝对财富增长（养老、教育）。</li>
+                        <li><strong class="text-white block text-lg mb-1">时间优势：</strong> 在滚动的20年持有期内，美国股市从未产生过负的实际回报。相比重仓股，平均收益能将时间优势放大到极致。</li>
+                    </ul>
+                    <div class="mt-8 p-6 border border-zinc-700 bg-zinc-800">
+                        <p class="text-sm font-medium text-white mb-2">关于A股的误区：</p>
+                        <p class="text-sm">不要拿上证指数对比标普500。看<strong class="text-braun-red">沪深300全收益指数</strong>，自2005年成立年化收益率约8.2%至9%。虽波动率高，但长期复利同样可观。稳定获取平均收益，不是妥协，是对市场的尊重。</p>
+                    </div>
+                </div>
+
+                <!-- How to -->
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-6">2. 应当如何获取？共同基金与ETF</h4>
+                    <p class="mb-6"><strong class="text-white font-semibold">共同基金 (Mutual Fund)：</strong> 比如经典的 60/40 组合（60%股票/40%债券）。经验法则：100减去你的年龄等于股票比例。</p>
+                    <p class="mb-6"><strong class="text-white font-semibold">ETF (Exchange-Traded Fund)：</strong> 交易灵活、成本低、种类极度丰富。Jack Bogle说：“股票基金投资者最大的两个敌人是费用和情绪。”</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                        <div class="bg-zinc-800 p-6">
+                            <span class="text-braun-red text-sm font-bold block mb-2">IOO</span>
+                            <p class="text-sm">全球100只跨国蓝筹股，一键全球分散配置核心。</p>
+                        </div>
+                        <div class="bg-zinc-800 p-6">
+                            <span class="text-braun-red text-sm font-bold block mb-2">ARTY</span>
+                            <p class="text-sm">全球AI产业链，赛道方向的卫星配置。</p>
+                        </div>
+                        <div class="bg-zinc-800 p-6">
+                            <span class="text-braun-red text-sm font-bold block mb-2">IBIT</span>
+                            <p class="text-sm">比特币现货ETF，合规渠道获取Crypto敞口。</p>
+                        </div>
+                        <div class="bg-zinc-800 p-6">
+                            <span class="text-braun-red text-sm font-bold block mb-2">O (Realty Income)</span>
+                            <p class="text-sm">REITs，提供约5%的月度分红现金流。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Costs & Platform -->
+                <div>
+                    <h4 class="text-2xl font-bold text-white mb-6">3. 注意事项：成本与平台</h4>
+                    <p class="text-3xl text-white font-medium mb-6">复利既能放大收益，也能放大成本。</p>
+                    <p class="mb-6">0.1%与1%的费率差异，在30年间会吃掉你22%的最终财富。警惕管理费、隐性佣金、交易成本和税务汇率成本。</p>
+                    <p class="mb-6">选择像 <strong class="text-white">BlackRock (iShares)</strong> 或 <strong class="text-white">Vanguard</strong> 这样的平台，是因为它们经历了所有重大市场危机并幸存下来，能在最极端环境下保障资产安全。你也可以参考MorningStar（晨星）评级筛选基金。</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- EPILOGUE -->
+        <section class="py-32 md:py-48 px-6 md:px-12 text-center relative max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-black mb-12">承认自己是一个普通人。</h2>
+            
+            <div class="text-lg md:text-xl text-zinc-600 font-light leading-[1.8] space-y-8 text-left md:text-center text-balance mx-auto">
+                <p>这句话听起来像是自我贬低，其实恰恰相反。承认自己是普通人，意味着你不再需要证明自己比市场聪明、不再需要靠一只股票的大起大落来获得存在感。</p>
+                
+                <p><strong class="text-black font-medium">第一，要和贪婪长期相处。</strong>投资中最难的修炼不是学会一个新的分析方法，而是学会在别人赚钱的时候保持平静。</p>
+                
+                <p><strong class="text-black font-medium">第二，要远离自己不懂的东西。</strong>如果年化超过15%，为什么巴菲特做不到？如果看不懂产品，那你自己就是那个风险。如果流动性极差，就不要为了几个点放弃安全感。避开陷阱比抓住机会重要得多。</p>
+                
+                <p class="pt-8 font-medium text-black text-xl md:text-2xl">
+                    投资到最后，会越来越像在和自己做一场漫长的对话。<br>
+                    你得和贪婪讨价还价，和恐惧握手言和，和自己的无知相处，也要学会对时间保持足够的耐心。
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER / BIO -->
+    <footer class="bg-zinc-100 border-t border-zinc-300 py-12 px-6 md:px-12 text-sm text-zinc-500 font-medium">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+            <div class="max-w-md">
+                <div class="w-12 h-12 bg-black text-white flex items-center justify-center font-bold text-xl mb-6">W</div>
+                <p class="mb-2"><strong class="text-black uppercase tracking-wider">作者 / 粮厂研究院Will</strong></p>
+                <p class="leading-relaxed">在香港金融领域从业超过15年，曾在多家外资投资银行和资产管理公司工作。拥有英国帝国理工的金融工程学位、香港大学的法学学位和爱丁堡大学的科技哲学学位，同时还是一名注册会计师。</p>
+            </div>
+            <div class="md:text-right uppercase tracking-[0.2em] text-xs">
+                <p>Designed with Functionalism.</p>
+                <p class="mt-2 text-zinc-400">&copy; 2025 All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

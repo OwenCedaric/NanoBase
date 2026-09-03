@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI矩阵与私域架构体系 | Digital Editorial</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'system-ui', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        braun: '#FF3300',
+                        ink: '#121212',
+                        paper: '#F7F7F5',
+                        ash: '#888888',
+                        divider: '#E5E5E5'
+                    },
+                    fontSize: {
+                        'base': ['16px', '1.7'],
+                        'lg': ['18px', '1.7'],
+                        'xl': ['20px', '1.75'],
+                        '2xl': ['24px', '1.6'],
+                        '3xl': ['32px', '1.4'],
+                        '4xl': ['48px', '1.2'],
+                        'giant': ['12vw', '0.9'],
+                    },
+                    spacing: {
+                        'vw-10': '10vw',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 补充 Tailwind 无法完全覆盖的特殊排版控制 */
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        ::selection {
+            background-color: theme('colors.braun');
+            color: theme('colors.paper');
+        }
+
+        /* 绝对可读性：控制段落间距 */
+        p {
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        /* 工业风线条：极细分割线 */
+        .hairline-b {
+            border-bottom: 1px solid theme('colors.divider');
+        }
+        .hairline-t {
+            border-top: 1px solid theme('colors.divider');
+        }
+
+        /* 图像编辑感滤镜 */
+        .editorial-image {
+            filter: grayscale(100%) contrast(120%);
+            mix-blend-mode: multiply;
+        }
+
+        /* 水印字体 */
+        .watermark {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.03;
+            white-space: nowrap;
+            pointer-events: none;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden min-h-screen font-sans">
+
+    <header class="fixed top-0 w-full z-50 bg-paper/90 backdrop-blur-sm hairline-b">
+        <div class="max-w-[1600px] mx-auto px-6 md:px-12 py-4 flex justify-between items-center text-xs md:text-sm uppercase tracking-widest text-ash font-mono">
+            <div class="flex items-center gap-2">
+                <i class="ri-focus-3-line text-braun text-lg"></i>
+                <span>Document No. 2045857720675488109</span>
+            </div>
+            <div class="hidden md:block">
+                <span>Subject: AI & Private Domain Matrix Strategy</span>
+            </div>
+            <div>
+                <span>Source: @ddan_zai</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 md:pt-48 md:pb-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
+        <div class="watermark text-giant top-20 left-[-2vw]">ARCHITECTURE</div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+            <div class="md:col-span-8 md:col-start-1">
+                <p class="font-mono text-braun tracking-widest text-sm mb-6 flex items-center gap-2">
+                    <span class="w-8 h-[1px] bg-braun inline-block"></span> 
+                    EXECUTIVE SUMMARY
+                </p>
+                <h1 class="text-4xl md:text-[5vw] leading-tight font-black tracking-tight mb-8">
+                    AI + 公众号矩阵 + 私域 <br>
+                    <span class="text-ash font-light">月入10W+ 完整架构体系</span>
+                </h1>
+            </div>
+
+            <div class="md:col-span-6 md:col-start-7 text-base md:text-xl font-medium mt-8 md:mt-0">
+                <p>最近很多朋友看我发的内容后问：“蛋仔，你这个AI+公众号+私域的模型到底怎么做到月入10w+的？能给一套完整线程吗？” 今天我直接把我自己正在跑、并且帮别人代运营已经稳定月入10w+（分成模式）的全套工作流一次性拆开讲透。</p>
+                <p>不是理论，是我2026年每天在用的实操闭环。</p>
+                
+                <div class="bg-ink text-paper p-8 md:p-12 mt-12 relative overflow-hidden">
+                    <i class="ri-quote-text absolute right-[-20px] bottom-[-40px] text-9xl opacity-10"></i>
+                    <p class="text-xl md:text-2xl font-bold leading-relaxed mb-0">
+                        核心只有一句话：AI干掉80%重复劳动，人工只做10-20%高价值润色+决策+信任构建。公域负责“被看见”，私域负责“被信任”，矩阵放大复利。
+                    </p>
+                </div>
+                <p class="mt-8 text-ash text-sm md:text-base">看完这条线程，你就能直接上手复制。适合0基础、想副业/全职做自媒体的朋友。照着做，3-6个月看到明显结果，坚持跑矩阵，月入10w+不是梦。</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="w-full h-px bg-divider max-w-[1600px] mx-auto"></div>
+
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+            <aside class="md:col-span-3">
+                <div class="sticky top-32">
+                    <h2 class="text-giant text-ash/20 absolute -top-16 -left-4 pointer-events-none">01</h2>
+                    <h3 class="text-2xl font-bold mb-4">核心逻辑与定位</h3>
+                    <p class="font-mono text-sm text-ash mb-8">System Logic & Matrix Setup</p>
+                    <div class="w-12 h-1 bg-braun mb-12"></div>
+                </div>
+            </aside>
+
+            <article class="md:col-span-7 md:col-start-5 text-base md:text-xl">
+                <h4 class="text-xl md:text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="ri-stop-mini-fill text-braun"></i> 为什么这个模型能月入10w+？
+                </h4>
+                <p>公众号解决“流量获取”（算法+搜索推荐），私域解决“信任成交”，AI解决“内容成本”。</p>
+                <ul class="list-none space-y-4 mb-12 pl-4 border-l-2 border-braun/30">
+                    <li><strong class="text-ink">单号AI辅助后：</strong>每天1-2篇，初期月阅读10-50万 → 流量主3000-8000元。</li>
+                    <li><strong class="text-ink">矩阵3-5个号跑起来：</strong>总阅读破百万 + 私域转化 + 代运营服务分成，轻松10w+。</li>
+                </ul>
+                <p>我目前代运营的矩阵，流量主+私域课程+帮别人代运营的分成，三条腿走路，抗风险强。关键：不是纯AI自动化（微信2026年已严打全AI脚本号，会封），而是AI辅助+人工把关，合规又高效。</p>
+
+                <div class="w-full h-px bg-divider my-16"></div>
+
+                <h4 class="text-xl md:text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="ri-stop-mini-fill text-braun"></i> 账号定位与矩阵搭建 (3-5个号起步)
+                </h4>
+                <p>分工明确：一个吸粉、一个养信任、一个推转化。全部用同一套AI工作流生产内容，节省90%时间。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-sm md:text-base">
+                    <div class="p-6 border border-divider hover:border-braun transition-colors duration-300">
+                        <span class="font-mono text-braun block mb-2">TYPE A / 主号 (1个)</span>
+                        <strong class="block mb-1">你的个人IP</strong>
+                        <span class="text-ash">AI工具 + 自媒体干货（爆款流量密码）</span>
+                    </div>
+                    <div class="p-6 border border-divider hover:border-braun transition-colors duration-300">
+                        <span class="font-mono text-braun block mb-2">TYPE B / 流量号 (2-3个)</span>
+                        <strong class="block mb-1">不同子赛道</strong>
+                        <span class="text-ash">私域项目拆解 / 真实案例 / 避坑提醒 / 情感共鸣（养老/职场/副业）</span>
+                    </div>
+                    <div class="p-6 border border-divider hover:border-braun transition-colors duration-300 md:col-span-2">
+                        <span class="font-mono text-braun block mb-2">TYPE C / 转化号 (1个)</span>
+                        <strong class="block mb-1">信任承接</strong>
+                        <span class="text-ash">案例 + 服务展示</span>
+                    </div>
+                </div>
+                
+                <p class="bg-paper p-6 border-l-4 border-ink">
+                    <strong>定位公式：</strong>人设 = 实战派 + 接地气 + 持续输出干货 + 私域资料钩子。0粉丝也能起号，因为现在公众号是“社交+算法”双推。<br>
+                    <strong>注册建议：</strong>用企业主体或个人主体，绑定手机号/邮箱，避开高风险词。初期成本几乎为0（AI免费/低价版就够）。
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 bg-ink text-paper px-6 md:px-12 relative overflow-hidden">
+        <div class="max-w-[1600px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+                
+                <aside class="md:col-span-3">
+                    <h2 class="text-giant text-white/5 absolute -top-16 -left-4 pointer-events-none">02</h2>
+                    <h3 class="text-2xl font-bold mb-4 text-white">内容生产引擎</h3>
+                    <p class="font-mono text-sm text-ash mb-8">AI Prompt Engineering</p>
+                    <div class="w-12 h-1 bg-braun mb-12"></div>
+                </aside>
+
+                <article class="md:col-span-8 md:col-start-4 text-base md:text-xl">
+                    <p class="text-xl md:text-2xl mb-8">用 Claude / DeepSeek / GPT 等大模型（我最爱 Claude，逻辑强）。每周循环5-7篇，成本&lt;50元/月，效率提升5倍以上。<strong>记住：必须人工润色10-20%，否则容易被判“非真人创作”封号。</strong></p>
+                    
+                    <div class="bg-black/50 p-8 md:p-12 font-mono text-sm md:text-base border border-white/10 relative group">
+                        <div class="absolute top-0 right-0 bg-braun text-white px-4 py-1 text-xs uppercase">Core Prompt</div>
+                        <p class="text-white/80 mb-4">“你是一位拥有公众号矩阵代运营经验的实战派，专注AI工具/自媒体干货/私域项目。针对公众号写一篇1800-2500字深度文章，主题：【具体选题】。要求（BRTR结构）：</p>
+                        <ul class="text-braun space-y-2 ml-4 list-disc marker:text-white/30 mb-4">
+                            <li><span class="text-white/90"><strong>Background：</strong>结合当前微信热点/用户痛点</span></li>
+                            <li><span class="text-white/90"><strong>Role：</strong>专业+接地气，像老手分享实战经验</span></li>
+                            <li><span class="text-white/90"><strong>Task：</strong>结构为 强痛点钩子（前300字）→ 编号实操步骤 → 真实案例/脱敏数据 → 避坑提醒 → 行动号召（导私域）</span></li>
+                            <li><span class="text-white/90"><strong>Requirement：</strong>语气自然，避免AI味；加入个人视角、数据截图建议；标题带数字+结果+痛点；结尾放回复关键词领资料钩子。</span></li>
+                        </ul>
+                        <p class="text-white/80 mb-0">请先生成标题5个和大纲，再输出完整初稿。”</p>
+                    </div>
+
+                    <h4 class="text-xl font-bold mt-16 mb-8 border-b border-white/20 pb-4">Standard Operating Procedure (实操步骤)</h4>
+                    <ol class="list-decimal pl-6 space-y-4 marker:text-braun marker:font-bold">
+                        <li>AI出5个标题+大纲。</li>
+                        <li>人工选1个，改标题更抓眼球。</li>
+                        <li>AI出初稿。</li>
+                        <li><strong>人工润色：</strong>开头加真实经历、插入数据/流程图、结尾强化钩子。</li>
+                        <li>用AI工具（壹伴助手或鱼汛系统等2026主流编辑器）30秒排版+配图。</li>
+                        <li>测试小号数据，OK再主号发布。</li>
+                    </ol>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto relative">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+            
+            <aside class="md:col-span-3">
+                <h2 class="text-giant text-ash/20 absolute -top-16 -left-4 pointer-events-none">03</h2>
+                <h3 class="text-2xl font-bold mb-4">流量黑客机制</h3>
+                <p class="font-mono text-sm text-ash mb-8">Growth Hacks & Hooks</p>
+                <div class="w-12 h-1 bg-braun mb-12"></div>
+            </aside>
+
+            <article class="md:col-span-8 md:col-start-5 text-base md:text-xl">
+                <h4 class="text-xl md:text-2xl font-bold mb-8 flex items-center gap-3">
+                    <i class="ri-flashlight-fill text-braun"></i> 爆款标题公式（3个模板，用完即爆）
+                </h4>
+                
+                <div class="space-y-6 mb-16">
+                    <div class="flex flex-col md:flex-row gap-4 items-start border-b border-divider pb-6">
+                        <div class="bg-ink text-paper px-3 py-1 text-sm font-bold font-mono whitespace-nowrap">Formula 01</div>
+                        <div>
+                            <strong class="block mb-2">数字清单 + 结果承诺（最稳）</strong>
+                            <code class="text-braun bg-braun/5 px-2 py-1 rounded text-sm break-all">【人群】+【数字】+【具体事情】+【美好结果】</code>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4 items-start border-b border-divider pb-6">
+                        <div class="bg-ink text-paper px-3 py-1 text-sm font-bold font-mono whitespace-nowrap">Formula 02</div>
+                        <div>
+                            <strong class="block mb-2">颠覆常识 + 制造悬念（最炸）</strong>
+                            <code class="text-braun bg-braun/5 px-2 py-1 rounded text-sm break-all">【常见认知】+【颠覆反转】+【悬念引导】</code>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4 items-start border-b border-divider pb-6">
+                        <div class="bg-ink text-paper px-3 py-1 text-sm font-bold font-mono whitespace-nowrap">Formula 03</div>
+                        <div>
+                            <strong class="block mb-2">场景共鸣 + 情感共鸣（最暖）</strong>
+                            <code class="text-braun bg-braun/5 px-2 py-1 rounded text-sm break-all">【你是不是也…】+【场景描述】+【情感升华】</code>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-ash italic">注：发家人群投票，选最高的发。</p>
+
+                <div class="w-full h-px bg-divider my-16"></div>
+
+                <h4 class="text-xl md:text-2xl font-bold mb-8 flex items-center gap-3">
+                    <i class="ri-magnet-fill text-braun"></i> 公域引流私域：钩子设计 (最重要一步)
+                </h4>
+                <p>文章结尾一定要放明确钩子，用户加你不是因为文章，而是马上能拿到具体结果。欢迎语模板：先价值（发资料）→ 自我介绍 → 轻引导开口。</p>
+                
+                <div class="grid md:grid-cols-3 gap-4 mt-8">
+                    <div class="border border-divider p-6 relative">
+                        <i class="ri-corner-down-right-line absolute top-6 right-6 text-ash/50 text-xl"></i>
+                        <span class="block text-sm text-ash mb-4">引流话术 A</span>
+                        <p class="font-bold text-base mb-0">“回复【AI10w】领完整工作流”</p>
+                    </div>
+                    <div class="border border-divider p-6 relative">
+                        <i class="ri-corner-down-right-line absolute top-6 right-6 text-ash/50 text-xl"></i>
+                        <span class="block text-sm text-ash mb-4">引流话术 B</span>
+                        <p class="font-bold text-base mb-0">“回复【资料】领取我正在用的AI写作提示词模板”</p>
+                    </div>
+                    <div class="border border-divider p-6 relative">
+                        <i class="ri-corner-down-right-line absolute top-6 right-6 text-ash/50 text-xl"></i>
+                        <span class="block text-sm text-ash mb-4">引流话术 C</span>
+                        <p class="font-bold text-base mb-0">“回复【案例】看我最近跑出的真实内容拆解”</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 bg-paper px-6 md:px-12 border-t border-divider relative">
+        <div class="max-w-[1600px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+                
+                <aside class="md:col-span-3">
+                    <h2 class="text-giant text-ash/10 absolute -top-16 -left-4 pointer-events-none">04</h2>
+                    <h3 class="text-2xl font-bold mb-4">承接、变现与执行</h3>
+                    <p class="font-mono text-sm text-ash mb-8">Monetization & Timeline</p>
+                    <div class="w-12 h-1 bg-braun mb-12"></div>
+                </aside>
+
+                <article class="md:col-span-8 md:col-start-4 text-base md:text-xl">
+                    <div class="mb-16">
+                        <h4 class="text-xl md:text-2xl font-bold mb-6">私域承接链路 (自动化转化思路)</h4>
+                        <p>公域是“被看见”，私域是“被信任”。朋友圈/群发不招人烦原则：<strong>价值内容70% + 案例20% + 促销10%</strong>。核心是持续输出价值，直到用户主动问“怎么做”。</p>
+                        
+                        <div class="flex flex-col md:flex-row mt-8 gap-4 items-center">
+                            <div class="flex-1 text-center border border-braun/20 p-4 bg-white">
+                                <span class="block font-mono text-braun text-xs mb-2">STEP 1</span>
+                                <strong>钩子设计<br>用户主动加</strong>
+                            </div>
+                            <i class="ri-arrow-right-line text-ash hidden md:block"></i>
+                            <i class="ri-arrow-down-line text-ash md:hidden"></i>
+                            <div class="flex-1 text-center border border-braun/20 p-4 bg-white">
+                                <span class="block font-mono text-braun text-xs mb-2">STEP 2</span>
+                                <strong>Nurturing<br><span class="text-sm font-normal text-ash">先输出价值+轻咨询</span></strong>
+                            </div>
+                            <i class="ri-arrow-right-line text-ash hidden md:block"></i>
+                            <i class="ri-arrow-down-line text-ash md:hidden"></i>
+                            <div class="flex-1 text-center border border-braun border-b-4 p-4 bg-white shadow-sm">
+                                <span class="block font-mono text-braun text-xs mb-2">STEP 3</span>
+                                <strong>分层转化<br><span class="text-sm font-normal text-ash">低中高客单合作</span></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-16 bg-white p-8 md:p-12 border border-divider">
+                        <h4 class="text-xl md:text-2xl font-bold mb-8">变现闭环：三条腿到 10w+</h4>
+                        <ul class="space-y-6">
+                            <li class="flex items-start gap-4">
+                                <i class="ri-line-chart-line text-2xl text-braun"></i>
+                                <div>
+                                    <strong class="block text-lg">1. 流量主（广告）</strong>
+                                    <span class="text-ash">矩阵阅读破百万 → 每月几千到上万。</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ri-shopping-cart-2-line text-2xl text-braun"></i>
+                                <div>
+                                    <strong class="block text-lg">2. 私域销售</strong>
+                                    <span class="text-ash">低客单资料/工具包（99-299）→ 中客单课程（999-2999）→ 高客单代运营/咨询（1w+）。</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ri-shake-hands-line text-2xl text-braun"></i>
+                                <div>
+                                    <strong class="block text-lg">3. 代运营服务</strong>
+                                    <span class="text-ash">帮别人跑矩阵，抽成分成（我现在主做这个，单项目稳定10w+）。</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="mt-8 pt-6 border-t border-divider text-sm text-ash font-bold">真实数据：单号日入1k+不是梦，5个号三天3k很正常，坚持矩阵+私域，10w+水到渠成。</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-4 uppercase tracking-widest text-ash">工具栈推荐 (2026最新)</h4>
+                            <ul class="space-y-3 text-base">
+                                <li><strong class="text-ink">内容：</strong>Claude + 壹伴助手/鱼汛AI智能体</li>
+                                <li><strong class="text-ink">私域：</strong>企业微信 + 小裂变SCRM</li>
+                                <li><strong class="text-ink">排版/图：</strong>AI编辑器自带</li>
+                                <li><strong class="text-ink">数据：</strong>微信后台 + 简单Excel</li>
+                            </ul>
+                            <p class="text-sm text-braun mt-4 font-mono">> 总成本每月几百块。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-4 uppercase tracking-widest text-ash">避坑提醒 (血泪教训)</h4>
+                            <ul class="space-y-3 text-base list-disc pl-4 marker:text-braun">
+                                <li>别纯AI一键发布（已被封一批）。</li>
+                                <li>私域别硬广（微信查群发）。</li>
+                                <li>账号每周保持真人痕迹（回评、原创）。</li>
+                                <li>收益分散（别全放一个池子）。</li>
+                                <li>先小额测试付费流量，再放大。</li>
+                            </ul>
+                        </div>
+                        <div class="md:col-span-2 mt-8">
+                            <h4 class="text-lg font-bold mb-4 uppercase tracking-widest text-ash">起步 Timeline (照着做)</h4>
+                            <div class="flex flex-col gap-2 font-mono text-sm bg-ink text-white p-6">
+                                <div class="flex gap-4 border-b border-white/10 pb-2"><span class="text-braun w-24">第1个月</span> <span>矩阵搭建 + AI工作流跑顺 + 每天1-2篇</span></div>
+                                <div class="flex gap-4 border-b border-white/10 py-2"><span class="text-braun w-24">第2-3个月</span> <span>阅读起量 + 私域沉淀1000+精准用户</span></div>
+                                <div class="flex gap-4 pt-2"><span class="text-braun w-24">第4个月起</span> <span>流量主+第一波私域转化 + 开启代运营</span></div>
+                            </div>
+                            <p class="mt-4 text-base font-bold">坚持6个月，矩阵稳定，月入10w+可期。</p>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-braun text-paper py-24 md:py-32 px-6 md:px-12 text-center relative overflow-hidden">
+        <div class="watermark text-giant top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black/20">ACTION</div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-8">开始构建你的数字资产</h2>
+            <p class="text-xl md:text-2xl mb-12 opacity-90">
+                如果你也在做公众号、内容号、个人IP，正卡在“有人看，没人转化”这一步——现在就开始行动吧！新时代的风口（AI+私域）机会还在，抓住它，你的孩子20年后就不会问你“为什么还是穷了一辈子”。
+            </p>
+            <div class="inline-block bg-paper text-ink p-8 text-left md:min-w-[400px]">
+                <span class="block text-sm text-ash font-mono mb-4 uppercase tracking-widest border-b border-divider pb-2">Data Retrieval Node</span>
+                <p class="font-bold text-lg mb-2">回复代码以获取完整档案：</p>
+                <div class="text-2xl font-mono text-braun bg-braun/5 p-4 text-center border border-braun/20 tracking-widest mb-6">
+                    【AI10w】
+                </div>
+                <p class="text-sm text-ash mb-0">包含：完整提示词包 + 矩阵分工表 + 私域转化SOP</p>
+                <p class="text-sm text-ash mt-4 pt-4 border-t border-divider">Author: 蛋仔 (@ddan_zai)<br>WeChat: dagu178 (备注AI矩阵)</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

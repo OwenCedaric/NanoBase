@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ARCHITECTURE OF WEALTH | 投资全景图谱指南</title>
+    
+    <!-- 引入系统级无衬线字体与RemixIcon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    },
+                    colors: {
+                        braun: '#FF3300',
+                        ink: '#111111',
+                        paper: '#F7F7F5',
+                        ash: '#E5E5E5',
+                        stone: '#888888'
+                    },
+                    fontSize: {
+                        'body-m': ['16px', '1.7'],
+                        'body-d': ['20px', '1.75'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 保持绝对纯净的底层样式 */
+        ::selection { background-color: #FF3300; color: #fff; }
+        body { background-color: #F7F7F5; color: #111111; font-feature-settings: "palt"; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+        
+        /* 隐藏原生滚动条，打造沉浸感 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E5E5E5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF3300; }
+
+        /* 杂志风首字下沉 */
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 5em;
+            line-height: 0.8;
+            padding-right: 0.1em;
+            font-weight: 900;
+            color: #FF3300;
+        }
+
+        /* 极简网格表格样式 */
+        .grid-table { display: grid; border-top: 1px solid #111; border-bottom: 1px solid #111; }
+        .grid-row { display: grid; border-bottom: 1px solid #E5E5E5; padding: 1rem 0; align-items: start; }
+        .grid-row:last-child { border-bottom: none; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- 导航：极简指示器 -->
+    <nav class="fixed top-0 left-0 w-full p-6 md:p-12 z-50 flex justify-between items-start pointer-events-none mix-blend-difference text-white">
+        <div class="text-xs font-bold tracking-[0.2em] uppercase">Architecture<br>Of Wealth</div>
+        <div class="w-2 h-2 rounded-full bg-braun animate-pulse"></div>
+    </nav>
+
+    <!-- 首屏：极致留白与视觉张力 -->
+    <header class="relative w-full min-h-[90vh] flex flex-col justify-end px-6 md:px-12 xl:px-24 pb-24 mx-auto max-w-[1600px]">
+        <div class="absolute top-[20%] right-[-5%] text-[30vw] font-black text-ink/5 tracking-tighter leading-none select-none z-0">2026</div>
+        
+        <div class="relative z-10 grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 items-end">
+            <div class="xl:col-span-8">
+                <h1 class="text-[12vw] xl:text-[8vw] font-black leading-[0.85] tracking-tighter mb-8">
+                    THE COMPLETE<br>
+                    <span class="text-braun">ARCHITECTURE.</span>
+                </h1>
+                <p class="text-[24px] xl:text-[36px] font-light tracking-tight text-ink">
+                    一口气讲清投资！史上最全投资分类图谱。
+                </p>
+            </div>
+            <div class="xl:col-span-4 flex flex-col justify-end pb-2">
+                <div class="border-l-2 border-braun pl-6 space-y-4">
+                    <p class="text-body-m font-medium">99%的人连基本框架都没搞清楚，就在盲目跟风。今天，我们将进行一场投资领域的"全景式深度扫描"。</p>
+                    <p class="text-xs text-stone uppercase tracking-widest font-bold">Estimated Read Time: 45 Mins</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="w-full">
+
+        <!-- 引言区：不对称布局 -->
+        <section class="py-24 xl:py-32 border-t border-ash px-6 md:px-12 xl:px-24 mx-auto max-w-[1600px]">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+                <div class="xl:col-span-3">
+                    <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-stone sticky top-24">00. The Genesis</h2>
+                </div>
+                <div class="xl:col-span-7 space-y-8 text-body-m xl:text-body-d text-ink">
+                    <p class="drop-cap">投资与融资，本质是一枚硬币的两面。融资时思考"钱从哪里来"，投资时思考"钱往哪里去"。</p>
+                    <p>为什么做这期内容？因为我发现太多人对投资的理解还停留在"买股票就是投资"的层面，这就像只知道地球是圆的，却不知道地球上有七大洲四大洋一样片面。简单说，投资就是期望今天的1块钱，通过时间、风险、专业能力的加持，明天能变成1.1块、1.2块，甚至10块、100块。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第一章：投资全景图 (数据矩阵) -->
+        <section class="relative py-24 xl:py-40 bg-ink text-paper px-6 md:px-12 xl:px-24 mx-auto max-w-[1600px] overflow-hidden">
+            <div class="absolute top-0 right-0 text-[20vw] font-black text-paper/5 tracking-tighter leading-none select-none">01</div>
+            
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 relative z-10">
+                <div class="xl:col-span-4">
+                    <h2 class="text-5xl font-black tracking-tight mb-6">全景地图<span class="text-braun">.</span></h2>
+                    <p class="text-stone text-body-m mb-12">全球总规模约600万亿美元 (2026数据)。两大类别，九大分支，这不仅仅是资产，更是认知的边界。</p>
+                </div>
+                
+                <div class="xl:col-span-8 font-mono text-sm xl:text-base leading-loose border-l border-paper/20 pl-6 xl:pl-12">
+                    <div class="text-braun mb-4">Investment Universe [600T USD]</div>
+                    <ul class="space-y-6">
+                        <li><span class="text-paper/50">├──</span> 传统投资 (95%+, ~570T)
+                            <ul class="ml-8 text-paper/80 space-y-2 mt-2">
+                                <li><span class="text-paper/30">├──</span> 股票 / 权益类 (~160T)</li>
+                                <li><span class="text-paper/30">├──</span> 债券 / 固收类 (~150T)</li>
+                                <li><span class="text-paper/30">├──</span> 现金及等价物 (~90T)</li>
+                                <li><span class="text-paper/30">└──</span> 衍生品 / 名义本金 (~1200T)</li>
+                            </ul>
+                        </li>
+                        <li><span class="text-paper/50">└──</span> 另类投资 (<5%, ~30T) [Hyper-growth]
+                            <ul class="ml-8 text-paper/80 space-y-2 mt-2">
+                                <li><span class="text-paper/30">├──</span> 私募资本 (~18T) : PE 12T + PD 6T</li>
+                                <li><span class="text-paper/30">├──</span> 对冲基金 (~8T) : 1.5万只基金</li>
+                                <li><span class="text-paper/30">├──</span> 实物资产 (~75T) : 地产 65T + 基建 7T...</li>
+                                <li><span class="text-paper/30">├──</span> 数字资产 (~5T) : Crypto + NFT</li>
+                                <li><span class="text-paper/30">└──</span> 艺术藏品 (~3T)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 数据对比区域：响应式流式布局 -->
+            <div class="mt-32 border-t border-paper/20 pt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h4 class="text-xs text-braun font-bold uppercase tracking-widest mb-4">中国市场特殊性 (2026)</h4>
+                    <div class="text-[3rem] font-black leading-none mb-2">68.5%</div>
+                    <p class="text-stone text-sm">家庭资产配置在房产上（全球平均仅36%）。核心问题：过度依赖房产，金融资产配置不足。</p>
+                </div>
+                <div>
+                    <h4 class="text-xs text-braun font-bold uppercase tracking-widest mb-4">现代投资组合理论 (MPT)</h4>
+                    <p class="text-paper/80 text-sm mt-4 font-mono">组合方差 = Σw_i²σ_i² + ΣΣw_iw_jρ_ijσ_iσ_j</p>
+                    <p class="text-stone text-sm mt-4">通过分散化降低非系统性风险。当资产间相关系数<1时，组合风险<各资产风险加权平均。</p>
+                </div>
+                <div>
+                    <h4 class="text-xs text-braun font-bold uppercase tracking-widest mb-4">资产定价理论演进</h4>
+                    <p class="text-paper/80 text-sm mt-4">CAPM模型、APT模型、行为金融学。理解不同资产的风险收益来源，避免常见投资误区。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二章：传统投资 (重度阅读区) -->
+        <section class="py-24 xl:py-40 bg-paper text-ink px-6 md:px-12 xl:px-24 mx-auto max-w-[1600px] relative">
+            <div class="absolute top-0 right-0 text-[15vw] font-black text-ink/5 tracking-tighter leading-none">02</div>
+            
+            <div class="mb-24">
+                <h2 class="text-4xl xl:text-6xl font-black tracking-tight">传统投资详解<br><span class="text-braun text-2xl font-normal">占投资市场的95%+，普通人接触的99%</span></h2>
+            </div>
+
+            <!-- 模块 2.1 股票 -->
+            <article class="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-32 border-t border-ink pt-12">
+                <div class="xl:col-span-3">
+                    <h3 class="text-2xl font-bold sticky top-24"><span class="text-braun mr-2 text-lg">●</span> 股票(权益类)</h3>
+                    <p class="text-stone text-sm mt-2 sticky top-32">当老板的艺术。购买企业所有权，分享成长红利，承担经营风险。</p>
+                </div>
+                
+                <div class="xl:col-span-6 space-y-8 text-body-m xl:text-body-d">
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-bold">股权结构的层次化设计</h4>
+                        <p><b>普通股：</b>拥有表决权、分红权、清算权。特殊结构如AB股（京东1:20）、黄金股（政府否决权）。<br>
+                        <b>优先股：</b>固定股息率，清算优先。如小米发行6%年息优先股。<br>
+                        <b>可转债：</b>兼具债券安全性和股票成长性。2026年全球可转债市场规模3.5万亿美元。</p>
+                    </div>
+
+                    <div class="space-y-4 mt-12">
+                        <h4 class="text-xl font-bold">实战投资策略体系</h4>
+                        <ul class="space-y-4 list-none p-0">
+                            <li class="pl-4 border-l-2 border-ash"><b class="text-ink">价值投资体系：</b>护城河、管理层、价格。ROE > 15%，自由现金流为正。</li>
+                            <li class="pl-4 border-l-2 border-ash"><b class="text-ink">成长投资体系：</b>高增长潜力，容忍高估值。PEG < 1，营收增长率 > 20%。</li>
+                            <li class="pl-4 border-l-2 border-ash"><b class="text-ink">量化投资体系：</b>价值因子、动量因子、质量因子。2026年量化占A股交易量25%。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="xl:col-span-3 flex flex-col gap-6">
+                    <div class="bg-ash/30 p-6 rounded-sm">
+                        <h5 class="text-xs font-bold uppercase tracking-widest text-braun mb-4">A股市场特殊性</h5>
+                        <ul class="text-sm space-y-2">
+                            <li>牛短熊长 (平均牛市1.3年, 熊市2.9年)</li>
+                            <li>政策市特征明显</li>
+                            <li>散户主导 (交易占比82%)</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 模块 2.2 债券 -->
+            <article class="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-32 border-t border-ink pt-12">
+                <div class="xl:col-span-3">
+                    <h3 class="text-2xl font-bold sticky top-24"><span class="text-braun mr-2 text-lg">●</span> 债券(固收类)</h3>
+                    <p class="text-stone text-sm mt-2 sticky top-32">做债权人的智慧。借钱给别人，收取固定利息，承担信用风险。</p>
+                </div>
+                
+                <div class="xl:col-span-9">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-body-m xl:text-body-d">
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-bold border-b border-ash pb-2">定价核心机制</h4>
+                            <p><b>收益率曲线：</b>正常曲线（长期>短期），倒挂曲线预示衰退。<br>
+                            <b>久期 (Duration)：</b>债券价格对利率的敏感度。10年期国债久期8.5年，利率上升0.5%，价格下跌4.25%。<br>
+                            <b>信用利差：</b>企业债收益率 - 国债收益率。利差收窄意味风险偏好上升。</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-bold border-b border-ash pb-2">专业投资策略</h4>
+                            <p><b>久期管理：</b>子弹策略（集中单期）、哑铃策略（两端配置）、阶梯策略（均匀分布）。<br>
+                            <b>信用策略：</b>骑乘策略（利用曲线陡峭）、信用下沉（高风险高收益）。</p>
+                        </div>
+                    </div>
+
+                    <!-- 网格表格演示 -->
+                    <div class="mt-12 w-full grid-table text-sm">
+                        <div class="grid-row grid-cols-4 font-bold text-stone uppercase text-xs">
+                            <div>风险类型</div><div>致命案例</div><div>量化影响</div><div>对冲策略</div>
+                        </div>
+                        <div class="grid-row grid-cols-4">
+                            <div class="font-bold">利率风险</div><div>2022全球债券指跌18%</div><div>久期10年, 升1%跌9.5%</div><div>利率互换对冲</div>
+                        </div>
+                        <div class="grid-row grid-cols-4">
+                            <div class="font-bold">信用风险</div><div>恒大违约, 归零</div><div>清偿率<15%</div><div>严格白名单准入</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 模块 2.3 & 2.4 现金与衍生品并排 (利用网格产生不对称) -->
+            <article class="grid grid-cols-1 xl:grid-cols-12 gap-8 border-t border-ink pt-12">
+                <div class="xl:col-span-6 border-r border-ash pr-8 space-y-8">
+                    <h3 class="text-2xl font-bold"><span class="text-braun mr-2 text-lg">●</span> 现金及等价物</h3>
+                    <p class="text-xl font-light text-stone">流动性的王者。保持购买力，应对紧急需求。</p>
+                    <div class="text-body-m space-y-4">
+                        <p><b>严格定义：</b>3个月内到期、流动性强、价值稳定、交易成本低。房产绝不是现金等价物（变现周期60天+，折价15%）。</p>
+                        <p><b>风险暗流：</b>购买力风险（通胀侵蚀），监管风险，挤兑风险。1980-2026年，现金实际购买力下降78%。</p>
+                        <blockquote class="pl-4 border-l-4 border-braun font-semibold italic">“现金是氧气，在没有时才意识到重要性。”</blockquote>
+                    </div>
+                </div>
+                
+                <div class="xl:col-span-6 pl-0 xl:pl-8 space-y-8">
+                    <h3 class="text-2xl font-bold"><span class="text-braun mr-2 text-lg">●</span> 衍生品 (Derivatives)</h3>
+                    <p class="text-xl font-light text-stone">双刃剑中的王者。基于基础资产价格变动，具有杠杆效应。</p>
+                    <div class="text-body-m space-y-4">
+                        <p><b>四大基础：</b>期货 (Futures), 期权 (Options), 远期 (Forwards), 互换 (Swaps)。</p>
+                        <p><b>希腊字母：</b>Delta (方向), Gamma (加速度), Theta (时间衰减), Vega (波动率)。</p>
+                        <div class="bg-ink text-paper p-6 mt-6 rounded-sm">
+                            <h5 class="text-braun font-bold mb-2">高杠杆风险警示</h5>
+                            <p class="text-sm opacity-80">2021年Archegos爆仓：杠杆10倍，单日亏损55%，3天亏损350亿美元。没有5年经验，不要碰衍生品。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- 第三章：另类投资 (杂志风、大图感排版) -->
+        <section class="py-24 xl:py-40 bg-[#EFEFEE] text-ink px-6 md:px-12 xl:px-24 mx-auto max-w-[1600px] relative border-t border-ink">
+             <div class="mb-24 flex flex-col md:flex-row justify-between items-baseline border-b-2 border-ink pb-8">
+                <h2 class="text-4xl xl:text-7xl font-black tracking-tight uppercase">Alternative.</h2>
+                <p class="text-xl md:text-2xl font-medium mt-4 md:mt-0"><span class="text-braun">另类投资</span> / 专业机构的游戏</p>
+            </div>
+
+            <!-- 留白主导的不对称布局 -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-24">
+                <div class="xl:col-span-5 xl:col-start-2 text-body-m xl:text-body-d space-y-6">
+                    <h3 class="text-3xl font-bold mb-8 flex items-center"><i class="ri-building-line text-braun mr-4"></i> 私募资本 (PE & PD)</h3>
+                    <p><b>私募股权 (Private Equity)：</b>从种子期的极高风险（千倍回报可能）到成熟期的并购基金（LBO杠杆收购）。生命周期投资策略核心在于“低价买入、重组优化、高价退出”。</p>
+                    <p><b>私募债务 (Private Debt)：</b>审批效率高，结构灵活。涵盖直接贷款、夹层融资、不良债务。2026年趋势中结构化融资占比达45%。</p>
+                    <p class="text-stone font-bold text-sm mt-8 border-t border-ash pt-4">流动性锁定期：5-10年 | 门槛：500万+ | 费用：2/20结构</p>
+                </div>
+                
+                <div class="xl:col-span-4 xl:col-start-8 text-body-m xl:text-body-d space-y-6 mt-12 xl:mt-0">
+                    <h3 class="text-3xl font-bold mb-8 flex items-center"><i class="ri-line-chart-line text-braun mr-4"></i> 对冲基金</h3>
+                    <p>激进派的乐园。不受市场方向限制，采用绝对收益基准。主流策略包括：股票多空、事件驱动、宏观策略、统计套利。</p>
+                    <div class="p-6 border border-ink mt-6">
+                        <h4 class="font-bold mb-2 uppercase text-xs tracking-widest">Bridgewater 全天候策略</h4>
+                        <p class="text-sm">30%股票 + 40%债券 + 15%商品 + 15%黄金。基于风险平价理论，2026年回报8.2%，最大回撤-9%。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+                <div class="xl:col-span-8 xl:col-start-3 bg-ink text-paper p-8 xl:p-16">
+                    <h3 class="text-3xl font-bold mb-8 text-braun">实物资产 (Real Assets)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-body-m">
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 border-b border-paper/20 pb-2">房地产 (Real Estate)</h4>
+                            <p class="text-paper/80 mb-4">对抗通胀，稳定现金流，但流动性极差。2026年中国资产结构中，房产仍占主导。配置原则：一线看核心，规避收缩城市。工具首推公募 REITs。</p>
+                            <p class="text-sm text-braun">⚠️ 风险：房产税试点、流动性枯竭、气候物理风险。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-4 border-b border-paper/20 pb-2">大宗商品 (Commodities)</h4>
+                            <p class="text-paper/80 mb-4">原油、黄金、铜（经济晴雨表）。投资黄金建议5-8%避险，主要通过ETF操作。大宗商品对冲通胀效果极佳。</p>
+                            <p class="text-sm text-braun">⚠️ 风险：展期成本高、地缘政治剧烈波动。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四章：配置框架与终极哲学 -->
+        <section class="py-24 xl:py-40 bg-paper text-ink px-6 md:px-12 xl:px-24 mx-auto max-w-[1600px] border-t-4 border-ink">
+            
+            <div class="text-center mb-24 max-w-4xl mx-auto">
+                <h2 class="text-5xl xl:text-7xl font-black tracking-tight mb-8">2026 终极资产配置指南</h2>
+                <p class="text-xl text-stone">跨越周期的动态再平衡体系，根据生命周期定制你的财富架构。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+                <!-- 架构卡片 -->
+                <div class="border border-ash p-8 flex flex-col justify-between hover:border-ink transition-colors duration-300 group">
+                    <div>
+                        <div class="text-braun font-bold text-xl mb-2">Age 25-35</div>
+                        <h4 class="text-2xl font-black mb-6">高风偏·成长期</h4>
+                        <ul class="space-y-2 text-sm font-medium">
+                            <li class="flex justify-between border-b border-ash pb-1"><span>股票 (A股/美股)</span> <span>60%</span></li>
+                            <li class="flex justify-between border-b border-ash pb-1"><span>债券</span> <span>20%</span></li>
+                            <li class="flex justify-between border-b border-ash pb-1"><span>另类投资</span> <span>15%</span></li>
+                            <li class="flex justify-between pb-1"><span>现金</span> <span>5%</span></li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 text-xs text-stone group-hover:text-ink transition-colors">重点赛道：AI、新能源、生物科技。运用指数基金+定投。</div>
+                </div>
+
+                <div class="border border-ink bg-ink text-paper p-8 flex flex-col justify-between transform md:-translate-y-4 shadow-2xl">
+                    <div>
+                        <div class="text-braun font-bold text-xl mb-2">Age 36-50</div>
+                        <h4 class="text-2xl font-black mb-6">中高风偏·成熟期</h4>
+                        <ul class="space-y-2 text-sm font-medium text-paper/80">
+                            <li class="flex justify-between border-b border-paper/20 pb-1"><span>股票</span> <span class="text-white">50%</span></li>
+                            <li class="flex justify-between border-b border-paper/20 pb-1"><span>债券</span> <span class="text-white">30%</span></li>
+                            <li class="flex justify-between border-b border-paper/20 pb-1"><span>另类投资</span> <span class="text-white">15%</span></li>
+                            <li class="flex justify-between pb-1"><span>现金</span> <span class="text-white">5%</span></li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 text-xs text-paper/60">重点赛道：消费升级、核心资产。核心-卫星策略，主动+被动结合。</div>
+                </div>
+
+                <div class="border border-ash p-8 flex flex-col justify-between hover:border-ink transition-colors duration-300 group">
+                    <div>
+                        <div class="text-braun font-bold text-xl mb-2">Age 51+</div>
+                        <h4 class="text-2xl font-black mb-6">稳健偏好·防守期</h4>
+                        <ul class="space-y-2 text-sm font-medium">
+                            <li class="flex justify-between border-b border-ash pb-1"><span>债券 (利率/信用)</span> <span>50%</span></li>
+                            <li class="flex justify-between border-b border-ash pb-1"><span>股票 (高股息)</span> <span>30%</span></li>
+                            <li class="flex justify-between border-b border-ash pb-1"><span>另类投资 (REITs/黄金)</span> <span>15%</span></li>
+                            <li class="flex justify-between pb-1"><span>现金</span> <span>5%</span></li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 text-xs text-stone group-hover:text-ink transition-colors">重点逻辑：稳定现金流、本金安全。依托目标日期基金与股息策略。</div>
+                </div>
+            </div>
+
+            <!-- 哲学引言部分：瑞士海报风 -->
+            <div class="py-24 flex flex-col items-center justify-center text-center max-w-5xl mx-auto space-y-16">
+                <i class="ri-double-quotes-l text-6xl text-braun opacity-50"></i>
+                <h3 class="text-3xl xl:text-5xl font-black leading-tight tracking-tight">
+                    投资不是关于在别人贪婪时变得贪婪，<br>
+                    而是关于在别人贪婪时保持恐惧，<br>
+                    在别人恐惧时保持贪婪。
+                </h3>
+                <p class="text-stone font-bold tracking-widest uppercase text-sm">— Warren Buffett</p>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- 页脚：档案级收尾 -->
+    <footer class="bg-ink text-paper py-12 px-6 md:px-12 xl:px-24">
+        <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+            <div>
+                <div class="text-braun font-black text-2xl mb-4">ARCHITECTURE OF WEALTH.</div>
+                <p class="text-paper/50 text-sm max-w-md leading-relaxed">
+                    不懂不投，分散为王，长期主义，风险第一。<br>
+                    投资的终极目标不是数字，而是人生的自由与内心的平静。
+                </p>
+            </div>
+            <div class="md:text-right text-xs text-paper/30 font-mono space-y-2 mt-8 md:mt-0">
+                <p>Doc ID: 2026-INV-OMNI-GUIDE</p>
+                <p>Designed with Functionalism in Mind.</p>
+                <p>&copy; 2026 Editorial Architecture.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
