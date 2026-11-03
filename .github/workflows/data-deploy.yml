@@ -1,0 +1,50 @@
+name: Data Deploy
+on:
+  push:
+    branches:
+      - data
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Data
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Prepare SSG Deployment Directory
+        run: |
+          mkdir -p dist
+          [ -f index.json ] && cp index.json dist/
+          [ -f robots.txt ] && cp robots.txt dist/
+          cp *.xml dist/ 2>/dev/null || true
+          [ -d documents ] && cp -r documents dist/
+          [ -d assets ] && cp -r assets dist/
+
+      - name: Build & Purify Static Site
+        run: |
+          node .github/scripts/build-dist.js
+
+      - name: Configure Cloudflare Pages
+        run: |
+          cat <<EOF > wrangler.toml
+          name = "nanobase-data"
+          compatibility_date = "2026-03-27"
+          [assets]
+          directory = "dist"
+          not_found_handling = "single-page-application"
+          EOF
+
+      - name: Deploy Data to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code: Beyond the Prompt | Architectural Archive</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <!-- Custom Tailwind Configuration & CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Helvetica', 'Arial', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+                        mono: ['"SFMono-Regular"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+                    },
+                    colors: {
+                        braunRed: '#FF3300',
+                        paper: '#F4F4F0',
+                        ink: '#111111',
+                        archiveGray: '#888888'
+                    },
+                    lineHeight: {
+                        'editorial': '1.75',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 极致排版基础设定 */
+        body {
+            background-color: #F4F4F0;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
+        ::selection {
+            background-color: #FF3300;
+            color: #F4F4F0;
+        }
+
+        /* 档案级图片滤镜：单色、高对比度、正片叠底融合背景 */
+        .editorial-image {
+            filter: grayscale(100%) contrast(1.2) sepia(5%);
+            mix-blend-mode: multiply;
+        }
+
+        /* 巨大化背景文字 */
+        .giant-watermark {
+            font-size: 25vw;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            color: rgba(17, 17, 17, 0.03);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* 自定义文本平衡 */
+        .text-balance {
+            text-wrap: balance;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-braunRed selection:text-paper">
+
+    <!-- 顶部导航：工业感状态栏 -->
+    <header class="fixed top-0 left-0 w-full px-6 py-4 flex justify-between items-center bg-paper/90 backdrop-blur-md z-50 border-b border-ink/10 text-xs font-mono uppercase tracking-widest text-archiveGray">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-braunRed animate-pulse"></span>
+            <span>Archive Ref: CC-4756.map</span>
+        </div>
+        <div class="hidden md:block">
+            Architectural Analysis Report // 2025
+        </div>
+    </header>
+
+    <main class="w-full max-w-[1600px] mx-auto pt-24">
+
+        <!-- 首屏：英雄区块 (Hero Section) -->
+        <section class="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20">
+            <div class="absolute top-1/2 left-0 -translate-y-1/2 giant-watermark font-bold z-0 font-mono">
+                4756
+            </div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8 lg:col-start-1">
+                    <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-bold leading-[0.9] tracking-tighter text-balance mb-8">
+                        冰山之下：<br>
+                        <span class="text-archiveGray">Claude Code</span><br>
+                        源码架构解密。
+                    </h1>
+                </div>
+                
+                <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-end pb-4 border-l-2 border-braunRed pl-6">
+                    <p class="text-lg md:text-xl leading-editorial font-medium text-ink">
+                        最近 Claude Code 泄露了 map 文件，导致泄露了源码文件，于是我下载了 npm 包里的 cli.js.map，从里面提取出 <strong class="text-braunRed">4756</strong> 个源码文件。
+                    </p>
+                    <p class="text-base leading-editorial text-archiveGray mt-4 mt-4">
+                        沿着入口、提示词、工具、权限、Agent 调度、插件、Hook 一路拆下去，我发现其实 Claude Code 的 system prompt 只是冰山露出水面的一小块。这篇文章会把冰山下面的部分摊开。你不需要是做 Agent 产品的工程师，也能从里面看到一套通用的系统设计思路。看完之后，你再去看市面上任何一个 AI Agent 产品，会比之前多一层判断力。
+                    </p>
+                </div>
+            </div>
+
+            <div class="w-full mt-24">
+                <img src="https://pbs.twimg.com/media/HEvV3_vakAAeQxW.jpg" alt="Claude Code Reference" class="w-full h-auto object-cover editorial-image border border-ink/10" />
+            </div>
+        </section>
+
+        <!-- 区块 I & II：平台化认知 -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 md:py-32 border-t border-ink/10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+                
+                <div class="lg:col-span-3">
+                    <div class="sticky top-24">
+                        <span class="text-braunRed font-mono font-bold text-xl">01 / 02</span>
+                        <h2 class="text-2xl md:text-3xl font-bold mt-4 tracking-tight">这不是 CLI 工具，<br>这是一个运行平台。</h2>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 lg:col-start-5 space-y-12 text-lg md:text-xl leading-editorial">
+                    <article>
+                        <h3 class="text-base font-bold text-archiveGray uppercase tracking-widest mb-4">大多数人的误区</h3>
+                        <p class="mb-6">现在网上流传的 Claude Code 分析，大部分聚焦在两件事：system prompt 写了什么，以及它调了哪些工具。这两件事确实重要，但它们只是这个系统的皮肤。你拿到同样的 prompt，接上同样的工具，照着写一遍，出来的东西和 Claude Code 的体验差距会非常大。</p>
+                        <p>差在哪？差在 prompt 背后有一整套<strong>编排机制</strong>，工具背后有一整条<strong>治理流水线</strong>，Agent 背后有一套<strong>分工和调度系统</strong>，生态扩展背后有一套让模型"知道自己能干什么"的<strong>感知通道</strong>。这些东西加在一起，才构成了你用 Claude Code 时感受到的那个"稳"。这个稳不是来自某段神奇文案，是来自工程。</p>
+                    </article>
+
+                    <div class="w-full h-px bg-ink/10 my-8"></div>
+
+                    <article>
+                        <h3 class="text-base font-bold text-archiveGray uppercase tracking-widest mb-4">源码结构第一眼</h3>
+                        <p class="mb-6">从 <code>src/</code> 目录的顶层看，Claude Code 至少有这些模块：入口层 entrypoints，常量与提示词 constants，工具定义 tools，运行时服务 services，命令系统 commands，UI 组件 components，协调器 coordinator，记忆系统 memdir，插件 plugins，Hook 系统 hooks，状态初始化 bootstrap，任务系统 tasks。</p>
+                        <p class="mb-6">光看这个目录结构就能感觉到，这不是一个"把 LLM 接到终端里"的项目。入口层更能说明问题。它有四个入口：CLI、初始化流程、MCP 模式、SDK。同一个 agent 运行时，可以服务四种不同的交互界面。<strong>这是平台化设计的标志。</strong></p>
+                        <p class="mb-6">命令系统也不是点缀。它注册了 <code>/mcp</code>、<code>/memory</code>、<code>/permissions</code>、<code>/hooks</code> 等十几个系统级命令。而且命令系统不只加载内建命令，还统一加载 plugin commands、skill commands、bundled skills、动态 skills。所以命令系统本身就是生态的入口。</p>
+                        <p class="text-archiveGray text-base border-l-2 border-ink pl-4 mt-8">
+                            你回头想想，大部分开源 coding agent 的目录长什么样。通常是一个 main 文件，一个 prompt 文件，几个 tool 文件，一个 utils。Claude Code 的目录结构跟它们完全不在一个量级。这个量级差异不是为了好看，是因为它要解决的问题本身就更多。
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 III：Prompt 机器 (雷霆一击的轻量区块) -->
+        <section class="bg-ink text-paper px-6 md:px-12 lg:px-24 py-32 md:py-48 my-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-10 lg:col-start-2 text-center text-balance">
+                    <span class="text-braunRed font-mono font-bold text-xl block mb-8">03. PROMPT ARCHITECTURE</span>
+                    <h2 class="text-4xl md:text-6xl font-bold leading-[1.1] mb-12">
+                        Prompt 不是一段话，<br>是一台组装机器。
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-lg md:text-xl text-paper/80 leading-editorial">
+                        <div>
+                            <p class="mb-6">大多数人以为 system prompt 是一大段固定文本，启动时塞进去就完了。Claude Code 完全不是这样。它的 system prompt 是由一个叫 <code>getSystemPrompt()</code> 的函数动态拼装出来的。这个函数做的事，更像一个编排器。它先拼一组静态模块，再根据当前会话状态拼一组动态模块。</p>
+                            <p>静态部分包括：身份定位、系统规范、做任务的哲学、风险动作规范、工具使用规范、语气风格、输出效率。这是这个 Agent 的"宪法"。</p>
+                            <p class="mt-4">动态部分包括：session guidance、memory、环境信息、语言设置、输出风格、MCP instructions 等。这是"当期政策"。</p>
+                        </div>
+                        <div class="bg-paper/5 p-8 border border-paper/10 rounded-sm">
+                            <h3 class="text-braunRed font-mono text-sm mb-4">/// TOKEN ECONOMICS</h3>
+                            <p class="text-base text-paper/90 mb-4">这里面有一个设计特别精巧。源码里有一个叫 <code>SYSTEM_PROMPT_DYNAMIC_BOUNDARY</code> 的标记。注释写得很清楚：<strong>边界之前的内容尽量保持 cache 友好，边界之后是用户和会话特定的内容，不能乱改。</strong></p>
+                            <p class="text-base text-paper/90">这意味着 Anthropic 在管理 system prompt 的时候，已经在考虑 token 经济学了。边界之前稳定可被缓存，边界之后动态不影响前方缓存命中。当产品每天处理海量请求，这种设计直接影响运营成本。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 IV：行为规范与约束 -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+                <div class="lg:col-span-3">
+                    <span class="text-braunRed font-mono font-bold text-xl block mb-4">04. BEHAVIOR</span>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Anthropic 怎么训一个<br>AI工程师不乱来？</h2>
+                </div>
+
+                <div class="lg:col-span-8 lg:col-start-5 space-y-8 text-lg md:text-xl leading-editorial">
+                    <p>Claude Code 有一个叫 <code>getSimpleDoingTasksSection()</code> 的模块，这个模块可能是整个系统里最不起眼但最有用的部分。它做的事很简单：告诉模型什么该做，什么不该做。但它列得非常具体。</p>
+                    
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8 font-mono text-sm text-ink/80">
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要加用户没要求的功能。</li>
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要瞎重构，不要过度抽象。</li>
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要乱加注释和文档字符串。</li>
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要设计一堆面向未来的抽象。</li>
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要轻易创建新文件。</li>
+                        <li class="flex items-start gap-2"><i class="ri-close-line text-braunRed text-lg"></i> 不要给时间估计。</li>
+                    </ul>
+
+                    <p>如果你用过其他 coding agent，你一定遇到过这些问题：你让它改一个 bug，它顺手给你重构了半个文件。这些问题的根源不是模型笨，是模型的行为没有被约束。Claude Code 解决这个问题的方式，不是靠更聪明的模型，是靠把行为规范写成制度。</p>
+                    
+                    <p>风险动作规范也是同样的思路。<code>getActionsSection()</code> 定义了什么叫"需要确认的风险动作"：破坏性操作、难以回滚的操作、修改共享状态。这种设计的思路是把 <strong>blast radius (爆炸半径)</strong> 意识编进系统。你不能指望一个 AI 在每次做决定时都自己想到，但你可以在系统层面告诉它哪些操作需要停下来确认。</p>
+                    
+                    <p>工具使用规范更具体。读文件用 FileRead，不要用 cat/head/tail。改文件用 FileEdit，不要用 sed/awk。没有依赖关系的工具调用要并行。这不是在说"你有这些工具"，这是在说"你必须用正确的方式使用这些工具"。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 V & VI：多 Agent 与验证 (高对比度、不对称网格) -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 md:py-32 bg-[#EAEAE5] border-y border-ink/10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+                
+                <div class="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <span class="text-braunRed font-mono font-bold text-xl block mb-4">05 / 06. AGENTS</span>
+                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-8">
+                            为什么一个人<br>做不好所有事？
+                        </h2>
+                        <p class="text-lg md:text-xl leading-editorial mb-6">源码里确认了至少六个内建 Agent。这个设计选择背后有一个很清晰的判断：让一个 Agent 同时做研究、规划、实现、验证，最后每件事都做不扎实。</p>
+                        <p class="text-base leading-editorial text-archiveGray mb-8">
+                            <strong>Explore Agent</strong> 被设计成纯只读模式。不能写文件，不能改变状态。把它彻底隔离，是一种很朴素但很有效的安全设计。<br><br>
+                            <strong>Plan Agent</strong> 也是只读。它被定义成 architect，不是 executor。不会因为急着写代码而跳过思考。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 验证 Agent 突出显示 -->
+                <div class="lg:col-span-6 lg:col-start-7 bg-white p-8 md:p-12 shadow-sm border border-ink/5">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <i class="ri-shield-check-fill text-braunRed"></i>
+                        Verification Agent：整个系统里最值钱的设计
+                    </h3>
+                    <div class="space-y-6 text-lg leading-editorial text-ink/90">
+                        <p>Verification Agent 的 prompt 在整个源码里可能是写得最狠的一个。它的核心方向不是"确认实现看起来没问题"。它的方向是 <strong>try to break it（想办法搞坏它）</strong>。</p>
+                        <p>prompt 开头点出了两类失败模式：<br>1. <strong>verification avoidance</strong>: 只看代码不跑检查，写个 PASS 就走了。<br>2. <strong>被前 80% 迷惑</strong>: UI 看起来还行就忽略剩下 20% 的问题。</p>
+                        <p>它强制要求一系列验证动作：跑 build，跑测试套件，跑 linter。前端要跑浏览器自动化，后端要用 curl 实测响应。更狠的是，要求做 <strong>adversarial probes（对抗性探测）</strong>，主动找破绽。最后必须给出 <code>VERDICT: PASS、FAIL 或 PARTIAL</code>。</p>
+                        <div class="bg-paper p-4 border-l-4 border-braunRed text-base italic">
+                            这种"实现者和验证者分离"的思路，在传统软件工程里是常识，但在 AI Agent 系统里，大部分产品还没做到这一步。它没有"我觉得我写得挺好"的偏见，它的工作就是找问题。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 VII & VIII：调度与流水线 (功能主义排版) -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
+            <div class="max-w-[1000px] mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-braunRed font-mono font-bold text-xl block mb-4">07 / 08. PIPELINE & GOVERNANCE</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">调度链与治理流水线</h2>
+                    <p class="text-xl text-archiveGray">14 步 pipeline 不是过度设计。工具执行也不是一步到位。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <!-- Agent 调度 -->
+                    <div>
+                        <h3 class="text-xl font-bold border-b-2 border-ink pb-2 mb-6 uppercase tracking-wider">Agent Scheduling</h3>
+                        <p class="text-lg leading-editorial mb-6">一个子 Agent 从被触发到执行完成，在 Claude Code 里要经过一条完整的 pipeline。这 14 步看起来多，但每一步都在解决具体问题。</p>
+                        <p class="text-lg leading-editorial mb-6">其中 fork 和 normal path 的区分很有意思。fork 一个子任务时，它会继承主线程的 system prompt。为什么？<strong>为了让 API 请求的前缀保持字节级一致，从而复用主线程的 prompt cache。</strong></p>
+                        <p class="text-base text-archiveGray bg-paper p-4">runAgent() 本身也不是简单的 wrapper。它要初始化 MCP，处理缓存，构造权限，注册 hooks，预加载 skills... 一个子 Agent 的生命周期管理，已经接近一个小型服务了。</p>
+                    </div>
+
+                    <!-- 工具执行 -->
+                    <div>
+                        <h3 class="text-xl font-bold border-b-2 border-ink pb-2 mb-6 uppercase tracking-wider">Tool Execution</h3>
+                        <p class="text-lg leading-editorial mb-6">当模型决定调用一个工具时，实际链路充满了拦截与校验：解析 metadata -> Zod schema 校验 -> validateInput -> PreToolUse hooks -> permission 决策 -> 真正执行 -> PostToolUse hooks。</p>
+                        <p class="text-lg leading-editorial mb-6">这里面最有意思的是 <strong>Hook 系统</strong>。Hook 能改写输入，能直接放行或拒绝，但 Hook 的权力不是无限的。如果系统设置了 deny/ask 规则，Hook 即使说 allow 也不能绕过核心安全模型。</p>
+                        <p class="text-base text-archiveGray bg-paper p-4">整条链路的设计哲学：默认假设事情会出问题。你提前把这些"可能出问题"的地方都考虑到了，系统才会抗打。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 IX, X, XI, XII：生态、上下文与生命周期 -->
+        <section class="px-6 md:px-12 lg:px-24 py-24 md:py-32 border-t border-ink/10">
+             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+                <div class="lg:col-span-4 lg:col-start-1">
+                    <div class="sticky top-24 space-y-16">
+                        
+                        <div>
+                            <span class="text-braunRed font-mono font-bold text-lg block mb-2">09. ECOSYSTEM</span>
+                            <h3 class="text-2xl font-bold tracking-tight mb-4">生态的关键是模型"知道"</h3>
+                            <p class="text-base text-archiveGray leading-relaxed">Skill、Plugin、MCP 三套扩展机制。它们都不只是"挂载到系统上"。它们会通过通道让模型感知到自己当前有哪些扩展能力、什么时候该用、怎么用。把工具箱清单和说明书放在模型看得见的地方，才是生态发挥作用的前提。</p>
+                        </div>
+
+                        <div>
+                            <span class="text-braunRed font-mono font-bold text-lg block mb-2">10. DELEGATION</span>
+                            <h3 class="text-2xl font-bold tracking-tight mb-4">限制"懒 delegation"</h3>
+                            <p class="text-base text-archiveGray leading-relaxed">专门教模型怎么给子 Agent 写 prompt。不能把理解任务的工作外包给子 agent，不要写"基于你的发现去修bug"这种偷懒 prompt。强制主 Agent 承担 synthesis 责任，大幅减少子 Agent 返工概率。</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 lg:col-start-6 space-y-16">
+                    
+                    <div class="bg-ink text-paper p-10 md:p-16">
+                        <span class="text-braunRed font-mono font-bold text-lg block mb-4">11. CONTEXT ECONOMICS</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">上下文经济学：<br>怎么把 token 当钱花</h2>
+                        <div class="space-y-6 text-lg leading-editorial text-paper/90">
+                            <p>整个源码里有大量设计围绕一个主题：上下文是稀缺资源，不是免费空气。</p>
+                            <p>Skill 是按需注入的。MCP instructions 没连上就不会占空间。还有 function result clearing 机制，summarize tool results 机制，compact 和 transcript 机制。</p>
+                            <p class="font-bold text-white border-l-2 border-braunRed pl-4">对于做 Demo 的人来说，上下文管理不是问题。但对于产品，你的系统每天处理几万次请求，每次 system prompt 几千 token，缓存命中率提高 10%，一个月省的钱可能够多雇一个人。</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="text-braunRed font-mono font-bold text-lg block mb-4">12. LIFECYCLE</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">产品化的最后一公里：<br>生命周期管理</h2>
+                        <div class="space-y-6 text-lg leading-editorial text-ink">
+                            <p>runAgent() 里有大量清理和追踪代码：<code>recordSidechainTranscript()</code>, <code>cleanupAgentTracking()</code>, <code>killShellTasksForAgent()</code>... 后台 Agent 有独立的 abort controller，前台可转后台追踪进度。</p>
+                            <p>大部分 Agent 系统在第一天跑得挺好。问题出在第二天，第三天，第一百天。任务中断了怎么续？脏状态怎么清？子 Agent 的 shell 进程没杀掉怎么办？MCP 连接泄漏了怎么办？</p>
+                            <p>Claude Code 对这些问题都有明确处理路径。这就是为什么它用起来更像一个正式产品，而不是一个聪明的 prototype。</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 结论区块：原则清单 -->
+        <section class="px-6 md:px-12 lg:px-24 py-32 bg-paper border-t border-ink text-center">
+            <div class="max-w-[800px] mx-auto">
+                <h2 class="text-4xl font-bold mb-12">你能从这里面学到什么</h2>
+                
+                <div class="space-y-8 text-left">
+                    <div class="flex gap-6 items-start border-b border-ink/10 pb-8">
+                        <div class="text-braunRed font-mono font-bold text-2xl pt-1">I</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">不要信任模型的自觉性</h4>
+                            <p class="text-archiveGray text-lg">好行为要写成制度，不要依赖模型临场发挥。希望模型先读代码，就把规则写进 prompt。希望遇到风险停下来，就在 runtime 层加权限检查。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-6 items-start border-b border-ink/10 pb-8">
+                        <div class="text-braunRed font-mono font-bold text-2xl pt-1">II</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">把角色拆开</h4>
+                            <p class="text-archiveGray text-lg">至少把"做事的人"和"验收的人"分开。同一个模型，职责拆开也会有明显改善。因为同一个 Agent 天然会倾向于觉得自己做得没问题。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 items-start border-b border-ink/10 pb-8">
+                        <div class="text-braunRed font-mono font-bold text-2xl pt-1">III</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">工具调用要有治理</h4>
+                            <p class="text-archiveGray text-lg">中间要有输入校验、权限检查、风险预判。执行完要有 post-processing 和失败处理。这层治理决定了系统在异常情况下的表现。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 items-start border-b border-ink/10 pb-8">
+                        <div class="text-braunRed font-mono font-bold text-2xl pt-1">IV</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">上下文是预算</h4>
+                            <p class="text-archiveGray text-lg">每个 token 都有成本，每条信息都占空间。能缓存的要缓存，能压缩的要压缩。做 Demo 可以不在乎，做产品必须在乎。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6 items-start">
+                        <div class="text-braunRed font-mono font-bold text-2xl pt-1">V</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">生态的关键是模型感知</h4>
+                            <p class="text-archiveGray text-lg">扩展机制的最后一步，是让模型看到自己的能力清单，知道什么场景用什么能力。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20 p-8 bg-ink text-paper text-xl leading-relaxed font-medium">
+                    一句话摘要：拆了 Claude Code 4756 个源码文件后发现，它的秘密不在 prompt 里，在一整套把行为制度、工具治理、Agent 分工、上下文经济学和生命周期管理连成闭环的工程系统里。
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full px-6 py-12 border-t border-ink/10 text-center text-sm font-mono text-archiveGray">
+        <p>End of Archive Ref: CC-4756.map</p>
+        <p class="mt-2 text-xs">Digitally preserved and architecturally analyzed. Form follows function.</p>
+    </footer>
+
+</body>
+</html>

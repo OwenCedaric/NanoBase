@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocket Lab: The Space Infrastructure — Digital Editorial</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', '"PingFang SC"', '"Hiragino Sans GB"', '"Heiti SC"', '"Microsoft YaHei"', 'sans-serif'],
+                    },
+                    colors: {
+                        paper: '#F2F1EC', // 温暖的纸张灰白
+                        ink: '#1A1A1A',   // 柔和的深墨色
+                        braun: '#FF3300', // 博朗红/工业橙，用于锚点
+                    },
+                    gridTemplateColumns: {
+                        '12': 'repeat(12, minmax(0, 1fr))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* 独立杂志风格的图像处理 */
+        .editorial-img {
+            filter: grayscale(100%) contrast(120%) opacity(0.9);
+            mix-blend-mode: multiply;
+            transition: filter 0.5s ease;
+        }
+        .editorial-img:hover {
+            filter: grayscale(0%) contrast(100%) opacity(1);
+        }
+        /* 巨大化文本的截断与排版 */
+        .giant-type {
+            font-size: clamp(4rem, 15vw, 16rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+        /* 响应式排版基准 */
+        p {
+            font-size: 1.125rem; /* 18px mobile */
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            p {
+                font-size: 1.25rem; /* 20px desktop */
+                line-height: 1.8;
+                margin-bottom: 2rem;
+            }
+        }
+        /* 自定义选中文本颜色 */
+        ::selection {
+            background: theme('colors.braun');
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-braun selection:text-white">
+
+    <!-- 顶部导航/档案编号 -->
+    <header class="fixed top-0 w-full p-6 flex justify-between items-center mix-blend-difference text-white z-50 pointer-events-none">
+        <div class="text-xs font-bold tracking-widest uppercase opacity-70">File: SPC-02</div>
+        <div class="text-xs font-bold tracking-widest uppercase opacity-70">Subject: $RKLB</div>
+    </header>
+
+    <main class="max-w-[1600px] mx-auto">
+
+        <!-- 首屏 (The Hero Section): 制造认知缺口 -->
+        <section class="min-h-screen flex flex-col justify-end pb-12 px-6 md:px-12 pt-32">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                <!-- 左侧：引入背景 -->
+                <div class="md:col-span-4 md:col-start-1 pb-4 border-b border-ink/20">
+                    <div class="w-3 h-3 bg-braun rounded-full mb-6"></div>
+                    <p class="text-sm md:text-base font-bold mb-2 uppercase tracking-widest">Market Context</p>
+                    <p class="text-base md:text-lg text-ink/70">
+                        SpaceX作为今年最值得期待的IPO。内部代号“Apex”，预计于6月进行，估值将达1.75万亿美元。<br><br>
+                        这让美股的注意力反复集中在“太空股”。最近的下跌中，我加仓了 <strong>$RKLB Rocket Lab</strong>。<br><br>
+                        * 本文非投资建议，仅为个人研究笔记。
+                    </p>
+                </div>
+                <!-- 右侧：视觉主标题 -->
+                <div class="md:col-span-8 md:col-start-5 text-right flex flex-col items-end">
+                    <h1 class="giant-type font-black text-ink uppercase">Beyond<br>SpaceX.</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 1: 定位重塑 -->
+        <section class="py-24 md:py-40 px-6 md:px-12 border-t border-ink/10 relative">
+            <div class="absolute top-12 right-12 text-[10vw] font-black text-ink/5 select-none leading-none -z-10">01</div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-3">
+                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight mb-4">不再是“小火箭”，<br>而是太空基础设施。</h2>
+                    <div class="w-12 h-[2px] bg-braun mt-6"></div>
+                </div>
+                <div class="md:col-span-7 md:col-start-5">
+                    <p class="font-bold text-xl md:text-2xl mb-8">
+                        Rocket Lab 现在的定位其实已经不是“做小火箭的创业公司”，而是：“全球第二大商用发射公司（仅次于 SpaceX）”。
+                    </p>
+                    <p>
+                        虽然习惯称呼它为“小火箭”，但事实上，它在逐步进化为<strong>“一站式太空基础设施供应商”</strong>。如果 SpaceX 在做的是“互联网+火箭”（Starlink），Rocket Lab 更像是“军工+火箭+卫星 OEM”，站在下游应用前一环，做基础设施和政府/国防大客户的生意。
+                    </p>
+                    
+                    <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-ink/20 pt-8">
+                        <div>
+                            <span class="text-braun font-bold block mb-2">01 / 发射</span>
+                            <span class="text-sm text-ink/70">Electron 小火箭<br>HASTE 军用版本<br>Neutron 中型火箭(未来)</span>
+                        </div>
+                        <div>
+                            <span class="text-braun font-bold block mb-2">02 / 太空系统</span>
+                            <span class="text-sm text-ink/70">卫星整机<br>卫星平台<br>星上关键组件</span>
+                        </div>
+                        <div>
+                            <span class="text-braun font-bold block mb-2">03 / 太空服务</span>
+                            <span class="text-sm text-ink/70">轨道服务<br>数据处理<br>任务管理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 2: 创业故事 -->
+        <section class="py-24 md:py-40 px-6 md:px-12 bg-ink text-paper relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5 relative z-10">
+                    <div class="w-3 h-3 bg-braun rounded-full mb-6 relative z-20"></div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8">另一个“穷小子做火箭”的版本。</h2>
+                    <p class="text-paper/80">
+                        在 SpaceX 之前，只有洛马、波音承接五角大楼的火箭单。马斯克梭哈身家把 Falcon 9 做到了国际空间站门口。而大洋彼岸，新西兰出身的 <strong>Peter Beck</strong> 走的是另一条“硬核路线”。
+                    </p>
+                    <p class="text-paper/80">
+                        他看中的不是“大火箭送人移民火星”，而是<strong>“小型卫星需要一个便宜+灵活的运力入口”</strong>。2006 年成立，2017 年首飞失败，2018 年 1 月成功入轨，同年 12 月就替 NASA 执行了任务。
+                    </p>
+                    <p class="text-braun font-mono mt-8 border-l border-braun pl-4 text-sm">
+                        从 0 到给 NASA 打工，只用了 1 年。<br>这速度，一点不慢。
+                    </p>
+                </div>
+                <div class="md:col-span-6 md:col-start-7 relative">
+                    <!-- 引入第一张图，应用独立杂志滤镜 -->
+                    <figure class="relative">
+                        <img src="https://pbs.twimg.com/media/HEzkVn_akAAM6LY.jpg" alt="Peter Beck and Rocket Lab" class="w-full h-auto object-cover filter grayscale contrast-125 opacity-80 mix-blend-screen">
+                        <figcaption class="text-xs uppercase tracking-widest mt-4 text-paper/50">ARCHIVE FIG. 01 — THE ORIGIN</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 3: 与 SpaceX 的本质区别 -->
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="text-center mb-24">
+                <h2 class="text-[8vw] leading-none font-black uppercase tracking-tighter mix-blend-multiply opacity-10 -mb-8">Dichotomy</h2>
+                <h3 class="text-3xl md:text-5xl font-bold relative z-10">Rocket Lab <span class="text-braun font-light italic text-2xl">vs</span> SpaceX</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16">
+                <!-- 区别 1 -->
+                <div class="lg:col-span-5 lg:col-start-2 border-t border-ink text-left pt-6">
+                    <h4 class="text-xl font-bold mb-6 flex items-center justify-between">
+                        <span>🚀 火箭定位</span>
+                        <span class="text-ink/30 text-3xl font-black">01</span>
+                    </h4>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-ink/50 block mb-1">SpaceX</span>
+                            <p class="text-base text-ink">Falcon 9、Heavy、Starship。运力大，单次成本低，适合大宗货运、载人和 Starlink 这种“大编制”。</p>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-braun block mb-1">Rocket Lab</span>
+                            <p class="text-base text-ink">中小型为主。Electron（小火箭，灵活）与 Neutron（中型，研发中）。瞄准星座发射和中端运力缺口。美国太空军需求：“几小时内把替代卫星打上去填补空洞。”</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 区别 2 -->
+                <div class="lg:col-span-5 border-t border-ink text-left pt-6">
+                    <h4 class="text-xl font-bold mb-6 flex items-center justify-between">
+                        <span>🎯 战略定位</span>
+                        <span class="text-ink/30 text-3xl font-black">02</span>
+                    </h4>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-ink/50 block mb-1">SpaceX (To C)</span>
+                            <p class="text-base text-ink">“大火箭 + 自营星座 Starlink”，直接面对全球用户。模式像“互联网公司 + 火箭工厂”，估值锚在长线现金流。</p>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-braun block mb-1">Rocket Lab (To G/B)</span>
+                            <p class="text-base text-ink">“太空基础设施供应商”。给政府、军方、科研机构和商业客户打工。发射服务 + 卫星 OEM + 国防合同，没有大众终端业务。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 区别 3 -->
+                <div class="lg:col-span-6 lg:col-start-4 border-t border-ink text-left pt-6 mt-8">
+                    <h4 class="text-xl font-bold mb-6 flex items-center justify-between">
+                        <span>💰 盈利模式</span>
+                        <span class="text-ink/30 text-3xl font-black">03</span>
+                    </h4>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-ink/50 block mb-1">SpaceX</span>
+                            <p class="text-base text-ink">发射 + Starlink 订阅双轮驱动。更像是一个横跨航天与电信/互联网的超级平台。</p>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-braun block mb-1">Rocket Lab</span>
+                            <p class="text-base text-ink">收入越来越多来自“太空系统 + 国防合同”。发射是入口，真正高毛利的是“帮你做整套卫星系统、长期维护和提供服务”。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 4: 可规模化产品与极值数据 (雷霆一击) -->
+        <section class="py-24 md:py-32 px-6 md:px-12 bg-ink text-paper text-center">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-paper/50 mb-16">The Metrics of Electron</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-paper/20">
+                <div class="pt-8 md:pt-0">
+                    <div class="text-[12vw] md:text-[8vw] font-black leading-none text-braun tracking-tighter">70+</div>
+                    <p class="text-lg mt-4 font-bold">成功发射次数</p>
+                    <p class="text-sm text-paper/50 mt-2">预计2026年破90次，全球现役第三多。</p>
+                </div>
+                <div class="pt-8 md:pt-0">
+                    <div class="text-[12vw] md:text-[8vw] font-black leading-none tracking-tighter">95%</div>
+                    <p class="text-lg mt-4 font-bold">高成功率</p>
+                    <p class="text-sm text-paper/50 mt-2">标准化、可规模化的工业产品。</p>
+                </div>
+                <div class="pt-8 md:pt-0">
+                    <div class="text-[12vw] md:text-[8vw] font-black leading-none tracking-tighter">$8.4M</div>
+                    <p class="text-lg mt-4 font-bold">单次官方报价</p>
+                    <p class="text-sm text-paper/50 mt-2">不卷极致性价比，卷机动性与独占权。</p>
+                </div>
+            </div>
+            <p class="mt-20 max-w-3xl mx-auto text-xl md:text-2xl font-light italic text-paper/80">
+                “我不差钱，我要的是独占一枚火箭 + 完全掌控轨道和时间表，而不是在一个拼车 Falcon 9 上等别人。”
+            </p>
+        </section>
+
+        <!-- 区块 5: Neutron 大考 -->
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-5 md:col-start-2">
+                    <!-- 第二张图 -->
+                    <figure class="mb-8">
+                        <img src="https://pbs.twimg.com/media/HEzltcpaQAA8gaa.jpg" alt="Neutron Rocket" class="w-full h-auto object-cover editorial-img">
+                        <figcaption class="text-xs uppercase tracking-widest mt-4 text-ink/50">ARCHIVE FIG. 02 — NEUTRON SCALE</figcaption>
+                    </figure>
+                </div>
+                
+                <div class="md:col-span-5 md:col-start-8 flex flex-col justify-center">
+                    <div class="w-3 h-3 bg-braun rounded-full mb-6"></div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8">Neutron:<br>The Ultimate Test.</h2>
+                    <p>
+                        决定 $RKLB 估值天花板的是 <strong>Neutron</strong> 中型火箭。它介于 Electron 和 Falcon 9 之间，运力达数吨级。
+                    </p>
+                    <p>
+                        中型火箭能将单公斤价格打下来，一口气发完几十颗同星座卫星，非常适合军方/大厂的大包合同。
+                    </p>
+                    <div class="bg-ink/5 p-6 md:p-8 mt-8 border-l-4 border-braun">
+                        <p class="text-sm md:text-base text-ink mb-0">
+                            <strong>核心风险：</strong>首飞已多次推迟至 2026 年。近期结构测试中燃料箱爆裂（非飞行事故），导致股价重挫。
+                        </p>
+                        <ul class="mt-4 text-sm space-y-2">
+                            <li><i class="ri-check-line text-green-600 mr-2"></i><strong>若成功：</strong>估值直接从“小火箭”重定价到“中型火箭+系统集成商”。</li>
+                            <li><i class="ri-close-line text-braun mr-2"></i><strong>若延期：</strong>市场将质疑 Capex 失控与盈利遥遥无期。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块 6: 财务与商业野心 (重度阅读区) -->
+        <section class="py-24 md:py-40 px-6 md:px-12 border-t-2 border-ink">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- 财务与订单 -->
+                <div class="lg:col-span-6 flex flex-col justify-between pr-0 lg:pr-12 lg:border-r border-ink/20">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-8 uppercase tracking-widest">Financials & Catalyst</h2>
+                        <p class="text-xl font-bold text-ink mb-6">真正赚钱的，其实不是火箭本身。</p>
+                        <p>
+                            2025 全年营收 <strong>$6.02 亿</strong>，同比大增 38%。更关键的是：“太空系统”收入已超过火箭发射，成为最大收入源。
+                        </p>
+                        <p>
+                            订单积压 (Backlog) 达到惊人的 <strong>$18.5 亿</strong>，同比大增 73%。离盈利拐点越来越近。
+                        </p>
+                    </div>
+                    
+                    <div class="mt-12 bg-ink text-paper p-8">
+                        <span class="text-braun font-mono text-sm uppercase tracking-widest mb-2 block">The Game Changer</span>
+                        <h3 class="text-3xl font-bold mb-4">$8.16 亿 SDA 国防大单</h3>
+                        <p class="text-paper/80 text-sm md:text-base">
+                            为美国太空发展局打造 18 颗导弹预警和防御卫星。这意味着国防体系已将其视为<strong>长期的系统集成商</strong>。这种 3-5 年的高毛利合同，对估值极其友好。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 一站式野心 -->
+                <div class="lg:col-span-5 lg:col-start-8">
+                    <h2 class="text-2xl font-bold mb-8 uppercase tracking-widest">The Full-Stack Ambition</h2>
+                    <p class="mb-8">
+                        Peter Beck 的野心：“客户不需要分别找零件厂、卫星平台、发射公司。来找我们这一个窗口即可。”
+                    </p>
+                    
+                    <ul class="space-y-8 relative before:absolute before:inset-y-0 before:left-[11px] before:w-[1px] before:bg-ink/20">
+                        <li class="relative pl-10">
+                            <span class="absolute left-0 top-1.5 w-6 h-6 bg-paper border-2 border-braun rounded-full flex items-center justify-center text-[10px] font-bold">1</span>
+                            <h4 class="font-bold text-lg">发射 (Launch)</h4>
+                            <p class="text-sm text-ink/70 mt-1">Electron / HASTE 高频快速响应；Neutron 中型可重复使用星座发射。</p>
+                        </li>
+                        <li class="relative pl-10">
+                            <span class="absolute left-0 top-1.5 w-6 h-6 bg-paper border-2 border-braun rounded-full flex items-center justify-center text-[10px] font-bold">2</span>
+                            <h4 class="font-bold text-lg">太空系统 (Space Systems)</h4>
+                            <p class="text-sm text-ink/70 mt-1">设计制造卫星整机与平台，生产反应轮、星上计算机、电源系统等关键组件。</p>
+                        </li>
+                        <li class="relative pl-10">
+                            <span class="absolute left-0 top-1.5 w-6 h-6 bg-paper border-2 border-braun rounded-full flex items-center justify-center text-[10px] font-bold">3</span>
+                            <h4 class="font-bold text-lg">地面与应用 (Ground & Apps)</h4>
+                            <p class="text-sm text-ink/70 mt-1">卫星管理平台、任务控制软件、数据处理下行链路，以及未来基于自有星座的持续服务收入。</p>
+                        </li>
+                    </ul>
+
+                    <p class="mt-12 text-ink/80 font-medium italic border-l-2 border-ink/20 pl-4">
+                        “对标特斯拉：不仅做车，还做电机、FSD、超充网络。Rocket Lab 正在做太空的基础设施。”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 总结与风险 (结论区) -->
+        <section class="py-24 px-6 md:px-12 bg-[#E5E4DF] border-t border-ink/10">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center justify-center mb-12">
+                    <div class="h-[1px] w-12 bg-ink/30"></div>
+                    <h2 class="mx-6 text-xl font-bold tracking-widest uppercase">Verdict</h2>
+                    <div class="h-[1px] w-12 bg-ink/30"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Pros -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-bold mb-6">
+                            <i class="ri-add-line text-2xl mr-2"></i> The Upside
+                        </h3>
+                        <ul class="space-y-4 text-sm md:text-base">
+                            <li class="flex items-start">
+                                <span class="text-braun mr-2 mt-1">▪</span>
+                                <span><strong>发射业务规模化：</strong>失败率可控，从“故事”转为“现金流基础”。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-braun mr-2 mt-1">▪</span>
+                                <span><strong>系统+国防大单爆发：</strong>$8.16亿 SDA 大单确立地位，Backlog 极其扎实。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-braun mr-2 mt-1">▪</span>
+                                <span><strong>估值弹性：</strong>一旦 Neutron 首飞成功，将获得“第二代可回收火箭平台”的巨大想象空间。</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Cons -->
+                    <div>
+                        <h3 class="flex items-center text-lg font-bold mb-6">
+                            <i class="ri-subtract-line text-2xl mr-2"></i> The Risks
+                        </h3>
+                        <ul class="space-y-4 text-sm md:text-base">
+                            <li class="flex items-start">
+                                <span class="text-ink mr-2 mt-1">▪</span>
+                                <span><strong>Neutron 技术延误：</strong>地面测试挫折极易引发股价剧烈波动。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ink mr-2 mt-1">▪</span>
+                                <span><strong>盈利拐点未至：</strong>短期内依然是亏损成长的科技股。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ink mr-2 mt-1">▪</span>
+                                <span><strong>融资/稀释风险：</strong>若 Capex 持续超预期且未有现金流支撑，ATM 融资大概率发生。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 极简 Footer -->
+    <footer class="py-12 px-6 border-t border-ink text-center text-ink/40 text-xs tracking-widest uppercase font-sans">
+        <p>End of Document. <br>Designed for maximum readability and systemic order.</p>
+    </footer>
+
+</body>
+</html>

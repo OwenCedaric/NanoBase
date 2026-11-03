@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OfficeCLI — 专为 AI Agent 设计的独立特刊</title>
+    
+    <!-- 引入高保真图标库与字体 -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS 原子化引擎 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans:['Inter', 'Noto Sans SC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        paper: '#F2F2F0',      /* 博朗风格的工业暖白/新闻纸色 */
+                        ink: '#111111',        /* 深邃的黑 */
+                        braun: '#FF3300',      /* 功能主义标志性警示红 */
+                        steel: '#888888',
+                    },
+                    gridTemplateColumns: {
+                        '12': 'repeat(12, minmax(0, 1fr))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 极致的排版约束与呼吸感调整 */
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "cv11", "ss01";
+        }
+        ::selection {
+            background-color: theme('colors.braun');
+            color: theme('colors.paper');
+        }
+        /* 隐藏滚动条但保留功能，强化沉浸感 */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* 瑞士网格结构线 */
+        .grid-lines {
+            background-image: 
+                linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+            background-size: 1rem 1rem;
+        }
+        
+        /* 数据矩阵悬停效果 */
+        .spec-row:hover { background-color: rgba(17,17,17,0.03); }
+    </style>
+</head>
+
+<body class="w-full overflow-x-hidden">
+
+    <!-- 全局网格辅助背景 (极弱可见度) -->
+    <div class="fixed inset-0 grid-lines pointer-events-none z-0"></div>
+
+    <!-- 顶部导航 (报头格式) -->
+    <header class="relative z-10 border-b border-ink/20 py-4 px-6 md:px-12 flex justify-between items-center font-mono text-xs uppercase tracking-widest text-ink">
+        <div class="flex gap-4 items-center">
+            <i class="ri-terminal-window-fill text-braun text-lg"></i>
+            <span>OfficeCLI . AI</span>
+        </div>
+        <div class="hidden md:flex gap-12">
+            <span>Vol. 01</span>
+            <span>May 09, 2026</span>
+            <span>Index: O-CLI-MANIFESTO</span>
+        </div>
+        <div>Apache 2.0 / Open Source</div>
+    </header>
+
+    <main class="relative z-10">
+
+        <!-- ==========================================
+             区块 I: 首屏 - 高桥法视觉冲击与未完成叙事
+             ========================================== -->
+        <section class="min-h-[90vh] flex flex-col justify-end pb-12 px-6 md:px-12 max-w-[1600px] mx-auto border-x border-ink/10">
+            <!-- 巨大化主标题 -->
+            <div class="mb-12">
+                <h1 class="text-[14vw] leading-[0.85] font-black tracking-tighter uppercase text-ink">
+                    Give <span class="text-braun">AI</span><br/>
+                    The Power<br/>
+                    Of Office.
+                </h1>
+            </div>
+
+            <!-- 不对称布局：引入阅读线索 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                <div class="md:col-span-5 md:col-start-1">
+                    <p class="text-2xl md:text-3xl font-medium leading-snug tracking-tight">
+                        全球首款专为 AI Agent 设计的 Office 级套件。
+                    </p>
+                    <p class="mt-6 text-lg text-steel leading-relaxed max-w-md">
+                        开源。单体二进制。零 Office 依赖。随处运行。赋予任何 AI 在一行代码内全面接管 Word、Excel 与 PowerPoint 的能力。
+                    </p>
+                </div>
+
+                <div class="md:col-span-6 md:col-start-7 bg-ink text-paper p-8 flex flex-col justify-between">
+                    <div class="text-xs font-mono uppercase tracking-widest text-steel mb-8">
+                        // Agent Setup Directive.
+                    </div>
+                    <div>
+                        <p class="text-sm mb-4 opacity-80">将此行代码粘贴至你的 AI Agent 对话框（它将自动读取技能文件并完成安装）：</p>
+                        <code class="block font-mono text-xl md:text-2xl text-braun break-all select-all">
+                            curl -fsSL https://officecli.ai/SKILL.md
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             区块 II: 范式转移 - 比较结构
+             ========================================== -->
+        <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-x border-ink/10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+                <!-- 锚点与标题 (留白) -->
+                <div class="md:col-span-4 flex flex-col justify-between border-r border-ink/10 pr-8">
+                    <div>
+                        <div class="w-3 h-3 bg-braun rounded-full mb-8"></div>
+                        <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-6">范式<br/>转移。</h2>
+                        <p class="text-xl text-steel leading-relaxed">
+                            What used to take 50 lines of Python and 3 separate libraries, now takes one command.
+                        </p>
+                    </div>
+                    <div class="hidden md:block text-9xl font-black text-ink/5 tracking-tighter">01</div>
+                </div>
+
+                <!-- 内容流：代码对比 -->
+                <div class="md:col-span-8 space-y-12">
+                    <div class="border border-ink/10 p-1">
+                        <div class="bg-[#F9F9F9] p-6 border-b border-ink/10">
+                            <span class="font-mono text-xs uppercase tracking-widest text-steel">The Past (Python) / 50 Lines</span>
+                        </div>
+                        <div class="bg-white p-6 font-mono text-sm leading-relaxed overflow-x-auto text-ink/60">
+from pptx import Presentation<br>
+from pptx.util import Inches, Pt<br>
+prs = Presentation()<br>
+slide = prs.slides.add_slide(prs.slide_layouts[0])<br>
+title = slide.shapes.title<br>
+title.text = "Q4 Report"<br>
+<span class="text-braun"># ... 45 more lines ...</span><br>
+prs.save('deck.pptx')
+                        </div>
+                    </div>
+
+                    <div class="border border-ink/10 p-1 shadow-xl shadow-ink/5">
+                        <div class="bg-ink p-6 border-b border-white/10 flex justify-between">
+                            <span class="font-mono text-xs uppercase tracking-widest text-braun">The Future (OfficeCLI) / 1 Command</span>
+                        </div>
+                        <div class="bg-[#1a1a1a] p-6 font-mono text-lg leading-relaxed overflow-x-auto text-paper">
+<span class="text-braun">officecli</span> add deck.pptx / --type slide --prop title="Q4 Report"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             区块 III: 核心功能集 - 数据矩阵与极简排版
+             ========================================== -->
+        <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-x border-ink/10 bg-white">
+            <div class="mb-24 flex items-end justify-between">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-medium tracking-tight mb-4">功能主义组件库</h2>
+                    <p class="font-mono text-sm uppercase tracking-widest text-steel">Full manipulation across 3 formats.</p>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="block text-5xl font-black tracking-tighter">3</span>
+                    <span class="font-mono text-xs text-steel uppercase">Formats</span>
+                </div>
+            </div>
+
+            <!-- 三栏网格：Word, Excel, PowerPoint -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-ink/10">
+                
+                <!-- Word -->
+                <div class="border-b md:border-b-0 md:border-r border-ink/10 p-8 hover:bg-paper transition-colors duration-300">
+                    <i class="ri-file-word-line text-4xl mb-8 block text-ink"></i>
+                    <h3 class="text-2xl font-bold mb-6">Word (.docx)</h3>
+                    <ul class="space-y-4 font-mono text-sm leading-relaxed">
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 完整 i18n 与 RTL 级联支持</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 段落、表格、样式、页眉页脚</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 复杂脚本语言排版与双向文本</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 内容控制块 (SDT) 与 22 种域控</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 批注、脚标、超链接、OLE 对象</li>
+                    </ul>
+                </div>
+
+                <!-- Excel -->
+                <div class="border-b md:border-b-0 md:border-r border-ink/10 p-8 hover:bg-paper transition-colors duration-300">
+                    <i class="ri-file-excel-line text-4xl mb-8 block text-ink"></i>
+                    <h3 class="text-2xl font-bold mb-6">Excel (.xlsx)</h3>
+                    <ul class="space-y-4 font-mono text-sm leading-relaxed">
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 150+ 内置函数 (写入即自动求值)</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 原生 OOXML 数据透视表引擎</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 多键排序、条件格式、切片器</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 动态数组函数自动 `_xlfn.` 前缀</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 图表生成 (包含 Pareto/箱线图)</li>
+                    </ul>
+                </div>
+
+                <!-- PowerPoint -->
+                <div class="p-8 hover:bg-paper transition-colors duration-300">
+                    <i class="ri-file-ppt-line text-4xl mb-8 block text-ink"></i>
+                    <h3 class="text-2xl font-bold mb-6">PowerPoint (.pptx)</h3>
+                    <ul class="space-y-4 font-mono text-sm leading-relaxed">
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 形态变换 (Morph) 检查与动画</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 3D 模型 (.glb) 嵌入与支持</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 幻灯片缩放 (Slide Zoom) 效果</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 占位符管理 (按 phType 注入)</li>
+                        <li class="flex gap-2"><span class="text-braun">✓</span> 音视频、主题、连接符与群组</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center text-steel font-mono text-xs uppercase tracking-widest">
+                * All formats support full Create, Read, and Modify capabilities.
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             区块 IV: 引擎解析 - 重度信息架构
+             ========================================== -->
+        <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-x border-ink/10 bg-ink text-paper">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+                <!-- 左侧：标题与留白 -->
+                <div class="md:col-span-5 border-b md:border-b-0 md:border-r border-paper/20 pb-12 md:pb-0 md:pr-12">
+                    <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-none">The<br/>Engines.</h2>
+                    <p class="text-xl text-steel leading-relaxed mb-12">
+                        抛弃传统 API。我们内置了专为 AI 视觉与逻辑设计的四大原生引擎。无须依赖外部系统，即可构建 <strong>Render → Look → Fix</strong> 的自愈闭环。
+                    </p>
+                    <!-- 设计元素：贯穿的线条 -->
+                    <div class="w-full h-px bg-braun/50"></div>
+                </div>
+
+                <!-- 右侧：结构化功能块 -->
+                <div class="md:col-span-7 space-y-16">
+                    
+                    <!-- 渲染引擎 -->
+                    <article>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-4">
+                            <span class="text-braun font-mono text-sm">01.</span> 
+                            Agent-Friendly 渲染引擎
+                        </h3>
+                        <p class="text-steel leading-relaxed mb-6">
+                            AI 生成了幻灯片，但它在“盲飞”？OfficeCLI 首次在单体二进制中集成了渲染引擎。将 `.pptx` / `.docx` 渲染为 HTML 或 PNG，甚至 3D `.glb` 和数学公式均可完美呈现。
+                        </p>
+                        <div class="bg-white/5 p-4 font-mono text-sm text-paper/80 border-l-2 border-braun">
+                            officecli view deck.pptx screenshot --page 1-N<br>
+                            officecli watch deck.pptx <span class="text-steel"># 本地服务，修改即时刷新</span>
+                        </div>
+                    </article>
+
+                    <!-- 公式与透视表引擎 -->
+                    <article>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-4">
+                            <span class="text-braun font-mono text-sm">02.</span> 
+                            公式与数据透视表引擎
+                        </h3>
+                        <p class="text-steel leading-relaxed mb-6">
+                            150+ 内置 Excel 函数在写入时自动求值。无需唤起 Excel 软件即可获取计算结果（包含动态数组函数、VLOOKUP、日期函数等）。通过一行命令建立原生的 OOXML 数据透视表缓存，打开即呈现完美图表。
+                        </p>
+                    </article>
+
+                    <!-- 模板合并引擎 -->
+                    <article>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-4">
+                            <span class="text-braun font-mono text-sm">03.</span> 
+                            模板合流合并 (Template Merge)
+                        </h3>
+                        <p class="text-steel leading-relaxed mb-6">
+                            让 Agent 只负责一次昂贵的布局设计，生产代码通过极低成本（零 Token）将 JSON 数据批量注入 `{{key}}` 占位符。跨段落、图表标题、表格单元格完美支持。
+                        </p>
+                        <div class="bg-white/5 p-4 font-mono text-sm text-paper/80 border-l-2 border-braun">
+                            officecli merge invoice-template.docx out-001.docx '{"client":"Acme"}'
+                        </div>
+                    </article>
+
+                    <!-- 双向序列化引擎 -->
+                    <article>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-4">
+                            <span class="text-braun font-mono text-sm">04.</span> 
+                            双向序列化 (Round-trip Dump)
+                        </h3>
+                        <p class="text-steel leading-relaxed">
+                            将任意 `.docx` 的任意子树（如一个段落、表格、编号样式）序列化为可重播的批量 JSON 格式。Agent 不再需要解析繁杂的原始 XML，而是阅读结构化规范进行学习与变异生成。
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             区块 V: 3 层渐进式架构 (网格系统演绎)
+             ========================================== -->
+        <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-x border-ink/10">
+            <div class="text-center mb-24">
+                <h2 class="text-3xl font-medium tracking-tight mb-4">渐进式深度架构 (Three-Layer Architecture)</h2>
+                <p class="text-steel font-mono text-sm uppercase tracking-widest">Start simple, go deep only when needed.</p>
+            </div>
+
+            <!-- 不对称垂直瀑布流 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 font-mono">
+                
+                <!-- L1 -->
+                <div class="md:col-span-8 md:col-start-1 bg-white border border-ink/10 p-8 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 text-ink/5 text-8xl font-black transition duration-500 group-hover:text-braun/10">L1</div>
+                    <div class="w-16 h-16 bg-ink text-paper flex items-center justify-center text-2xl font-bold z-10 shrink-0">L1</div>
+                    <div class="z-10">
+                        <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-ink">Read / 语义层</h3>
+                        <p class="text-sm text-steel mb-4 font-sans">高阶视图，获取文本、大纲、标注与统计信息。</p>
+                        <code class="text-xs text-braun bg-braun/5 px-2 py-1">view (text, outline, issues, html, screenshot)</code>
+                    </div>
+                </div>
+
+                <!-- L2 -->
+                <div class="md:col-span-8 md:col-start-3 bg-white border border-ink/10 p-8 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 text-ink/5 text-8xl font-black transition duration-500 group-hover:text-braun/10">L2</div>
+                    <div class="w-16 h-16 bg-ink text-paper flex items-center justify-center text-2xl font-bold z-10 shrink-0">L2</div>
+                    <div class="z-10">
+                        <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-ink">DOM / 结构层</h3>
+                        <p class="text-sm text-steel mb-4 font-sans">基于稳定路径的结构化元素操作，无需理解 XML 命名空间。</p>
+                        <code class="text-xs text-braun bg-braun/5 px-2 py-1">get, query, set, add, remove, move, swap</code>
+                    </div>
+                </div>
+
+                <!-- L3 -->
+                <div class="md:col-span-8 md:col-start-5 bg-white border border-ink/10 p-8 flex flex-col md:flex-row gap-8 items-start relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 text-ink/5 text-8xl font-black transition duration-500 group-hover:text-braun/10">L3</div>
+                    <div class="w-16 h-16 bg-ink text-paper flex items-center justify-center text-2xl font-bold z-10 shrink-0">L3</div>
+                    <div class="z-10">
+                        <h3 class="text-xl font-bold uppercase tracking-widest mb-2 text-ink">Raw XML / 终极控制层</h3>
+                        <p class="text-sm text-steel mb-4 font-sans">直接通过 XPath 访问底层数据的通用后备方案。</p>
+                        <code class="text-xs text-braun bg-braun/5 px-2 py-1">raw, raw-set, add-part, validate</code>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             区块 VI: AI 原生集成 (MCP Server)
+             ========================================== -->
+        <section class="py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-x border-ink/10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-8">MCP Server <br/><span class="text-braun">Built-in.</span></h2>
+                    <p class="text-lg text-steel leading-relaxed font-sans mb-8">
+                        一键将所有文档操作作为 JSON-RPC 工具暴露给大语言模型。无需 Shell 权限，完美兼容当前主流 AI 编码助手体系。
+                    </p>
+                    
+                    <ul class="space-y-4 font-mono text-sm border-l-2 border-ink pl-6">
+                        <li><code>officecli mcp claude</code> <span class="text-steel ml-4"># Claude Code</span></li>
+                        <li><code>officecli mcp cursor</code> <span class="text-steel ml-4"># Cursor</span></li>
+                        <li><code>officecli mcp vscode</code> <span class="text-steel ml-4"># VS Code / Copilot</span></li>
+                        <li><code>officecli mcp lmstudio</code> <span class="text-steel ml-4"># LM Studio</span></li>
+                    </ul>
+
+                    <div class="mt-12 bg-white border border-ink/10 p-6 shadow-sm">
+                        <h4 class="font-bold mb-2 font-sans">确定性 JSON 输出架构</h4>
+                        <p class="text-sm text-steel font-sans mb-4">每个操作均支持 <code>--json</code> 参数，并具备统一 Schema 返回、错误纠正建议（自愈闭环）。彻底告别脆弱的正则解析。</p>
+                        <pre class="text-xs text-ink/70 font-mono bg-paper p-4 overflow-x-auto">{"tag":"shape","path":"/slide[1]","attributes":{"text":"Hello"}}</pre>
+                    </div>
+                </div>
+
+                <!-- 视觉配图区：低饱和/严肃编辑感风格 -->
+                <div class="bg-ink/5 aspect-square p-8 flex items-center justify-center relative overflow-hidden mix-blend-multiply">
+                    <div class="absolute inset-0 grid-lines opacity-20"></div>
+                    <!-- 模拟终端连接图 -->
+                    <div class="w-full h-full border border-ink/20 flex flex-col bg-paper relative z-10 shadow-2xl">
+                        <div class="border-b border-ink/20 p-4 font-mono text-xs flex justify-between">
+                            <span>AGENT_CONSOLE_STREAM</span>
+                            <span class="text-braun blink">● REC</span>
+                        </div>
+                        <div class="p-6 font-mono text-xs space-y-4 text-ink/60 flex-1 overflow-hidden">
+                            <p>> [Agent]: Creating report presentation...</p>
+                            <p class="text-ink">> officecli create report.pptx</p>
+                            <p>> [System]: Success (0ms)</p>
+                            <p class="text-ink">> officecli add report.pptx / --type slide</p>
+                            <p>> [System]: Success (0ms)</p>
+                            <p class="text-ink">> officecli view report.pptx validate --json</p>
+                            <p class="text-braun">> [Error]: "code": "missing_property"</p>
+                            <p class="text-ink">> officecli set report.pptx /slide[1] --prop font=Arial</p>
+                            <p>> [System]: Corrected. State Stable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================
+         页脚 (Footer) - 功能主义收尾
+         ========================================== -->
+    <footer class="bg-ink text-paper py-16 px-6 md:px-12 max-w-[1600px] mx-auto border-x border-ink">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 font-mono text-sm">
+            <div class="md:col-span-2">
+                <h4 class="text-lg font-bold mb-4 uppercase tracking-widest">OfficeCLI.AI</h4>
+                <p class="text-steel w-2/3 leading-relaxed font-sans text-sm">
+                    The standard CLI for AI agents to create, read, and modify Office documents.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-steel mb-4 uppercase tracking-widest">Resources</h4>
+                <ul class="space-y-2">
+                    <li><a href="https://github.com/iOfficeAI/OfficeCLI" class="hover:text-braun transition">GitHub Repository</a></li>
+                    <li><a href="https://github.com/iOfficeAI/OfficeCLI/wiki" class="hover:text-braun transition">Documentation Wiki</a></li>
+                    <li><a href="https://github.com/iOfficeAI/OfficeCLI/releases" class="hover:text-braun transition">Releases & Binaries</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-steel mb-4 uppercase tracking-widest">Install (Unix)</h4>
+                <code class="block bg-white/10 p-2 text-xs text-braun break-all">curl -fsSL https://raw.githubusercontent.com/iOfficeAI/OfficeCLI/main/install.sh | bash</code>
+            </div>
+        </div>
+        <div class="mt-16 pt-8 border-t border-white/10 text-steel font-mono text-xs flex justify-between">
+            <span>© 2026 OfficeCLI Project. Apache License 2.0.</span>
+            <span>Aesthetics by Functionalism</span>
+        </div>
+    </footer>
+
+</body>
+</html>

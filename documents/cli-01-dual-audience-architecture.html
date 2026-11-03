@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI的重构：面向人类与AI代理的双重架构 | Digital Editorial</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+    
+    <!-- Google Fonts: Inter (Sans) & JetBrains Mono (Code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            black: '#111111',
+                            stone: '#F4F4F0',
+                            gray: '#888888'
+                        }
+                    },
+                    fontSize: {
+                        'giant': 'clamp(4rem, 12vw, 15rem)',
+                        'display': 'clamp(2.5rem, 6vw, 6rem)',
+                    },
+                    lineHeight: {
+                        'editorial': '1.75',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base typography enforcement for absolute readability */
+        body {
+            background-color: #F4F4F0;
+            color: #111111;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        @media (min-width: 768px) {
+            body { font-size: 20px; }
+        }
+        @media (min-width: 1280px) {
+            body { font-size: 22px; }
+        }
+        p { margin-bottom: 2rem; line-height: 1.75; }
+        
+        /* Editorial Image Treatment */
+        .editorial-img {
+            filter: grayscale(100%) contrast(1.1);
+            mix-blend-mode: multiply;
+            transition: filter 0.3s ease;
+        }
+        .editorial-img:hover {
+            filter: grayscale(0%) contrast(1);
+            mix-blend-mode: normal;
+        }
+
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E5E5E5; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4D4D4; }
+
+        /* Code Block Styling */
+        pre {
+            background-color: #EAEAE6;
+            padding: 2rem;
+            border-left: 4px solid #111111;
+            overflow-x: auto;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+        code { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Layout Utilities */
+        .grid-guide {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: calc(100% / 12) 100%;
+        }
+    </style>
+</head>
+<body class="selection:bg-braun-red selection:text-white">
+
+    <!-- HERO SECTION: The Provocation -->
+    <header class="relative min-h-[90vh] flex flex-col justify-between px-6 md:px-12 py-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="flex justify-between items-start uppercase text-xs md:text-sm tracking-widest text-braun-gray font-mono">
+            <span>Issue 01 // CLI Architecture</span>
+            <span>Est. 2025</span>
+        </div>
+        
+        <div class="mt-24 md:mt-0 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+            <div class="md:col-span-10 lg:col-span-9">
+                <h1 class="font-black tracking-tighter text-display leading-[0.9] uppercase uppercase">
+                    CLI的重构：<br>
+                    <span class="text-braun-gray">面向人类与</span><br>
+                    AI代理的双重架构。
+                </h1>
+            </div>
+            <div class="md:col-span-2 lg:col-span-3 pb-4">
+                <p class="text-sm md:text-base font-mono text-braun-gray mb-0">
+                    By: @ghchinoy, @Saboo_Shubham_ & Zack Akil
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 0: Core Philosophy -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <!-- Asymmetric Balance: Empty space or meta info on left -->
+            <div class="md:col-span-4 lg:col-span-3">
+                <div class="w-8 h-8 bg-braun-red rounded-full mb-8"></div>
+                <h2 class="text-2xl font-bold tracking-tight mb-4">核心哲学<br>The Core Philosophy</h2>
+                <p class="text-braun-gray text-base lg:text-lg">绝大多数在今年构建的CLI，最终都会被自动化Agent调用。但它们并没有准备好。</p>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="md:col-span-8 lg:col-span-7 lg:col-start-5">
+                <p class="font-bold text-xl md:text-2xl lg:text-3xl leading-snug mb-8">
+                    交互式提示、彩色输出和终端UI（TUI）已经成为CLI设计的标准假设，但当自动化Agent尝试解析结果时，这些全都崩溃了。然而，剥离这些功能会让原本人类的体验变得糟糕。
+                </p>
+                <p>
+                    为了解决这个问题，你不必在两个受众之间做出取舍。你可以为两者同时设计CLI。
+                </p>
+                <p>
+                    核心哲学非常简单：<strong>将数据与表示层解耦 (Decouple the data from the presentation)</strong>。当Agent或脚本调用你的CLI时，它需要原始的、结构化的数据（如JSON）。当人类调用它时，他们需要将这些数据渲染成可读的、交互式的格式（如TUI）。将你的CLI内部逻辑视为一个发射数据的“引擎”，而终端UI仅仅是其中一种可能的“客户端”，这样你就能无缝地服务于两者。
+                </p>
+
+                <img src="https://pbs.twimg.com/media/HEsvcaLXIAAbERD.jpg" alt="Human vs Agent CLI Architecture" class="editorial-img w-full my-12 border border-braun-black/10">
+
+                <p>
+                    相同的 <code>watch</code> 命令应该为人类提供实时更新的TUI，同时为Agent提供结构化的NDJSON事件流：
+                </p>
+
+<pre><code># Human gets the interactive TUI
+a2acli watch --task abc123
+
+# Agent gets structured NDJSON
+a2acli watch --task abc123 --no-tui</code></pre>
+
+                <p>
+                    你可以在不维护两个独立代码库的前提下实现这种无缝的双受众体验。采用以下这些经过深思熟虑的设计模式，让你的CLI对机器可预测，同时对人类保持愉悦：
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE 7 PRINCIPLES (Iterative Sections) -->
+    
+    <!-- Principle 1 -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4 lg:col-span-3 flex flex-col justify-start">
+                <span class="text-giant font-black text-braun-black/10 leading-none -ml-2 select-none">01</span>
+                <h3 class="text-2xl font-bold mt-4">结构化可发现性<br><span class="text-braun-gray text-lg font-normal">Structured Discoverability</span></h3>
+            </div>
+            
+            <div class="md:col-span-8 lg:col-span-7 lg:col-start-5 mt-12 md:mt-0 pt-4">
+                <p>CLI的入口应该清晰地映射其能力。Agent和人类都是从 <code>--help</code> 开始的。</p>
+                
+                <ul class="space-y-8 mt-8">
+                    <li class="border-l-2 border-braun-black pl-6">
+                        <strong>按功能分组命令，而不是按字母顺序。</strong>像 <code>任务管理</code>、<code>信息</code>、<code>配置</code> 这样的分类，可以防止在根帮助输出中出现文字墙。
+                    </li>
+                    <li class="border-l-2 border-braun-black pl-6">
+                        <strong>明确标记入口点。</strong>在帮助描述中添加提示，如 <code>(start here)</code> 或 <code>(typical first step)</code>。Agent利用这些来决定首先调用哪个命令。
+                    </li>
+                </ul>
+
+                <p class="mt-8 mb-4 font-bold">为每个命令填充三个字段：</p>
+                <div class="bg-white p-8 border border-braun-black/10 font-mono text-sm mb-8 space-y-4">
+                    <div class="grid grid-cols-3 gap-4 border-b border-braun-black/10 pb-4">
+                        <div class="font-bold">短描述 (快速扫描)</div>
+                        <div class="col-span-2 text-braun-gray">单行摘要，5-10个词，以动词开头。</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 border-b border-braun-black/10 pb-4">
+                        <div class="font-bold">长描述 (深度理解)</div>
+                        <div class="col-span-2 text-braun-gray">命令的作用、为何使用、与相似命令的区别。</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="font-bold text-braun-red">示例 (即时效用)</div>
+                        <div class="col-span-2">3-5个具体的可复制粘贴的示例。示例比描述更重要。开发者会先复制粘贴再阅读；Agent会解析示例以推断Flag模式。</div>
+                    </div>
+                </div>
+
+<pre><code>Task Management:
+  send        Send a message to start or continue a task (start here)
+  watch       Subscribe to live updates for a running task
+  get         Retrieve the current state of a task
+
+Discovery:
+  describe    Inspect an agent's identity, skills, and capabilities</code></pre>
+
+                <h4 class="text-xl font-bold mt-12 mb-4">外部化的Agent指令</h4>
+                <p>
+                    可发现性超越了 <code>--help</code>。不要假设大语言模型 (LLM) 天生知道如何使用你的工具——请明确地教导它。<br>
+                    在仓库根目录发布一个 <code>AGENTS.md</code> 文件，为AI开发者定义交战规则、默认工作流和架构标准。对于复杂的命令，包含一个 <code>skills/</code> 目录，其中包含外部Agent可以直接摄取的专用Prompt文件。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principle 2 -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4 lg:col-span-3 flex flex-col justify-start">
+                <span class="text-giant font-black text-braun-black/10 leading-none -ml-2 select-none">02</span>
+                <h3 class="text-2xl font-bold mt-4">Agent优先的互操作性<br><span class="text-braun-gray text-lg font-normal">Agent-first Interoperability</span></h3>
+            </div>
+            
+            <div class="md:col-span-8 lg:col-span-7 lg:col-start-5 mt-12 md:mt-0 pt-4">
+                <p class="font-bold text-xl mb-12">为了能被Agent使用，CLI必须是可解析且可预测的。</p>
+                <img src="https://pbs.twimg.com/media/HEsvrAvWgAARygC.jpg" alt="Interoperability Flow" class="editorial-img w-full mb-12 border border-braun-black/10">
+
+                <div class="space-y-12">
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-braces-line text-braun-red mr-3 text-2xl"></i> 一切皆支持 --json
+                        </h4>
+                        <p class="text-braun-gray">每一个产生数据的命令都应该支持 <code>--json</code> 或 <code>--no-tui</code> 标志。输出必须是有效的JSON或NDJSON。如果Agent无法解析你的输出，你的CLI在Agent的世界里就不存在。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-sensor-line text-braun-red mr-3 text-2xl"></i> 自动侦测受众
+                        </h4>
+                        <p class="text-braun-gray">支持 <code>NO_COLOR</code> 和 <code>[APP]_NO_TUI</code> 环境变量。当设置了这些变量，或者当标准输出 (stdout) 被管道重定向时，完全跳过交互元素。没有提示，没有加载动画，没有颜色代码。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-arrow-go-back-line text-braun-red mr-3 text-2xl"></i> 非交互式降级
+                        </h4>
+                        <p class="text-braun-gray">使用TUI（如 Bubble Tea）的命令应该具备一种纯净模式，向stdout发出标准文本或JSON。TUI是人类接口，JSON输出是Agent接口。同一个命令，两个渲染器。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-shield-keyhole-line text-braun-red mr-3 text-2xl"></i> 保护上下文窗口
+                        </h4>
+                        <p class="text-braun-gray">Agent具有严格的Token限制。主动截断巨大的文本块，并在默认输出中脱敏敏感机密，以免淹没Agent的上下文窗口或将API密钥泄露到对话日志中。如果Agent确实需要原始、未经过滤的有效载荷，要求其明确使用 <code>--full</code> 或 <code>--verbose</code> 标志。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-sort-desc text-braun-red mr-3 text-2xl"></i> 数据预处理与排序
+                        </h4>
+                        <p class="text-braun-gray">Agent不应该为了寻找重要信息而编写复杂的数据操作逻辑。自动预排序CLI输出，使得最关键、最可操作的项目（如：严重漏洞、无限制的密钥、待处理任务）始终出现在响应的最顶部。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-lg font-bold mb-4 uppercase tracking-wider">
+                            <i class="ri-flow-chart text-braun-red mr-3 text-2xl"></i> 委托状态管理
+                        </h4>
+                        <p class="text-braun-gray">不要在CLI进程内将Agent困于交互式状态循环中。通过使用引用标识符（如 <code>--task &lt;ID&gt;</code>），保持CLI完全无状态。让后端服务维护长时间运行的Token上下文和对话历史，而CLI仅仅作为一种快速的传输机制。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principle 3 & 4 (Grouped for Rhythm) -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            <!-- Principle 3 -->
+            <article>
+                <div class="mb-12">
+                    <span class="text-display font-black text-braun-black/10 leading-none select-none">03</span>
+                    <h3 class="text-2xl font-bold mt-2">配置与上下文<br><span class="text-braun-gray text-lg font-normal">Configuration & Context</span></h3>
+                </div>
+                <p>CLI应该了解其环境，而不需要在每次调用时都加上繁杂的标志。</p>
+                
+                <img src="https://pbs.twimg.com/media/HEsvzVyaEAArxKD.jpg" alt="Configuration" class="editorial-img w-full mb-8 border border-braun-black/10">
+
+                <h4 class="font-bold mb-2">遵循 XDG 标准</h4>
+                <p class="text-braun-gray text-base">配置文件放在 <code>~/.config/app/config.yaml</code>。主目录下不要放 dotfiles。不要使用带有专有格式的隐藏文件夹。</p>
+
+                <h4 class="font-bold mb-2 mt-8">命名环境</h4>
+                <p class="text-braun-gray text-base">支持通过简单的 <code>--env</code> 标志切换多个配置（local, staging, prod）。这对Agent尤其重要。编排器可以设置 <code>--env prod</code> 而无需知道具体的URL或Token。</p>
+<pre><code># ~/.config/a2acli/config.yaml
+default_env: "local"
+
+envs:
+  local:
+    service_url: "http://127.0.0.1:9001"
+  staging:
+    service_url: "https://staging-agent.internal.corp"
+    token: "my-staging-auth-token"
+  prod:
+    service_url: "https://agent.example.com"
+    token: "my-secure-prod-token"</code></pre>
+            </article>
+
+            <!-- Principle 4 -->
+            <article>
+                <div class="mb-12">
+                    <span class="text-display font-black text-braun-black/10 leading-none select-none">04</span>
+                    <h3 class="text-2xl font-bold mt-2">错误引导<br><span class="text-braun-gray text-lg font-normal">Error Guidance</span></h3>
+                </div>
+                <p>不要仅仅报告错误。提供一条解决路径。</p>
+
+                <div class="mt-8 border-t border-braun-black pt-8">
+                    <h4 class="font-bold mb-4 uppercase tracking-widest text-sm text-braun-red">上下文提示 (Contextual Hints)</h4>
+                    <p class="text-braun-gray text-base">当命令由于缺少先决条件而失败时，包含一行 <code>Hint:</code>：</p>
+<pre><code>Error: database not initialized
+Hint: run 'a2acli init' to create the local database</code></pre>
+                    <p class="text-sm text-braun-gray">Agent解析这些提示以进行自我纠正。人类则感激不必去翻阅文档。</p>
+                </div>
+
+                <div class="mt-8 border-t border-braun-black/20 pt-8">
+                    <h4 class="font-bold mb-4 uppercase tracking-widest text-sm">快速失败 (Fail Fast)</h4>
+                    <p class="text-braun-gray text-base">在执行繁重逻辑之前验证配置和连接性。不要让Agent等待30秒的API调用后才发现认证Token丢失。</p>
+                </div>
+
+                <div class="mt-8 border-t border-braun-black/20 pt-8">
+                    <h4 class="font-bold mb-4 uppercase tracking-widest text-sm">确定性的退出代码 (Deterministic Exit Codes)</h4>
+                    <ul class="font-mono text-sm space-y-2 bg-white p-6 border border-braun-black/10">
+                        <li><span class="text-braun-red font-bold">0:</span> Success</li>
+                        <li><span class="text-braun-red font-bold">1:</span> General error</li>
+                        <li><span class="text-braun-red font-bold">2:</span> Invalid usage / bad flags</li>
+                        <li><span class="text-braun-red font-bold">3:</span> Connection / auth failure</li>
+                    </ul>
+                    <p class="text-sm text-braun-gray mt-4">如果你的CLI在操作失败时返回0仅仅因为“命令本身运行了”，你会破坏每一个调用它的自动化系统。</p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Principle 5, 6, 7 (Grid Matrix) -->
+    <section class="py-24 md:py-32 px-6 md:px-12 max-w-[1600px] mx-auto border-b border-braun-black/10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Principle 5 -->
+            <div>
+                <span class="text-display font-black text-braun-black/10 leading-none select-none">05</span>
+                <h3 class="text-xl font-bold mt-4 mb-6">标志与参数一致性</h3>
+                <p class="text-base text-braun-gray">CLI的语法应当具有内在的可预测性。如果用户（或Agent）学会了如何使用一个命令，这种直觉应无缝延续到应用程序的其余部分。</p>
+                <ul class="text-sm space-y-4 mt-6">
+                    <li><strong>标准化简写：</strong>如果 <code>-o</code> 在一个命令中代表 <code>--out-dir</code>，它绝不能在另一个命令中代表 <code>--output</code>。</li>
+                    <li><strong>位置 vs 可选：</strong>核心的必需实体使用位置参数（例如 <code>a2acli get &lt;task-id&gt;</code>），<code>--flags</code> 严格用于可选修饰符。</li>
+                    <li><strong>安全的默认值：</strong>默认行为应始终是最安全、最常见的路径。破坏性操作必须强制要求明确的标志。</li>
+                </ul>
+                <img src="https://pbs.twimg.com/media/HEswFXAWoAAqpEv.jpg" alt="Consistency" class="editorial-img w-full mt-8 border border-braun-black/10">
+            </div>
+
+            <!-- Principle 6 -->
+            <div>
+                <span class="text-display font-black text-braun-black/10 leading-none select-none">06</span>
+                <h3 class="text-xl font-bold mt-4 mb-6">终端视觉设计</h3>
+                <p class="text-base text-braun-gray">颜色应服务于功能目的，而非美学目的。</p>
+                
+                <h4 class="font-bold text-sm mt-8 mb-4 uppercase">语义化色彩令牌</h4>
+                <ul class="text-sm space-y-2 font-mono text-braun-gray mb-8">
+                    <li><span class="text-braun-black font-bold">Accent:</span> Headers, section labels</li>
+                    <li><span class="text-braun-black font-bold">Command:</span> Command names, flags</li>
+                    <li><span class="text-braun-black font-bold">Pass:</span> Success states</li>
+                    <li><span class="text-braun-black font-bold">Warn:</span> Transient, active tasks</li>
+                    <li><span class="text-braun-black font-bold">Fail:</span> Errors, rejected states</li>
+                    <li><span class="text-braun-black font-bold">Muted:</span> Metadata, types</li>
+                    <li><span class="text-braun-black font-bold">ID:</span> Unique identifiers</li>
+                </ul>
+
+                <h4 class="font-bold text-sm mb-4 uppercase">经验法则</h4>
+                <ul class="text-sm text-braun-gray space-y-2 list-disc pl-4">
+                    <li>保留颜色用于状态指示。</li>
+                    <li>不要给描述或帮助文本上色。</li>
+                    <li>空白优于颜色来表达层次感（对齐方式比颜色更能传达结构）。</li>
+                    <li>同时支持亮色和暗色终端。</li>
+                </ul>
+            </div>
+
+            <!-- Principle 7 -->
+            <div>
+                <span class="text-display font-black text-braun-black/10 leading-none select-none">07</span>
+                <h3 class="text-xl font-bold mt-4 mb-6">版本化与生命周期</h3>
+                <p class="text-base text-braun-gray">CLI工具并非静态的伪像。它在动态序列中运行，在这些序列中版本会漂移，操作会突然中断，安全工作流需要审计跟踪。智能地处理这些生命周期事件可以防止自动化系统中的静默故障。</p>
+                <div class="mt-8 bg-white p-6 border border-braun-black/10">
+                    <ul class="text-sm space-y-4 text-braun-gray">
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-blank-circle-fill text-[8px] mt-1.5 mr-3 text-braun-red"></i>
+                            CLI应当知道自身的版本，并（可选地）通知用户自上次运行以来的重大更新。
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-blank-circle-fill text-[8px] mt-1.5 mr-3 text-braun-red"></i>
+                            优雅地处理 SIGINT (Ctrl+C)。当人或Agent杀死一个正在运行的操作时，不能发生数据损坏。
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-checkbox-blank-circle-fill text-[8px] mt-1.5 mr-3 text-braun-red"></i>
+                            跟踪写入操作的"Actor"（源自git config或$USER），以确保可审计性。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- APPENDIX: Cheatsheets & Case Study -->
+    <section class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto bg-stone-200/50 my-24 border-y border-braun-black/10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <!-- Cheatsheets -->
+            <div>
+                <h2 class="text-3xl font-black uppercase mb-8 tracking-tight">The Cheatsheets</h2>
+                
+                <h3 class="text-xl font-bold mb-4">人类的CLI速查表</h3>
+                <img src="https://pbs.twimg.com/media/HEswNtNXYAA1wjO.jpg" alt="CLI Cheatsheet for Humans" class="editorial-img w-full border border-braun-black/10 mb-12">
+                
+                <h3 class="text-xl font-bold mb-4">Agent的CLI速查表</h3>
+                <p class="text-base text-braun-gray mb-4">
+                    虽然人类可以使用上方的视觉速查表，但Agent需要它自己结构化的规则集。我们可以使用 <a href="https://agentskills.io/" class="underline decoration-braun-red underline-offset-4 text-braun-black">Agent Skills format</a> 来定义这些交互。
+                </p>
+                <p class="text-base text-braun-gray">
+                    查看 <a href="https://github.com/GoogleCloudPlatform/vertex-ai-creative-studio/tree/main/experiments/mcp-genmedia/skills/agent-aware-cli" class="underline decoration-braun-red underline-offset-4 text-braun-black">CLI Agent Skill</a> 获取完整示例，了解如何明确地教导编码Agent主动且确定地导航双受众CLI。
+                </p>
+            </div>
+
+            <!-- YouTube CLI Case Study -->
+            <div>
+                <div class="flex items-center mb-8">
+                    <div class="w-2 h-8 bg-braun-red mr-4"></div>
+                    <h2 class="text-3xl font-black uppercase tracking-tight">Case Study: YouTube CLI</h2>
+                </div>
+                
+                <p class="text-lg font-medium mb-6">端到端的有效演示</p>
+                <p class="text-base text-braun-gray mb-6">
+                    以 <a href="https://github.com/ghchinoy/yt-cli" class="underline decoration-braun-red underline-offset-4 text-braun-black">YouTube CLI</a> 为主要范例。你现在可以与Agent协同管理并审查你的YouTube频道。通过利用Agent感知的CLI技能，你和你的Agent可以从YouTube API构建出提取频道统计、切换视频可见性或上传新内容所需的确切工具集。
+                </p>
+                <p class="text-base text-braun-gray mb-8">
+                    在以前，这需要寻找特定的MCP服务器或手动解析密集的YouTube API文档。
+                </p>
+
+                <!-- Video Thumbnail placeholder (Styled as editorial image) -->
+                <a href="https://video.twimg.com/amplify_video/2038776362211942400/vid/avc1/2504x2160/Pii5y0Alp4LxXw4S.mp4?tag=21" target="_blank" class="block relative group cursor-pointer border border-braun-black mb-8">
+                    <img src="https://pbs.twimg.com/amplify_video_thumb/2038776362211942400/img/MW419DkTkFYs1eMs.jpg" alt="Video Demo" class="editorial-img w-full">
+                    <div class="absolute inset-0 flex items-center justify-center bg-braun-black/20 group-hover:bg-braun-black/0 transition-all duration-300">
+                        <div class="w-16 h-16 bg-white flex items-center justify-center rounded-full shadow-xl">
+                            <i class="ri-play-fill text-3xl text-braun-black ml-1"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <p class="text-base font-bold bg-white p-6 border-l-4 border-braun-red shadow-sm">
+                    但要让AI Agent可靠地执行这样的工作流，底层的CLI必须为它而设计。如果 <code>yt-cli</code> 用一个交互式的“你确定要上传吗？(Y/n)”提示阻挡了Agent，或者返回了不可解析的彩色终端文本，整个自动化过程就会失败。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / OUTRO -->
+    <footer class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto text-center md:text-left">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            
+            <div class="md:col-span-8 lg:col-span-9">
+                <p class="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter leading-tight max-w-4xl">
+                    "2026年最好的CLI，<br>
+                    不是那些拥有最漂亮终端界面的。<br>
+                    <span class="text-braun-gray">而是那些在人类键入命令和Agent编程式调用时，表现得同样出色的CLI。</span>"
+                </p>
+            </div>
+
+            <div class="md:col-span-4 lg:col-span-3 border-t md:border-t-0 md:border-l border-braun-black/10 pt-8 md:pt-0 md:pl-8 flex flex-col justify-end">
+                <h5 class="text-xs uppercase tracking-widest font-bold text-braun-gray mb-4">References</h5>
+                <ul class="text-sm space-y-3 font-mono">
+                    <li>
+                        <a href="https://github.com/steveyegge/beads/blob/main/docs/UI_PHILOSOPHY.md" class="hover:text-braun-red transition-colors truncate block">
+                            <i class="ri-arrow-right-up-line"></i> beads UI Philosophy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://clig.dev/" class="hover:text-braun-red transition-colors truncate block">
+                            <i class="ri-arrow-right-up-line"></i> clig.dev (Community)
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-12 text-xs text-braun-gray font-mono">
+                    Archived: 2025 // Agentic Era
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

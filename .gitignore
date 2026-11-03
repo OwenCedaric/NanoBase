@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+wrangler.toml
+.git/
+package.json
+pnpm-lock.yaml
+dist/
+build/

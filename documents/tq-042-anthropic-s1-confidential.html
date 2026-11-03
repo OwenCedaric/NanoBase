@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic Files S-1: The Race to Wall Street</title>
+
+    <!-- Google Fonts: Inter for English/Numbers, Noto Sans SC for Chinese -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- RemixIcon for High-Fidelity Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        paper: '#F4F4F2',
+                        ink: '#111111',
+                        braun: '#FF3300', // 博朗红，作为唯一的视觉锚点色
+                        'ink-light': '#555555',
+                    },
+                    fontSize: {
+                        'vw-giant': '11vw',
+                        'vw-large': '7vw',
+                    },
+                    lineHeight: {
+                        'editorial': '1.75',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 瑞士平面设计基础设定 */
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: theme('colors.braun');
+            color: #FFFFFF;
+        }
+
+        /* 极简网格线背景 - 隐喻秩序与档案感 */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
+            background-size: 4rem 4rem;
+        }
+
+        /* 强制中文排版两端对齐，避免锯齿状边缘 */
+        .text-justify-cjk {
+            text-align: justify;
+            text-justify: inter-ideograph;
+        }
+
+        /* 响应式排版约束：桌面端正文>=20px，移动端>=16px */
+        .editorial-text {
+            font-size: 16px;
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .editorial-text {
+                font-size: 20px;
+                line-height: 1.8;
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* 视觉分隔线 */
+        .hairline-b {
+            border-bottom: 1px solid rgba(17, 17, 17, 0.15);
+        }
+
+        .hairline-t {
+            border-top: 1px solid rgba(17, 17, 17, 0.15);
+        }
+
+        .hairline-r {
+            border-right: 1px solid rgba(17, 17, 17, 0.15);
+        }
+    </style>
+</head>
+
+<body class="relative w-full overflow-x-hidden selection:bg-braun selection:text-white">
+
+    <!-- 全局网格背景约束 -->
+    <div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+
+    <!-- 顶部导航 / 档案元数据 -->
+    <nav
+        class="relative z-10 w-full px-6 py-4 flex justify-between items-center hairline-b bg-paper/80 backdrop-blur-sm max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-3 bg-braun rounded-full"></div>
+            <span class="text-xs font-bold tracking-widest uppercase">Index // 042</span>
+        </div>
+        <div class="text-xs font-mono tracking-tight text-ink-light uppercase">
+            Confidential Submission — Form S-1
+        </div>
+    </nav>
+
+    <main class="relative z-10 w-full max-w-[1600px] mx-auto bg-paper">
+
+        <!-- ==========================================
+             I. HERO SECTION: 巨大的视觉冲击与未完成的叙事
+             ========================================== -->
+        <header class="min-h-[85vh] flex flex-col justify-end px-6 pb-24 md:pb-32 relative">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 w-full">
+                <!-- 巨大化主标题跨越 10 栏 -->
+                <div class="md:col-span-10 md:col-start-1">
+                    <p
+                        class="text-braun font-bold tracking-widest text-sm md:text-lg uppercase mb-4 md:mb-8 flex items-center gap-3">
+                        <i class="ri-global-line text-xl"></i> The Wall Street Race
+                    </p>
+                    <h1
+                        class="text-[14vw] md:text-vw-giant font-black leading-[0.85] tracking-tighter uppercase break-words">
+                        Anthropic<br />
+                        <span class="text-transparent" style="-webkit-text-stroke: 2px #111;">Files For IPO</span>
+                    </h1>
+                </div>
+
+                <!-- 右下角引言，产生网格的非对称平衡 -->
+                <div
+                    class="md:col-span-4 md:col-start-9 mt-12 md:mt-0 flex flex-col justify-end border-l-2 border-braun pl-6">
+                    <p class="editorial-text font-medium text-ink m-0">
+                        Anthropic PBC 已秘密提交了公开上市的草案文件。在这场最快将于今年秋季拉开帷幕的华尔街首发竞速中，这家曾经的挑战者，正试图跨越其长期宿敌 OpenAI。
+                    </p>
+                    <p class="text-sm font-mono text-ink-light mt-4 uppercase tracking-wider">
+                        STATUS: SEC Draft Submitted / Monday
+                    </p>
+                </div>
+            </div>
+
+            <!-- 向下滚动锚点 -->
+            <div class="absolute bottom-8 left-6 animate-bounce">
+                <i class="ri-arrow-down-line text-3xl text-braun"></i>
+            </div>
+        </header>
+
+        <!-- ==========================================
+             II. LIGHT SECTION: 数据锚点雷霆一击
+             ========================================== -->
+        <section class="border-y border-black w-full bg-ink text-paper">
+            <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-paper/20">
+                <!-- Data Point 1 -->
+                <div class="p-8 md:p-12 flex flex-col justify-between aspect-square md:aspect-auto">
+                    <span class="text-paper/50 text-xs font-mono uppercase tracking-widest mb-12">Latest
+                        Valuation</span>
+                    <div>
+                        <div class="text-5xl md:text-7xl font-black tracking-tighter mb-2">$965<span
+                                class="text-2xl text-braun">B</span></div>
+                        <p class="text-sm md:text-base text-paper/80">
+                            在上周完成的高达 650 亿美元融资后，其估值首次超越 OpenAI。
+                        </p>
+                    </div>
+                </div>
+                <!-- Data Point 2 -->
+                <div class="p-8 md:p-12 flex flex-col justify-between aspect-square md:aspect-auto">
+                    <span class="text-paper/50 text-xs font-mono uppercase tracking-widest mb-12">Q2 Expected
+                        Revenue</span>
+                    <div>
+                        <div class="text-5xl md:text-7xl font-black tracking-tighter mb-2">$10.9<span
+                                class="text-2xl text-braun">B</span></div>
+                        <p class="text-sm md:text-base text-paper/80">
+                            第二季度预期营收，较前三个月翻倍，并有望迎来首个盈利季度。
+                        </p>
+                    </div>
+                </div>
+                <!-- Data Point 3 -->
+                <div class="p-8 md:p-12 flex flex-col justify-between aspect-square md:aspect-auto">
+                    <span class="text-paper/50 text-xs font-mono uppercase tracking-widest mb-12">Annualized Run
+                        Rate</span>
+                    <div>
+                        <div class="text-5xl md:text-7xl font-black tracking-tighter mb-2">$50<span
+                                class="text-2xl text-braun">B</span></div>
+                        <p class="text-sm md:text-base text-paper/80">
+                            预计截至6月底，年化经常性收入将突破 500 亿美元（去年7月仅为 40 亿）。
+                        </p>
+                    </div>
+                </div>
+                <!-- Data Point 4 -->
+                <div class="p-8 md:p-12 flex flex-col justify-between aspect-square md:aspect-auto bg-braun text-white">
+                    <span class="text-white/70 text-xs font-mono uppercase tracking-widest mb-12">Growth
+                        Multiplier</span>
+                    <div>
+                        <div class="text-5xl md:text-7xl font-black tracking-tighter mb-2">80<span
+                                class="text-2xl">x</span></div>
+                        <p class="text-sm md:text-base text-white">
+                            近期创下年化营收80倍增长的头条新闻，凭借代码与网络安全能力的突破震动市场。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             III. HEAVY SECTION: 核心叙事与非对称平衡
+             ========================================== -->
+        <section class="py-24 md:py-40 px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+
+                <!-- 留白与导航锚点 -->
+                <div class="md:col-span-3 hidden md:block">
+                    <div class="sticky top-24">
+                        <span class="text-9xl font-black text-ink/5 block -ml-4 leading-none mb-4">01</span>
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-ink mb-6">The Power Shift</h3>
+                        <ul class="space-y-4 text-xs font-mono text-ink-light">
+                            <li><i class="ri-corner-down-right-line mr-2 text-braun"></i> Anthropic's Surge</li>
+                            <li><i class="ri-corner-down-right-line mr-2 text-braun"></i> OpenAI's Defense</li>
+                            <li><i class="ri-corner-down-right-line mr-2 text-braun"></i> Market Dynamics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 正文流 -->
+                <div class="md:col-span-8 md:col-start-5 text-justify-cjk">
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight mb-12 leading-tight">
+                        “发售的股份数量与价格尚未确定。”
+                    </h2>
+
+                    <p class="editorial-text">
+                        Anthropic 在周一提交给美国证券交易委员会（SEC）的草案声明中如此表述。凭借周一的这份文件，Anthropic 已做好准备，极有可能在公开市场上抢先 OpenAI
+                        一步，从而在一个更广阔的投资者资金池中吸引更多的关注与资本。
+                    </p>
+
+                    <p class="editorial-text">
+                        据彭博社今年 5 月的报道，OpenAI 本身也被指正在准备自己的首次公开募股（IPO）机密文件，并将目标瞄准了今年秋季的公开首秀。
+                    </p>
+
+                    <!-- 插入巨大的引言块 -->
+                    <blockquote class="my-16 pl-6 md:pl-10 border-l-4 border-braun py-2">
+                        <p class="text-2xl md:text-4xl font-black tracking-tight leading-snug mb-6">
+                            “当我们认为它有切实意义的时候，我们自会去做。”
+                        </p>
+                        <footer class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-ink rounded-full flex items-center justify-center text-white">
+                                <i class="ri-user-3-fill"></i>
+                            </div>
+                            <div>
+                                <strong class="block text-sm uppercase tracking-widest font-bold">Sam Altman</strong>
+                                <span class="text-xs font-mono text-ink-light">CEO, OpenAI (CNBC Interview,
+                                    Monday)</span>
+                            </div>
+                        </footer>
+                    </blockquote>
+
+                    <p class="editorial-text">
+                        在周一接受 CNBC 采访时，OpenAI 首席执行官 Sam Altman 淡化了其公司正与 Anthropic 进行上市竞赛的说法。然而，市场的暗流汹涌已是不争的事实。
+                    </p>
+
+                    <p class="editorial-text">
+                        在过去的大半年里，Anthropic 与宿敌 OpenAI 一直在激烈交锋，双方频繁发布 AI
+                        模型，旨在简化从编程、金融服务到医疗保健等更广泛的专业任务。其核心诉求出奇一致：争夺更多企业客户，并为他们高昂的估值提供合理性背书。
+                    </p>
+
+                    <!-- 对比段落：OpenAI的挣扎 -->
+                    <div class="bg-black/5 p-8 md:p-12 mt-12 relative overflow-hidden">
+                        <i
+                            class="ri-pulse-line absolute -right-10 -bottom-10 text-[15rem] text-black/5 pointer-events-none"></i>
+                        <h4 class="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-braun inline-block"></span> OpenAI 的内部阵痛
+                        </h4>
+                        <p class="editorial-text">
+                            当 Anthropic 因其惊人的 80 倍年化营收增长而屡登头条时，OpenAI 却在经历阵痛。据报道，由于未能达到特定的内部收入与用户指标，OpenAI
+                            正在重新审视其产品线、进行高层洗牌，并面临着对增长放缓的新质疑。
+                        </p>
+                        <p class="editorial-text mb-0">
+                            作为回应，OpenAI 首席财务官 Sarah Friar 此前向彭博社坚称，公司正在实现既定目标，并看到了对其产品展现出的“垂直攀升的强劲需求（vertical wall of
+                            demand）”。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             IV. CONFLICT SECTION: 阴影与不确定性 (视觉反转)
+             ========================================== -->
+        <section class="py-24 md:py-32 px-6 bg-ink text-paper">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+
+                <div class="md:col-span-5 md:col-start-2">
+                    <i class="ri-shield-keyhole-line text-7xl text-braun mb-8 block"></i>
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tight mb-8">
+                        The Pentagon <br />Shadow.
+                    </h2>
+                    <p class="editorial-text text-paper/80">
+                        尽管财务数据亮眼，Anthropic 依然面临着严峻的不确定性。目前，该公司陷入了与美国政府的法律纠纷中。
+                    </p>
+                    <p class="editorial-text text-paper/80 mb-0">
+                        此前，五角大楼将其列为<strong class="text-white border-b border-braun">“供应链风险（supply-chain
+                            risk）”</strong>——这一标签通常只保留给外国敌对势力。Anthropic 方面表示，特朗普政府的这一举措可能会使其数十亿美元的潜在收入面临风险。
+                    </p>
+                </div>
+
+                <!-- 抽象的档案封条设计 -->
+                <div class="md:col-span-4 md:col-start-8 mt-12 md:mt-0 flex justify-center">
+                    <div
+                        class="border-2 border-braun text-braun p-12 rotate-[-5deg] inline-block font-mono font-bold tracking-widest uppercase text-center w-full max-w-sm mix-blend-screen">
+                        <div class="text-4xl mb-4">RESTRICTED</div>
+                        <div class="text-xs">Supply-Chain Risk Designation</div>
+                        <div class="w-full h-[1px] bg-braun my-4"></div>
+                        <div class="text-sm">LEGAL BATTLE PENDING</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             V. CLOSING SECTION: 资本宏图 (网格矩阵)
+             ========================================== -->
+        <section class="py-24 md:py-40 px-6 hairline-t">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+
+                <div class="md:col-span-6 md:col-start-4 text-center">
+                    <p class="text-braun font-bold tracking-widest text-sm uppercase mb-8">
+                        The Liquidity Endgame
+                    </p>
+                    <h2
+                        class="text-2xl md:text-4xl font-bold tracking-tight leading-snug mb-12 text-justify-cjk text-center">
+                        “公开上市不仅是融资的终极渠道，更是早期支持者与员工将期权变现的钥匙。”
+                    </h2>
+                    <p class="editorial-text text-left md:text-center text-ink-light">
+                        Anthropic、OpenAI 乃至 SpaceX 都在推进其上市计划，旨在为潜在的融资打开一条强大的通道。尽管私募市场的资金规模已显著增长，但公开上市能让这些公司接触到最广泛的投资者群体。
+                    </p>
+                </div>
+
+                <!-- 银行名单架构：功能主义极简风 -->
+                <div class="md:col-span-8 md:col-start-3 mt-16">
+                    <div
+                        class="text-xs font-mono text-ink-light uppercase tracking-widest mb-4 border-b border-black pb-4 flex justify-between">
+                        <span>Underwriters / Consortium</span>
+                        <span>Status: Under Consideration</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-b border-black">
+                        <div
+                            class="p-8 md:p-12 hairline-r flex items-center justify-center group hover:bg-black hover:text-white transition-colors duration-300">
+                            <span class="text-xl md:text-2xl font-black uppercase tracking-tight">Goldman Sachs</span>
+                        </div>
+                        <div
+                            class="p-8 md:p-12 hairline-r flex items-center justify-center group hover:bg-black hover:text-white transition-colors duration-300">
+                            <span class="text-xl md:text-2xl font-black uppercase tracking-tight">JPMorgan</span>
+                        </div>
+                        <div
+                            class="p-8 md:p-12 flex items-center justify-center group hover:bg-black hover:text-white transition-colors duration-300">
+                            <span class="text-xl md:text-2xl font-black uppercase tracking-tight">Morgan Stanley</span>
+                        </div>
+                    </div>
+                    <p class="text-center mt-6 text-xs text-ink-light font-mono">
+                        据知情人士透露，以上华尔街巨头均有望在 Anthropic 与 OpenAI 的上市过程中担任关键角色。
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer: 极简档案页脚 -->
+    <footer class="w-full bg-ink text-paper py-12 px-6 max-w-[1600px] mx-auto relative z-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-sm font-mono opacity-50 uppercase tracking-widest">
+                © 2026 DIGITAL EDITORIAL — ARCHIVE REF: ANTH-S1-IPO
+            </div>
+            <div class="w-8 h-8 bg-braun rounded-full hover:scale-110 transition-transform cursor-pointer"
+                onclick="window.scrollTo(0,0)">
+                <!-- Back to top visual cue -->
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

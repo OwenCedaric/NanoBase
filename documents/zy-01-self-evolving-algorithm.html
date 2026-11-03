@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自我演化：信息分发的算法解构 - Digital Editorial</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Noto Sans SC for modern, clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Courier New"', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            black: '#111111',
+                            dark: '#2A2A2A',
+                            gray: '#E5E5E5',
+                            bg: '#F8F8F8'
+                        }
+                    },
+                    fontSize: {
+                        'giant': 'clamp(4rem, 12vw, 12rem)',
+                        'display': 'clamp(2.5rem, 6vw, 6rem)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 极致的基础排版设定，遵循瑞士排版公理 */
+        body {
+            background-color: theme('colors.braun.bg');
+            color: theme('colors.braun.black');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        p {
+            font-size: clamp(16px, 1.2vw, 20px);
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+            color: theme('colors.braun.dark');
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 强调词处理：降低对比度干扰，使用字重建立层级 */
+        strong {
+            color: theme('colors.braun.black');
+            font-weight: 700;
+        }
+
+        /* 隐藏的网格辅助线 (仅作视觉张力暗示) */
+        .grid-guide {
+            position: relative;
+        }
+        .grid-guide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 1px; height: 100%;
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* 图片档案感滤镜 */
+        .archival-image {
+            filter: grayscale(100%) contrast(120%);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-braun-red selection:text-white">
+
+    <!-- 导航与状态栏 (功能主义) -->
+    <nav class="fixed top-0 w-full z-50 mix-blend-difference text-white p-6 flex justify-between items-start pointer-events-none">
+        <div class="font-mono text-sm tracking-widest flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-braun-red inline-block"></span>
+            ARCHIVE NO. 01
+        </div>
+        <div class="font-mono text-sm tracking-widest text-right">
+            SYSTEM EVOLUTION<br>
+            <span class="opacity-50">BYTEDANCE ALGORITHM</span>
+        </div>
+    </nav>
+
+    <main class="max-w-[1600px] mx-auto">
+
+        <!-- HERO SECTION: 认知缺口与视觉震撼 -->
+        <section class="min-h-screen flex flex-col justify-end pb-12 px-6 md:px-12 pt-32">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                <div class="md:col-span-8 md:col-start-1 relative">
+                    <h1 class="font-black text-giant leading-[0.85] tracking-tighter mb-6">
+                        自我<br>演化.
+                    </h1>
+                </div>
+                <div class="md:col-span-4 pb-4">
+                    <p class="text-xl md:text-2xl font-light leading-snug text-braun-black border-l-2 border-braun-red pl-6">
+                        系统开发完成、部署之后，并不能一下提供很好的服务。它必须经过大量用户的使用，系统才会<strong class="text-braun-red">自发成长</strong>。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 01: 范式转移 (重度认知负荷，非对称网格) -->
+        <section class="py-24 md:py-40 px-6 md:px-12 border-t border-braun-gray grid-guide">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+                <!-- 侧边锚点 -->
+                <div class="md:col-span-3 flex flex-col justify-between">
+                    <div>
+                        <span class="text-6xl font-black text-gray-200 tracking-tighter block mb-4">01</span>
+                        <h2 class="text-sm font-mono tracking-widest uppercase mb-12">Paradigm Shift<br>信息分发的演进</h2>
+                    </div>
+                </div>
+
+                <!-- 正文矩阵 -->
+                <div class="md:col-span-6 md:col-start-6">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-8 leading-tight">
+                        从“人为预设”到<br>“机器自发感知”。
+                    </h3>
+                    <div class="prose-lg">
+                        <p>回顾之前的信息服务，无论是搜索还是门户，其核心逻辑是静态的。如果你今天有能力搭建一个跟 Google 相似的搜索系统，第二天只要有搜索词进来，就能返回网页，它并不极度依赖用户的长期历史反馈。</p>
+                        <p>门户网站更为传统，基本上是主编把他们对世界的理解，安排给编辑排班室，在门户上编排出来。一旦主编离职，服务质量可能随之下降。</p>
+                        <p>但<strong>自我演化的系统</strong>完全不同。它不依靠一个人的经验，也不依靠一个固定不变的算法。每一次你使用系统，不论是认真看、粗略看、评论还是分享，不仅是你在获取信息，<strong>你同时也在教育这个系统</strong>。随着时间推移，越多人用，用得越久，系统积累的智慧就越多。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 02: 雷霆一击 (轻度认知负荷，巨大化排版) -->
+        <section class="py-32 md:py-48 px-6 md:px-12 bg-braun-black text-white">
+            <div class="max-w-5xl mx-auto text-center">
+                <i class="ri-blaze-line text-4xl text-braun-red mb-8 inline-block"></i>
+                <h2 class="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-8">
+                    个性化的另一面，<br>
+                    其实是<span class="text-braun-red border-b-4 border-braun-red pb-2">泛化 (Generalization)</span>。
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-400 font-light max-w-3xl mx-auto">
+                    它不仅是对单一刺激做出响应，而是对同质的刺激都极易响应。这意味着，越多他人使用系统，系统也会更好地懂你。
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 03: 引擎拆解 - 三大核心能力 (功能主义多栏网格) -->
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24">
+                <div class="md:col-span-4">
+                    <span class="text-6xl font-black text-gray-200 tracking-tighter block mb-4">02</span>
+                    <h2 class="text-sm font-mono tracking-widest uppercase">The Three Pillars<br>机器的三种能力</h2>
+                </div>
+                <div class="md:col-span-8">
+                    <p class="text-2xl md:text-3xl font-medium leading-snug">
+                        构建一个自我演化系统，其底层基石在于机器在最近三四年大幅度提升的三种能力。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 三柱网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
+                <!-- Pillar 1 -->
+                <div class="border-t-2 border-braun-black pt-6">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-braun-gray rounded-full flex items-center justify-center">
+                            <i class="ri-eye-line text-2xl text-braun-black"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">观察 (Observation)</h3>
+                    </div>
+                    <p>智能手机带来了前所未有的输入能力。经纬度、手势、重力传感器、速度传感器，配合移动互联网的连接能力，云端系统对用户物理状态与意图的观察能力获得了呈指数级的增强。</p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="border-t-2 border-braun-black pt-6">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-braun-gray rounded-full flex items-center justify-center">
+                            <i class="ri-database-2-line text-2xl text-braun-black"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">记忆 (Memory)</h3>
+                    </div>
+                    <p>基于 Hadoop、Spark 等开源技术，系统每天能处理百亿级别的日志。在自我演化系统中，光有统计是不够的，必须将海量的行为数据<strong>结构化解析</strong>，提供高并发、大流量、低延迟的存取，这对记忆引擎提出了苛刻的工程要求。</p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="border-t-2 border-braun-black pt-6">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-braun-gray rounded-full flex items-center justify-center">
+                            <i class="ri-brain-line text-2xl text-braun-black"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">理解 (Understanding)</h3>
+                    </div>
+                    <p>得益于深度学习模型的发展，机器不仅能处理庞大维度的分布式计算，更能深入理解复杂的知识图谱。模型越复杂，对知识理解的颗粒度就越精细，从而能够更精准地预测用户的隐性需求与内容偏好。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 04: 高维特征矩阵 (技术说明书风格排版) -->
+        <section class="py-24 px-6 md:px-12 bg-braun-gray/30 grid-guide">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4 flex flex-col">
+                    <span class="text-6xl font-black text-gray-300 tracking-tighter block mb-4">03</span>
+                    <h2 class="text-3xl font-bold mb-4">特征矩阵</h2>
+                    <p class="text-sm font-mono opacity-60">High-dimensional Feature Space</p>
+                    <p class="mt-8">系统在三大类维度之下，通过多层细分子维度的组合，形成了一个非常高维的矩阵空间。机器通过提取这个空间中的统计学规律，完成对信息的重构分配。</p>
+                </div>
+                
+                <div class="md:col-span-7 md:col-start-6">
+                    <div class="border-t border-black pt-4 pb-8 mb-4">
+                        <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-braun-red inline-block"></span>
+                            人的特征 (User Features)
+                        </h4>
+                        <ul class="font-mono text-sm grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-2">
+                            <li>兴趣标签</li><li>职业画像</li><li>年龄区间</li>
+                            <li>性别特征</li><li>机型设备</li><li>隐性行为模式</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-t border-black pt-4 pb-8 mb-4">
+                        <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-braun-black inline-block"></span>
+                            环境特征 (Environmental)
+                        </h4>
+                        <ul class="font-mono text-sm grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-2">
+                            <li>精准地理位置</li><li>时间戳</li><li>网络环境 (Wi-Fi/5G)</li>
+                            <li>当地天气</li><li>移动速度</li><li>场景推演</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-t border-black pt-4 pb-8">
+                        <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-gray-400 inline-block"></span>
+                            内容特征 (Article/Content)
+                        </h4>
+                        <ul class="font-mono text-sm grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-2">
+                            <li>显性主题词</li><li>隐性话题拓扑</li><li>全局热度</li>
+                            <li>时效性衰减</li><li>创作者权重</li><li>相似内容聚类</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 05: 重新定义广告 (不对称视觉平衡) -->
+        <section class="py-24 md:py-40 px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5 relative">
+                    <!-- 模拟档案图片的纯 CSS 构图 -->
+                    <div class="aspect-[4/5] bg-braun-black p-8 flex flex-col justify-between text-white relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-braun-red transform -translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-in-out mix-blend-multiply"></div>
+                        <h3 class="text-5xl font-black tracking-tighter z-10">AD<br>IS<br>INFO.</h3>
+                        <div class="font-mono text-xs opacity-70 border-t border-white/30 pt-4 z-10">
+                            COMMERCIAL VALUE = USER VALUE
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-6 md:col-start-7">
+                    <span class="text-6xl font-black text-gray-200 tracking-tighter block mb-4">04</span>
+                    <h2 class="text-3xl font-bold mb-8">广告，作为一种可阅读的<br>信息服务。</h2>
+                    <p>当系统具备强大的自我演化能力，对场景与信息的理解极度增强后，<strong>广告将不再是强行插入用户视觉区域的干扰。</strong></p>
+                    <p>我们不再依赖 Banner 或强迫性的弹窗。广告将更快速、更精准地抵达真正有需求的用户，最小化对非受众的打扰。同时，广告本身必须具备<strong>可阅读性</strong>或直接提供服务的能力。</p>
+                    <p>例如，系统自动识别出某位在一二线城市、对数码感兴趣的用户，并在恰当的场景下推送一款智能路由器的内容。这种推送的阅读率与转化率极高，因为对该用户而言，这不是广告，而是<strong>一次完美的信息匹配体验</strong>。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER: 终极愿景 -->
+        <footer class="py-24 px-6 md:px-12 border-t-8 border-braun-black text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                <div class="md:col-span-8">
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+                        “在这个时代，我们有机会通过算法与算力，为全球用户提供一种<span class="text-braun-red">全新的信息传播方式</span>。”
+                    </h2>
+                </div>
+                <div class="md:col-span-4 flex md:justify-end">
+                    <div class="font-mono text-sm text-gray-500 text-left">
+                        <p class="mb-2 uppercase tracking-widest text-braun-black font-bold border-b border-gray-300 pb-2">Vision Statement</p>
+                        <p>Constantly improving the system's ability.<br>Expanding data input.<br>Redefining connection.</p>
+                        <p class="mt-8 block text-xs">&copy; Transcript Archive. System Engineering Concept.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

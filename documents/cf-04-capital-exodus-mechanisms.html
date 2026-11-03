@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资本越境：隐秘的财富流出图鉴 | Capital Exodus</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Google Fonts for English/Numbers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+                        mono: ['"SF Mono"', 'ui-monospace', 'Menlo', 'Monaco', 'monospace'],
+                    },
+                    colors: {
+                        braun: {
+                            red: '#FF3300',
+                            bg: '#F5F5F3',
+                            ink: '#111111',
+                            gray: '#888888',
+                            line: '#DCDCD8'
+                        }
+                    },
+                    fontSize: {
+                        'vw-giant': 'clamp(4rem, 15vw, 20rem)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 瑞士平面设计基石：极简排版与网格基准线 */
+        body {
+            background-color: theme('colors.braun.bg');
+            color: theme('colors.braun.ink');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: linear-gradient(theme('colors.braun.line') 1px, transparent 1px),
+                linear-gradient(90deg, theme('colors.braun.line') 1px, transparent 1px);
+            background-size: 2rem 2rem;
+            background-position: center top;
+        }
+
+        /* 隐藏滚动条但保留功能 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.braun.line');
+        }
+
+        /* 响应式排版绝对指令 */
+        p {
+            font-size: clamp(1rem, 1.1vw, 1.25rem);
+            /* min 16px, max 20px+ */
+            line-height: 1.75;
+            margin-bottom: 1.75em;
+            text-wrap: pretty;
+        }
+
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        /* 档案室滤镜效果 */
+        .archive-filter {
+            filter: grayscale(100%) contrast(1.2) sepia(0.1);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-braun-red selection:text-white">
+
+    <!-- 导航：极简网格对齐 -->
+    <nav
+        class="fixed top-0 w-full z-50 mix-blend-difference text-white/50 text-xs font-mono uppercase tracking-widest px-6 py-4 flex justify-between">
+        <div>Vol.04 / Financial Engineering</div>
+        <div class="hidden md:block">System: Capital Flight Mechanisms</div>
+        <div>[ Document 807-B ]</div>
+    </nav>
+
+    <main class="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-16 overflow-hidden">
+
+        <!-- I. 首屏：数据雷霆冲击 (Light Section, High Impact) -->
+        <header
+            class="min-h-[90vh] flex flex-col justify-end pb-12 md:pb-24 pt-32 relative border-b border-braun-ink/20">
+            <!-- 视觉缺口与背景水印 -->
+            <div class="absolute top-24 left-4 md:left-8 text-braun-red text-sm font-mono flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-braun-red animate-pulse"></span>
+                STRICT CAPITAL CONTROLS ACTIVE
+            </div>
+
+            <!-- 巨大化数据 -->
+            <div class="mb-8">
+                <p class="font-mono text-braun-gray text-sm md:text-base uppercase tracking-widest mb-2">Estimated
+                    Outflow (2023)</p>
+                <h1 class="font-black text-vw-giant leading-[0.8] tracking-tighter -ml-[0.05em]">
+                    $807<span class="text-braun-red">B</span>
+                </h1>
+            </div>
+
+            <!-- 不对称平衡：右侧副标题与引言 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+                <div class="md:col-span-5 lg:col-span-7">
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-[1.1]">
+                        资本越境：<br>隐秘的财富流出图鉴
+                    </h2>
+                </div>
+                <div class="md:col-span-7 lg:col-span-5 border-l-2 border-braun-red pl-6">
+                    <p class="!text-xl !mb-0 font-medium opacity-80">
+                        尽管面临着全球最严格的资本管制（个人每年仅限转移5万美元），对经济前景的担忧以及缩小贫富差距的政策导向，仍促使大量中国高净值家庭寻求海外金融立足点。
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- II. 背景语境 (Heavy Section, Readability Focus) -->
+        <section class="py-24 md:py-32 border-b border-braun-line">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-12">
+                <!-- 侧边锚点 -->
+                <div class="md:col-span-3 lg:col-span-2">
+                    <div class="sticky top-24">
+                        <span class="text-braun-red font-mono text-xl block mb-4">01</span>
+                        <h3 class="font-bold text-sm uppercase tracking-widest text-braun-gray">The Context<br>时代背景</h3>
+                    </div>
+                </div>
+
+                <!-- 核心叙事区块 -->
+                <div class="md:col-span-9 lg:col-span-7 pr-0 lg:pr-12">
+                    <p class="!text-2xl !leading-[1.6] font-medium mb-12 text-balance">
+                        家庭、机构和企业在去年将约 <strong class="bg-braun-ink text-white px-2 py-0.5 mx-1">8,070亿美元</strong>
+                        的创纪录资金转移出境。这一对海外资产的庞大需求，催生了一个致力于规避资本管制的庞大地下产业。
+                    </p>
+                    <p>
+                        虽然非法资本外逃的真实规模无法精确量化，但法庭记录、监管披露以及对业内人士的采访，共同勾勒出一个每年在离岸转移数十亿美元的庞大网络。
+                    </p>
+                    <p>
+                        这已引起当局的高度警觉。近期针对被控协助内地客户进行离岸交易的海外经纪商的打击行动，正是监管机构加强跨境资本流动监控、确保税务合规的最新信号。以下是规避严格外汇管制、将资金转移出境的最常见机制。
+                    </p>
+                </div>
+
+                <!-- 留白作为设计元素 -->
+                <div class="hidden lg:block lg:col-span-3">
+                    <div
+                        class="h-full w-full border border-braun-line/50 bg-white/20 p-6 flex flex-col justify-between backdrop-blur-sm">
+                        <i class="ri-scales-3-line text-2xl text-braun-red"></i>
+                        <div class="font-mono text-xs text-braun-gray mt-12">
+                            LEGAL LIMIT:<br>
+                            <span class="text-braun-ink text-lg">$50,000 / YR</span><br>
+                            *Emigrants are given a one-time opportunity to move assets.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- III. 机制全景图 (Sectional Rhythm: Repeating Grids) -->
+        <section class="py-24 md:py-32">
+            <div class="mb-24 flex items-center justify-between border-b-4 border-braun-ink pb-4">
+                <h3 class="text-2xl md:text-4xl font-bold tracking-tight">The Mechanisms <span
+                        class="text-braun-gray font-normal text-lg md:text-2xl ml-4">操作机制总览</span></h3>
+                <i class="ri-arrow-down-line text-3xl animate-bounce"></i>
+            </div>
+
+            <div class="flex flex-col gap-0">
+                <!-- 机制 01 -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-line group hover:bg-white/40 transition-colors duration-500">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-01</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">肉身走私</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Smuggling Cash</p>
+                        <i
+                            class="ri-suitcase-2-line text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base !mb-0">
+                            历史上最简单直接的方法：物理跨越边境。资金通常被藏匿在手提箱、车辆或船只中，主要目的地为香港或澳门。尽管执法趋严使其风险增加、效率降低，但这种古老的方式依然存在。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="bg-braun-ink/5 p-4 border-l-2 border-braun-red text-sm font-mono">
+                            <span class="text-braun-red block mb-2">CASE FILE: 2024 HK</span>
+                            香港海关在落马洲管制站拦截一名62岁女子。在其<span
+                                class="bg-braun-ink text-white px-1">特制背心</span>内发现价值约33万港元（4.2万美元）的未申报纸币。
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 机制 02 -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-line group hover:bg-white/40 transition-colors duration-500">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-02</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">蚂蚁搬家</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Smurfing</p>
+                        <i
+                            class="ri-team-line text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base !mb-0">
+                            “化整为零”的经典策略。中介在内地招募未使用其5万美元年度外汇额度的个人。通过汇集数十人的额度，中介能够将巨额资金伪装成一系列看似合法的独立转账，转移至海外。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="bg-braun-ink/5 p-4 border-l-2 border-braun-red text-sm font-mono">
+                            <span class="text-braun-red block mb-2">CASE FILE: 2020</span>
+                            官方通报显示其惊人规模：一名男子招募了 <strong class="text-lg">102</strong> 名个人，在2020年协助将约 680万加元（500万美元）转移至海外。
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 机制 03 (Heavy section emphasis) -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-line group hover:bg-white/40 transition-colors duration-500 bg-white/20">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-03</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">镜像转账 / 地下钱庄</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Mirror Transfers / Hawala</p>
+                        <i
+                            class="ri-git-merge-line text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base">
+                            这是目前最普遍的通道，全球范围内被称为哈瓦拉（Hawala）。客户向内地中间人转账，资金在物理上并未跨境。相反，中间人网络会安排将等额外汇打入客户控制的境外账户。该系统完全依赖于网络成员间的“信用”。
+                        </p>
+                        <p class="!text-base !mb-0 text-braun-gray">
+                            据英国国家打击犯罪局指出，这些网络常使用由犯罪活动（毒品、走私、非法移民）产生的资金结算。例如：中英跨国团伙可能先在伦敦为收款人垫付资金，随后由上海的地下钱庄进行人民币报销。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div
+                            class="bg-braun-ink/5 p-4 border-l-2 border-braun-red text-sm font-mono h-full flex flex-col justify-center">
+                            <span class="text-braun-red block mb-2">SCALE: GANSU OPERATION</span>
+                            2021年外汇局通报，甘肃省破获的一起地下钱庄案中，涉案金额高达 <strong
+                                class="text-xl text-braun-ink block mt-2">756亿人民币</strong>
+                            <span class="text-braun-gray mt-1 block">($11.2 Billion)</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 机制 04 -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-line group hover:bg-white/40 transition-colors duration-500">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-04</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">虚假发票 / 贸易高报</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Inflated/Fraudulent Invoices</p>
+                        <i
+                            class="ri-file-paper-2-line text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base !mb-0">
+                            企业通过操纵需要海外结算的进口合同，故意抬高进口商品价值，海外供应商配合将多余资金汇入单独的离岸账户。有时甚至完全伪造交易。高价值商品（钻石、祖母绿、电子产品）是伪造贸易的常见掩护。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="bg-braun-ink/5 p-4 border-l-2 border-braun-red text-sm font-mono">
+                            <span class="text-braun-red block mb-2">CASE FILES: WZ & SZ</span>
+                            温州某公司伪造交易汇出 <strong class="text-braun-ink">$9M</strong>。<br>
+                            深圳某公司通过虚假贸易转移近 <strong class="text-braun-ink">$18M</strong>。
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 机制 05 -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-line group hover:bg-white/40 transition-colors duration-500">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-05</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">退款机制</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Refund Schemes</p>
+                        <i
+                            class="ri-refund-2-line text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base !mb-0">
+                            使用内地银行卡向海外商家购买昂贵商品（如手表、珠宝），随后取消交易、退款或在正常银行系统外进行结算。多年来，澳门的珠宝店、当铺和赌场曾是此法的主要阵地（刷卡购入，迅速转售套现）。2014年当局已对赌场内的手持支付设备进行严厉打击。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="flex items-center justify-center h-full border border-braun-line border-dashed p-4">
+                            <i class="ri-mac-line text-braun-gray text-2xl"></i>
+                            <span class="font-mono text-xs text-braun-gray ml-2">POS SYSTEM BYPASS</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 机制 06 -->
+                <article
+                    class="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-braun-ink group hover:bg-white/40 transition-colors duration-500">
+                    <div
+                        class="md:col-span-2 font-mono text-2xl text-braun-gray group-hover:text-braun-red transition-colors">
+                        M-06</div>
+                    <div class="md:col-span-3">
+                        <h4 class="font-bold text-xl mb-2">加密货币</h4>
+                        <p class="font-mono text-xs uppercase text-braun-gray mb-4">Cryptocurrency</p>
+                        <i
+                            class="ri-link-m text-4xl text-braun-ink/20 group-hover:text-braun-ink transition-colors"></i>
+                    </div>
+                    <div class="md:col-span-4 pr-0 lg:pr-8">
+                        <p class="!text-base !mb-0">
+                            尽管面临连番监管打击（2017年禁止交易所，2021年清退挖矿，2022年定性非法集资），加密货币依然是资金出境的数字通道。用户通过“水下”（under-the-table）的场外经纪人网络，将人民币兑换为数字资产。
+                        </p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="bg-braun-ink text-white p-4 text-sm font-mono h-full flex flex-col justify-center">
+                            <span class="text-braun-red block mb-2">CHAINALYSIS EST. (2025)</span>
+                            中文洗钱网络处理了约 <strong class="text-2xl block mt-1">$16.1 Billion</strong> 的非法加密货币交易。
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer: 极简功能主义 -->
+    <footer class="bg-braun-ink text-white py-12 md:py-24 border-t-8 border-braun-red">
+        <div
+            class="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 font-mono text-sm text-braun-gray">
+            <div class="md:col-span-2">
+                <h5 class="text-white mb-4 uppercase tracking-widest">About this document</h5>
+                <p class="max-w-md">
+                    This digital editorial restructures information regarding capital control circumvention methods.
+                    Designed under the principles of functionalism and asymmetric balance.
+                </p>
+            </div>
+            <div>
+                <h5 class="text-white mb-4 uppercase tracking-widest">Sources</h5>
+                <ul class="space-y-2">
+                    <li>Institute of International Finance</li>
+                    <li>Hong Kong Customs</li>
+                    <li>UK National Crime Agency</li>
+                    <li>Chainalysis</li>
+                </ul>
+            </div>
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h5 class="text-white mb-4 uppercase tracking-widest">Status</h5>
+                    <p class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-braun-red"></span>
+                        CLASSIFIED / ANALYZED</p>
+                </div>
+                <div class="mt-8 text-xs">
+                    &copy; DIGITAL CONTENT ARCHITECTURE. <br>DESIGNED FOR RESPONSIVE VIEWING.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
